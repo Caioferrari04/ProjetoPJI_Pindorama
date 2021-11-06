@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "_Configuracoes";
+}
+
+@model User
+<div onload="mostrarAba(1)"></div>
+<form class="conteudo-inner" asp-action="Configuracoes">
+    <center class="white-text margem-baixo-leve">Para alterar a sua senha, basta inserir a sua senha atual no primeiro campo e a sua senha desejada no último campo.</center>
+    <div class="conteudo-input">
+        <div class="input">
+            <span class="text-danger" asp-validation-for="Senha"></span>
+            <label asp-for="Nome" class="config-label white-text">Sua senha atual</label>
+            <input asp-for="Nome" type="password" class="config-input" required />
+        </div>
+        <div class="input">
+            <span class="text-danger" asp-validation-for="Senha"></span>
+            <label asp-for="Senha" class="config-label white-text">Nova senha</label>
+            <input asp-for="Senha" class="config-input" required />
+        </div>
+    </div>
+
+    <button type="submit" class="botao">Confirmar alterações</button>
+</form>

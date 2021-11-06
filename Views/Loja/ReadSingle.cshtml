@@ -1,0 +1,62 @@
+﻿@model Game
+@{
+    string categorias = "";
+    foreach (Categoria categoria in Model.Categorias)
+    {
+        categorias = categorias + categoria.Nome;
+    }
+    string preco = Model.Preco <= 0 ? "Grátis" : "R$" + Model.Preco;
+}
+<link rel="stylesheet" href="~/css/ReadSingle.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, max-scale=1.0">
+
+<div class="tudo">
+    <div class="box1">
+        <h1>@Model.Nome</h1>
+    </div>
+
+    <div class="box2">
+        <video controls style="height: 368px; width: 640px;">
+            <source src="@Model.LinkVideo" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="box3">
+        <div class="direita">
+            <image src="@Model.LinkLogo" width="350" height="150" class="img"></image>
+            <div class="Compra">
+                <h2 class="preco">@preco <image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Windows_logo_-_2012_%28dark_blue%29.svg/1200px-Windows_logo_-_2012_%28dark_blue%29.svg.png" width="20" height="20" class="comp"></image><image src="http://assets.stickpng.com/thumbs/58480e82cef1014c0b5e4927.png" width="20" height="20" class="comp"></image></h2>
+                <form asp-action="Buy" asp-route-id="@Model.Id">
+                    <button type="submit" class="titulo">ADIQUIRIR</button>
+                </form>
+                <div class="Texto">
+                    <h4 class="gen">TÍTULO: @Model.Nome</h4>
+                    <h4 class="gen">GÊNEROS: @categorias</h4>
+                    <h4 class="produtor">DESENVOLVEDOR: @Model.Desenvolvedor</h4>
+                    <h4 class="gen">DISTRIBUIDORA: @Model.Publisher</h4>
+                    <h4 class="gen">DATA DE LANÇAMENTO: @Html.DisplayFor(u => u.DataLancamento)</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box4">
+        <h4 class="produtor">SOBRE ESTE JOGO</h4>
+        <p class="preco texto3">@Model.Descricao</p>
+    </div>
+
+    <div class="box5">
+        <div class="flex2">
+            <div class="centralizar">
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            </div>
+            <div class="fotos">
+                @foreach(Imagem imagem in Model.Imagens) { 
+                    <image src="@imagem.LinkImagem" class="mySlides img2"></image>
+            }
+            </div>
+            <div class="centralizar">
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </div>
+    </div>
+</div>

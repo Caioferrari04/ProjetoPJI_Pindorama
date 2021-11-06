@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "_Configuracoes";
+}
+@model User
+<div onload="mostrarAba(2)"></div>
+<form class="conteudo-inner" asp-action="DeletarConta">
+    <center class="white-text margem-baixo-leve">
+        Para deletar a conta, basta clicar no botão abaixo. Porém, todas as compras realizadas
+        serão deletadas no processo, e esse processo <b>não é reversível.</b>
+    </center>
+    <div class="input">
+        <span class="text-danger" asp-validation-for="Senha"></span>
+        <label asp-for="Senha" class="config-label">Insira a sua senha para confirmar deleção.</label>
+        <input asp-for="Senha" class="config-input" required />
+    </div>
+    <button class="botao botao-vermelho">Deletar conta</button>
+</form>

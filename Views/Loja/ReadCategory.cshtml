@@ -1,0 +1,14 @@
+﻿@model List<Game>
+
+@{ 
+    Categoria categoria = ViewBag.Categoria;
+}
+
+<link rel="stylesheet" href="~/css/ReadCategory.css"/>
+
+<h1>@categoria.Nome</h1>
+
+@foreach(Game game in Model)
+{
+    @game.Nome <br/>
+}

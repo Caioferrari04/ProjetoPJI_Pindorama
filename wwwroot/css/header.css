@@ -1,0 +1,124 @@
+﻿* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #212d40;
+    margin: 0;
+    min-height: calc(100vh - 40px);
+}
+
+a{
+    text-decoration: none;
+}
+
+.barra_logo {
+    width: 130px;
+    object-fit: contain;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+}
+
+.usuario {
+    display: flex;
+}
+
+.left {
+    display: flex;
+}
+
+.barra_usuario {
+    display: flex;
+    width: 50px!important;
+    object-fit: contain;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    border: none;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    background-color: #001233;
+    width: 100%;
+    max-height: 51.281px;
+    min-height: 51.281px;
+}
+
+.barra_usuario:hover {
+    transition: all 0.2s;
+}
+
+.loja_title {
+    cursor: pointer;
+    color: white;
+    outline: none;
+    border: none;
+    font-weight: 700;
+    font-size: 30px;
+    border-radius: 0.2vw;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: #001233;
+}
+
+    .loja_title:hover {
+        color: #000;
+        background-color: #4279e6;
+        transition: all 0.2s;
+    }
+
+.loja {
+    display: flex;
+    flex-direction: row;
+}
+
+.erro {
+    color: red;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 700px) {
+    .barra_logo {
+        width: 50px;
+        object-fit: contain;
+        margin-top: 0.5rem;
+        margin-left: 1rem;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+.not-visible {
+    display: none!important;
+}
+
+.center {
+    display:flex;
+    justify-content:center;
+}
+
+.white-text {
+    color: whitesmoke;
+}
+
+.input, .alinhar-centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.margem-baixo-leve {
+    margin-bottom: 2rem;    
+}

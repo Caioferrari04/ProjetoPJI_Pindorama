@@ -1,0 +1,195 @@
+﻿@model List<Game>;
+@{
+    var contador = 0;
+    var tamanho_slide = 1;
+    var contador_tipo = 0;
+    var contador_slide = 0;
+    List<Categoria> categorias = ViewBag.categorias;
+    Game game = Model.OrderByDescending(g => g.compras).First();
+    dynamic preco = game.Preco > 0 ? game.Preco : "Gratuíto";
+
+}
+
+<link rel="stylesheet" href="~/css/loja.css" />
+
+<!--Banner-->
+<div class="banner" style="background-image: url(@game.LinkLogo);">
+    <div class="banner_contents">
+        <h1 class="Banner_title">@game.Nome</h1>
+        <div class="banner_buttons">
+            <button class="banner_button">ADQUIRIR</button>
+        </div>
+        <div class="banner_preco">
+            @preco
+        </div>
+    </div>
+    <div class="banner_fade"></div>
+</div>
+
+
+<!--Categorias-->
+<div class="botoes">
+    @for(int i = 0; i < 5; i++) { 
+        <a asp-action="ReadCategory" asp-route-id="@categorias[i].Id" class="categoria_buttons">@categorias[i].Nome</a>
+    }
+</div>
+
+
+
+
+<!--Jogos Gratuitos-->
+<div class="row">
+    <h2 class="h2">PRINCIPAIS GRATUITOS</h2>
+    <div class="flex">
+        <div class="centralizar not-visible" id="primeira_seta">
+            <a class="prev" onclick="plus(-1)">&#10094;</a>
+        </div> 
+        @for(int i = 0; i < tamanho_slide; ++i) {  
+            <div class="mySlides2 fade">
+                <div class="row___posters">
+                    @for (int j = 0; j < 2; ++j) {
+                        <div class="box1">
+                            @while(contador < Model.Count && contador_tipo < Model.Count && contador_tipo < 4) {
+                                if (Model[contador].IsFree) { 
+                                    <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
+                                        <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
+                                    </a>
+                                    contador_tipo++;
+                                }
+                                contador++;
+                            }
+                            @{ 
+                                contador_slide += contador_tipo;
+                                contador_tipo = 0;
+                                if (contador_slide >= 8) {
+                                    <script>
+                                        document.getElementById("primeira_seta").classList = "centralizar"
+                                    </script>
+                                    contador_slide = 0;
+                                    tamanho_slide++;
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @if(tamanho_slide > 1) { 
+            <div class="centralizar">
+                <a class="next" onclick="plus(1)">&#10095;</a>
+            </div>
+        }
+        @{ 
+            contador = 0;
+            contador_tipo = 0;
+            contador_slide = 0;
+            tamanho_slide = 1;
+        }
+    </div>
+</div>
+
+<!--Jogos Pagos-->
+<div class="row">
+    <h2 class="h2">PRINCIPAIS PAGOS</h2>
+    <div class="flex">
+        <div class="centralizar not-visible" id="primeira_seta2">
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        </div>
+        @for (int i = 0; i < tamanho_slide; ++i)
+        {
+            <div class="mySlides fade">
+                <div class="row___posters">
+                    @for (int j = 0; j < 2; ++j)
+                    {
+                        <div class="box1">
+                            @while (contador < Model.Count && contador_tipo < Model.Count && contador_tipo < 4)
+                            {
+                                if (!Model[contador].IsFree)
+                                {
+                                    <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
+                                        <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
+                                    </a>
+                                    contador_tipo++;
+                                }
+                                contador++;
+                            }
+                            @{
+                                contador_slide += contador_tipo;
+                                contador_tipo = 0;
+                                if (contador_slide >= 8)
+                                {
+                                    <script>
+                                        document.getElementById("primeira_seta2").classList = "centralizar"
+                                    </script>
+                                    contador_slide = 0;
+                                    tamanho_slide++;
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @if (tamanho_slide > 1)
+        {
+            <div class="centralizar">
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        }
+        @{
+            contador = 0;
+            contador_tipo = 0;
+            contador_slide = 0;
+            tamanho_slide = 1;
+        }
+    </div>
+</div>
+
+<!--Mais Jogados-->
+<div class="row">
+    <h2 class="h2">MAIS JOGADOS</h2>
+    <div class="flex">
+        <div class="centralizar not-visible" id="primeira_seta3">
+            <a class="prev" onclick="plus2(-1)">&#10094;</a>
+        </div>
+        @for (int i = 0; i < tamanho_slide && i < 3; ++i)
+        {
+            <div class="mySlides3 fade">
+                <div class="row___posters">
+                    @for (int j = 0; j < 2; ++j)
+                    {
+                        <div class="box1">
+                            @while (contador < Model.Count && contador_tipo < Model.Count && contador_tipo < 4)
+                            {
+                                <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
+                                    <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
+                                </a>
+                                contador_tipo++;
+                                contador++;
+                            }
+                            @{
+                                contador_slide += contador_tipo;
+                                contador_tipo = 0;
+                                if (contador_slide >= 8)
+                                {
+                                    <script>
+                                        document.getElementById("primeira_seta3").classList = "centralizar"
+                                    </script>
+                                    contador_slide = 0;
+                                    tamanho_slide++;
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @if (tamanho_slide > 1)
+        {
+            <div class="centralizar">
+                <a class="next" onclick="plus2(1)">&#10095;</a>
+            </div>
+        }
+    </div>
+
+</div>

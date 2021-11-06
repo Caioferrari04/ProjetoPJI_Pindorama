@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "_Configuracoes";
+}
+@model User
+<div onload="mostrarAba(0)"></div>
+<center class="white-text margem-baixo-leve">
+    Você pode editar seu perfil aqui. Para alterar qualquer informação, basta
+    alterar a informação já existente nas caixas de texto e apertar o botão abaixo. Cuidado, qualquer
+    informação que você alterar irá ser salva após apertar o botão.
+</center>
+<center class="white-text margem-baixo-leve">
+    Para editar sua foto de perfil, basta inserir o link para a mesma no campo
+    "Link da imagem de perfil".
+</center>
+<form class="conteudo-inner" asp-action="Configuracoes">
+    <div class="conteudo-input">
+        <div class="input">
+            <span class="text-danger" asp-validation-for="LinkImagem"></span>
+            <label asp-for="LinkImagem" class="config-label white-text"></label>
+            <input asp-for="LinkImagem" class="config-input" />
+        </div>
+
+        <div class="input">
+            <span class="text-danger" asp-validation-for="Nome"></span>
+            <label asp-for="Nome" class="config-label white-text"></label>
+            <input asp-for="Nome" class="config-input" required />
+        </div>
+
+        <div class="input">
+            <span class="text-danger" asp-validation-for="Email"></span>
+            <label asp-for="Email" class="config-label white-text"></label>
+            <input asp-for="Email" class="config-input" required />
+        </div>
+
+        <div class="input">
+            <span class="text-danger" asp-validation-for="DataNascimento"></span>
+            <label asp-for="DataNascimento" class="config-label white-text"></label>
+            <input asp-for="DataNascimento" class="config-input" required />
+        </div>
+    </div>
+    <button type="submit" class="botao">Confirmar alterações</button>
+</form>
