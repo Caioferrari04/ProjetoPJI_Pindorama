@@ -21,13 +21,9 @@ namespace Pindorama.Controllers
 
         public IActionResult Index()
         {
-            if (auth.ValidateToken())
-            {
-                Token token = auth.GetCurrentToken();
-                ViewBag.currentUser = auth.GetCurrentToken();
-                return View(service.GetAllOwnedGames(token));
-            }
-            return RedirectToAction("Index", "Home", new { area = "" });
+            if (!auth.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
+            ViewBag.currentUser = auth.GetCurrentToken();
+            return View();
         }
     }
 }

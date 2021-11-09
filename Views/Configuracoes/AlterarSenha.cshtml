@@ -3,8 +3,7 @@
 }
 
 @model User
-<div onload="mostrarAba(1)"></div>
-<form class="conteudo-inner" asp-action="Configuracoes">
+<form class="conteudo-inner" asp-action="Index">
     <center class="white-text margem-baixo-leve">Para alterar a sua senha, basta inserir a sua senha atual no primeiro campo e a sua senha desejada no último campo.</center>
     <div class="conteudo-input">
         <div class="input">
@@ -21,3 +20,7 @@
 
     <button type="submit" class="botao">Confirmar alterações</button>
 </form>
+<script src="~/js/Configuracao.js"></script>
+<script>
+    mostrarAba(1);
+</script>

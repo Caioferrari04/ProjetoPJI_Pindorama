@@ -1,10 +1,10 @@
 ﻿@{ 
     Token currentUser = ViewBag.currentUser;
-    var imagemUsuario = currentUser.UserToken.LinkImagem == null ? "~/css/img/Usuario.jpg" : currentUser.UserToken.LinkImagem;
+    var imagemUsuario = currentUser.UserToken.LinkImagem is null ? "/css/img/Usuario.jpg" : currentUser.UserToken.LinkImagem;
 }
 
 <div class="container" onclick="minhaFuncao()">
-    <img src="~/css/img/Usuario.jpg" alt="Usuario" class="barra_usuario">
+    <img src="@imagemUsuario" alt="Usuario" class="barra_usuario">
 </div>
 <div class="Dropdown-Conteudo">
     <div class="conteudo">

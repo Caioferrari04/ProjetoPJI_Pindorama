@@ -79,7 +79,7 @@ a {
 
 .forum {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
     display: flex;
     flex-direction: column;
     background: black;
@@ -91,7 +91,7 @@ a {
 .botao2 {
     background-color: black;
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,48 +105,30 @@ a {
     display: flex;
     justify-content: end;
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 2;
     width: 30vh;
 }
 
 .tudo {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    margin-top: 40px;
+    grid-template-rows: 0.4fr 0.2fr 3fr;
 }
 
 
 @media screen and (max-width: 1500px) {
     .forum {
-        grid-column: 2;
-        grid-row: 2;
-        display: flex;
-        flex-direction: column;
-        background: black;
         width: 1000px;
         height: 500px;
-        background-color: rgba(21, 23, 41, 0.532);
     }
 
     .botao1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #191a1b;
         width: 120px;
         height: 35px;
-        border-radius: 1vh;
         font-size: 13pt;
     }
 
     .botao2 {
-        align-self: end;
-        background-color: black;
-        grid-column: 2;
-        grid-row: 1;
-        display: flex;
-        justify-content: center;
         width: 38vh;
         height: 7vh;
         font-size: 9pt;
@@ -155,34 +137,17 @@ a {
 
 @media screen and (max-width: 1300px) {
     .forum {
-        grid-column: 2;
-        grid-row: 2;
-        display: flex;
-        flex-direction: column;
-        background: black;
         width: 800px;
         height: 350px;
-        background-color: rgba(21, 23, 41, 0.532);
     }
 
     .botao1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #191a1b;
         width: 100px;
         height: 30px;
-        border-radius: 1vh;
         font-size: 11pt;
     }
 
     .botao2 {
-        align-self: end;
-        background-color: black;
-        grid-column: 2;
-        grid-row: 1;
-        display: flex;
-        justify-content: center;
         width: 30vh;
         height: 6vh;
         font-size: 7pt;
@@ -191,34 +156,17 @@ a {
 
 @media screen and (max-width: 800px) {
     .forum {
-        grid-column: 2;
-        grid-row: 2;
-        display: flex;
-        flex-direction: column;
-        background: black;
         width: 500px;
         height: 350px;
-        background-color: rgba(21, 23, 41, 0.532);
     }
 
     .botao1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #191a1b;
         width: 100px;
         height: 25px;
-        border-radius: 1vh;
         font-size: 10pt;
     }
 
     .botao2 {
-        align-self: end;
-        background-color: black;
-        grid-column: 2;
-        grid-row: 1;
-        display: flex;
-        justify-content: center;
         width: 30vh;
         height: 6vh;
         font-size: 7pt;

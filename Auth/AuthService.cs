@@ -19,7 +19,7 @@ namespace Pindorama.Auth
 
         public string Create(User user)
         {
-            if (GetUser(user) != null) return "Conta já existente!";
+            if (GetUser(user) is not null) return "Conta já existente!";
             try
             {
                 user.Role = "Common";
@@ -41,17 +41,28 @@ namespace Pindorama.Auth
             return null;
         }
 
-        public bool UpdateUser(User user)
+        public string UpdateUser(User user, User userValid)
         {
             try
             {
-                context.User.Update(user);
+                User userChange = new User()
+                {
+                    Id = userValid.Id,
+                    Nome = user.Nome is null || user.Nome == userValid.Senha ? userValid.Nome : user.Nome,
+                    Email = user.Email is null ? userValid.Email : user.Email,
+                    LinkImagem = user.LinkImagem,
+                    DataNascimento = user.DataNascimento is null ? userValid.DataNascimento : user.DataNascimento,
+                    Senha = user.Nome == userValid.Senha && user.Senha is not null ? user.Senha : userValid.Senha,
+                    Role = userValid.Role
+                };
+                context.ChangeTracker.Clear();
+                context.User.Update(userChange);
                 context.SaveChanges();
-                return true;
+                return "Conta editada com sucesso!";
             }
             catch
             {
-                return false;
+                return "Houve um erro ao editar seu perfil!";
             }
         }
 
@@ -88,7 +99,7 @@ namespace Pindorama.Auth
             if (File.Exists("authKey.txt")) { 
                 var fileToken = File.ReadAllText("authKey.txt");
                 var serverToken = context.Token.FirstOrDefault(token => token.TokenName == fileToken);
-                if (serverToken != null)
+                if (serverToken is not null)
                 {
                     if ((DateTime.Now - serverToken.CreationTime).TotalMinutes >= 10)
                     {
@@ -115,6 +126,24 @@ namespace Pindorama.Auth
             context.Remove(serverToken);
             context.SaveChanges();
             File.Delete("authKey.txt");
+        }
+
+        public bool DeleteUser(User user, User userValid)
+        {
+            try
+            {
+                if(user.Senha == userValid.Senha)
+                {
+                    context.User.Remove(userValid);
+                    context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

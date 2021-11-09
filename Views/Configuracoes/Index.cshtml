@@ -2,7 +2,6 @@
     Layout = "_Configuracoes";
 }
 @model User
-<div onload="mostrarAba(0)"></div>
 <center class="white-text margem-baixo-leve">
     Você pode editar seu perfil aqui. Para alterar qualquer informação, basta
     alterar a informação já existente nas caixas de texto e apertar o botão abaixo. Cuidado, qualquer
@@ -12,7 +11,7 @@
     Para editar sua foto de perfil, basta inserir o link para a mesma no campo
     "Link da imagem de perfil".
 </center>
-<form class="conteudo-inner" asp-action="Configuracoes">
+<form class="conteudo-inner" asp-action="Index">
     <div class="conteudo-input">
         <div class="input">
             <span class="text-danger" asp-validation-for="LinkImagem"></span>
@@ -40,3 +39,7 @@
     </div>
     <button type="submit" class="botao">Confirmar alterações</button>
 </form>
+<script src="~/js/Configuracao.js"></script>
+<script>
+    mostrarAba(0);
+</script>

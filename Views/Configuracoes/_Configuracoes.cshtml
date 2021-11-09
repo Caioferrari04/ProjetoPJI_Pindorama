@@ -19,21 +19,12 @@
         <div class="divisao-vertical"></div>
         <section class="conteudo-tabs">
             <section class="conteudo-inner main">
+                @if(ViewBag.status is not null) { 
+                    <span class="white-text" style="font-weight: 900">@ViewBag.status</span>
+                }
                 @RenderBody()
             </section>
         </section>
     </div>
 </div>
-<script>
-    let botoes = document.getElementsByClassName("botao-nav");
 
-    function mostrarAba(x) {
-        for (let i = 0; i < 3; i++) {
-            if (i == x) {
-                botoes[i].classList = "botao-nav selecionado";
-            } else {
-                botoes[i].classList = "botao-nav";
-            }
-        }
-    }
-</script>

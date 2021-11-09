@@ -4,6 +4,9 @@
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Views\Shared\_ListaAmigos.cshtml.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="wwwroot\css\StyleSheet.css" />
   </ItemGroup>
   <ItemGroup>

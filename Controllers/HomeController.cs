@@ -31,11 +31,12 @@ namespace Pindorama.Controllers
         {
             var validUser = authService.GetUser(user);
 
-            if (validUser != null)
+            if (validUser is not null)
             {
                 authService.GenerateToken(validUser);
                 return RedirectToAction("Index" , "Loja", new { area = "" });
             }
+            ViewBag.Erro = "Nome de usuário e senha inválidos! Tem certeza que digitou corretamente?";
             return View();
         }
         
@@ -62,38 +63,11 @@ namespace Pindorama.Controllers
             return View(user);
         }
 
+        [HttpPost]
         public IActionResult Logout()
         {
             authService.Logout();
             return RedirectToAction(nameof(Index));
         }
-
-        //[HttpGet]
-        //public IActionResult Configuracoes()
-        //{
-        //    if (!authService.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
-        //    Token token = authService.GetCurrentToken();
-        //    ViewBag.currentUser = token;
-        //    return View(token.UserToken);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Configuracoes(User user)
-        //{
-        //    if (!authService.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
-        //    Token token = authService.GetCurrentToken();
-        //    ViewBag.currentUser = token;
-        //    if (!ModelState.IsValid) return View(user);
-        //    if(user.Nome == token.UserToken.Senha)
-        //    {
-        //        token.UserToken.Senha = user.Senha;
-        //    }
-        //    token.UserToken.Nome = user.Nome != null ? user.Nome : token.UserToken.Nome;
-        //    token.UserToken.DataNascimento = user.DataNascimento != null ? user.DataNascimento : token.UserToken.DataNascimento;
-        //    token.UserToken.Email = user.Email != null ? user.Email : token.UserToken.Email;
-        //    token.UserToken.LinkImagem = user.LinkImagem != null ? user.LinkImagem : token.UserToken.LinkImagem;
-        //    return authService.UpdateUser(token.UserToken) ? RedirectToAction("Index", "Loja", new { area = "" }) : View(user);
-        //}
     }
 }

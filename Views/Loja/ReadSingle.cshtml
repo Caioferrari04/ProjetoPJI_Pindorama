@@ -46,16 +46,19 @@
 
     <div class="box5">
         <div class="flex2">
-            <div class="centralizar">
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            </div>
             <div class="fotos">
-                @foreach(Imagem imagem in Model.Imagens) { 
+                <div class="centralizar">
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                </div>
+
+                @foreach (Imagem imagem in Model.Imagens)
+                {
                     <image src="@imagem.LinkImagem" class="mySlides img2"></image>
-            }
-            </div>
-            <div class="centralizar">
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                }
+
+                <div class="centralizar2">
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
             </div>
         </div>
     </div>

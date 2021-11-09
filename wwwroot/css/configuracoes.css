@@ -26,18 +26,6 @@ body {
     flex-wrap: nowrap;
 }
 
-.divisao_tab {
-    max-height: 1px;
-    width: 100%;
-    border: 1px ridge #4e6a97;
-}
-.divisao-vertical {
-    max-width: 1px;
-    margin-left: 5vh;
-    margin-right: 10vh;
-    border: 1px ridge #4e6a97;
-}
-
 .botao-nav {
     display: inline-block;
     align-items: flex-start;

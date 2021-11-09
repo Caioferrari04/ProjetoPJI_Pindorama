@@ -43,11 +43,9 @@ namespace Pindorama.Controllers
 
         public IActionResult Buy(int? id)
         {
-            if (auth.ValidateToken()) { 
-                ViewBag.currentUser = auth.GetCurrentToken();
-                return service.BuyGame(ViewBag.currentUser, service.Get(id)) ? RedirectToAction("Index", "Library", new { area = "" }) : RedirectToAction(nameof(ReadSingle));
-            }
-            return RedirectToAction("Index", "Home", new { area = "" });
+            if (!auth.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
+            ViewBag.currentUser = auth.GetCurrentToken();
+            return service.BuyGame(ViewBag.currentUser, service.Get(id)) ? RedirectToAction(nameof(CompraConfirmada)) : RedirectToAction(nameof(ReadSingle));
         }
 
         public IActionResult ReadCategory(int? id)
@@ -60,6 +58,13 @@ namespace Pindorama.Controllers
                 return View(service.GetAll(categoria));
             }
             return RedirectToAction("Index", "Home", new { area = "" });
+        }
+
+        public IActionResult CompraConfirmada()
+        {
+            if(!auth.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
+            ViewBag.currentUser = auth.GetCurrentToken();
+            return View();
         }
     }
 }

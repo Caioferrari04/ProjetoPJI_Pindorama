@@ -16,6 +16,10 @@
         <div class="corpo">
             <div class="container">
                 <h3 class="titulo">Entrar na conta</h3>
+                @if(ViewBag.Erro is not null)
+                {
+                    <span class="text-danger">@ViewBag.Erro</span>
+                }
                 <form class="container" asp-action="Index">
 
                     <span class="text-danger" asp-validation-for="Nome"></span>
