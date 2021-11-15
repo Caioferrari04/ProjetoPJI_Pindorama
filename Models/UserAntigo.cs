@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pindorama.Models
 {
-    public class User
+    public class UserAntigo
     {
         public int Id { get; set; }
 
@@ -30,6 +30,8 @@ namespace Pindorama.Models
         [Display(Name = "Senha")]
         public string Senha { get; set; }
 
+        public string ConnectionString { get; set; }
+
         [Required(ErrorMessage ="Informe a data nascimento!")]
         [DataType(DataType.Date)]
         [Display(Name = "Data de nascimento")]
@@ -40,5 +42,6 @@ namespace Pindorama.Models
         public List<Game> Games { get; set; }
 
         public string Role { get; set; }
+        
     }
 }

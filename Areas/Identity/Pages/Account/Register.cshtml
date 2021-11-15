@@ -1,0 +1,48 @@
+﻿@page
+@model RegisterDevModel
+@{
+    ViewData["Title"] = "Register";
+}
+<link rel="stylesheet" href="~/css/cadastro.css"/>
+
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="caixadetexto">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+    <div class="texto">
+        <h5>NOME DE USUÁRIO:</h5>
+        <input asp-for="Input.UserName" placeholder="Digite seu nome de usuário" class="Infos">
+    </div>
+
+    <span asp-validation-for="Input.DataNascimento" class="text-danger"></span>
+    <div class="texto">
+        <h5>DATA DE NASCIMENTO:</h5>
+        <input asp-for="Input.DataNascimento" placeholder="Digite sua data de nascimento" class="Infos">
+    </div>
+
+    <span asp-validation-for="Input.Email" class="text-danger"></span>
+    <div class="texto">
+        <h5>E-MAIL:</h5>
+        <input asp-for="Input.Email" placeholder="Digite seu e-mail" class="Infos">
+    </div>
+
+    <span asp-validation-for="Input.Password" class="text-danger"></span>
+    <div class="texto">
+        <h5>SENHA:</h5>
+        <input asp-for="Input.Password" placeholder="Digite sua senha" class="Infos">
+    </div>
+
+    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+    <div class="texto">
+        <h5>CONFIRMAR SENHA:</h5>
+        <input asp-for="Input.ConfirmPassword" placeholder="Confirme sua senha" class="Infos">
+    </div>
+
+    <button type="submit" class="botao">CRIAR CONTA</button>
+    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Entrar em conta existente</a>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

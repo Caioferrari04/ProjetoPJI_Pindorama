@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Pindorama.Auth;
 using Pindorama.Models;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pindorama.Controllers
 {
+    [Authorize]
     public class ConfiguracoesController : Controller
     {
         AuthService authService;
@@ -18,42 +20,31 @@ namespace Pindorama.Controllers
 
         public IActionResult Index()
         {
-            if (!authService.ValidateToken()) return RedirectToAction("Index", "Loja", new { area = "" });
-            ViewBag.currentUser = authService.GetCurrentToken();
-            return View(ViewBag.currentUser.UserToken);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(User user)
+        public IActionResult Index(UserAntigo user)
         {
-            if (!authService.ValidateToken()) return RedirectToAction("Index", "Loja", new { area = "" });
-            ViewBag.currentUser = authService.GetCurrentToken();
-            ViewBag.status = authService.UpdateUser(user, ViewBag.currentUser.UserToken);
             return View(user);
         }
 
         public IActionResult AlterarSenha()
         {
-            if (!authService.ValidateToken()) return RedirectToAction("Index", "Loja", new { area = "" });
-            ViewBag.currentUser = authService.GetCurrentToken();
             return View();
         }
 
         public IActionResult DeletarConta()
         {
-            if (!authService.ValidateToken()) return RedirectToAction("Index", "Loja", new { area = "" });
-            ViewBag.currentUser = authService.GetCurrentToken();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletarConta(User user)
+        public IActionResult DeletarConta(UserAntigo user)
         {
-            if (!authService.ValidateToken()) return RedirectToAction("Index", "Loja", new { area = "" });
-            ViewBag.currentUser = authService.GetCurrentToken();
-            return authService.DeleteUser(user, ViewBag.currentUser.UserToken) ? RedirectToAction("Index", "Home", new { area = "" }) : View(user);
+            return View(user);
         }
     }
 }

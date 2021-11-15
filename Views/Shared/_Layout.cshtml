@@ -7,39 +7,43 @@
     <link rel="stylesheet" href="~/css/header.css" />
     <link rel="stylesheet" href="~/css/dropdown_user.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css"  type="text/css" />
+    <link rel="stylesheet" href="~/css/commonStyle.css"/>
+    <link rel="stylesheet" href="~/css/pedido_amigo.css"/>
 </head>
-    <body>
-        <header class="header">
-            <div class="left">
-                <img src="" alt="" class="barra_logo">
-                <div class="loja">
-                    <button class="loja_title" onclick="abrirLista()" id="botao-amigo">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a asp-controller="Loja" asp-action="Index" class="loja_title">LOJA</a>
-                    <a asp-controller="Library" asp-action="Index" class="loja_title">BIBLIOTECA</a>
-                    <a class="loja_title">FORUM</a>
-                    <a asp-controller="Suporte" asp-action="Index" class="loja_title">SUPORTE</a>
-                </div>
+<body>
+    <header class="header">
+        <div class="left">
+            <img src="" alt="" class="barra_logo">
+            <div class="loja">
+                <button class="loja_title" onclick="abrirLista()" id="botao-amigo">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a asp-controller="Loja" asp-action="Index" class="loja_title">LOJA</a>
+                <a asp-controller="Library" asp-action="Index" class="loja_title">BIBLIOTECA</a>
+                <a class="loja_title">FORUM</a>
+                <a asp-controller="Suporte" asp-action="Index" class="loja_title">SUPORTE</a>
             </div>
-            <div class="usuario">
-                <div class="dropdown">
-                    <partial name="_DropdownUser" />
-                </div>
-            </div>
-        </header>
-        <div class="espacamento"></div>
-        @RenderBody()
-        <div class="not-visible barra-lateral" id="amigos">
-            <partial name="_ListaAmigos" />
         </div>
+        <div class="usuario">
+            <div class="dropdown">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </header>
+    <div class="espacamento"></div>
+    @RenderBody()
+    <div class="not-visible barra-lateral" id="amigos">
+        <partial name="_ListaAmigos" />
+    </div>
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/js/showSlides1.js" asp-append-version="true"></script>
-        <script src="~/js/showSlides2.js" asp-append-version="true"></script>
-        <script src="~/js/showSlides3.js" asp-append-version="true"></script>
-        <script src="~/js/Dropdown.js" asp-append-version="true"></script>
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/showSlides1.js" asp-append-version="true"></script>
+    <script src="~/js/showSlides2.js" asp-append-version="true"></script>
+    <script src="~/js/showSlides3.js" asp-append-version="true"></script>
+    <script src="~/js/Dropdown.js" asp-append-version="true"></script>
+    <script src="~/js/Websockets.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 </html>

@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Usuario> SignInManager
+@inject UserManager<Usuario> UserManager
+
+
+<div class="container" onclick="minhaFuncao()">
+    <img src="/css/img/Usuario.jpg" alt="Usuario" class="barra_usuario">
+</div>
+<div class="Dropdown-Conteudo">
+    <div class="conteudo">
+        <div class="nome">@User.Identity.Name</div>
+    </div>
+    <ul class="Links" style="padding-inline-start: 0px!important;">
+        <li><a asp-controller="Configuracoes" asp-action="Index"><i class="fa fa-cog" aria-hidden="true"></i>Configurações</a></li>
+        <div class="divisao"></div>
+        <li>
+            <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Loja", new {area = ""})"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    let origem = "";
+</script>

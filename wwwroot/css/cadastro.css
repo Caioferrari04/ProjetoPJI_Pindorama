@@ -1,0 +1,81 @@
+﻿body {
+    background: #212d40;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    min-height: calc(100vh - 40px);
+    overflow-x: hidden;
+}
+
+.barrasuperior {
+    flex: 0.5;
+    margin-left: 1px;
+    min-width: fit-content;
+}
+
+.barrasuperior2 {
+    display: flex;
+    justify-content: center;
+    top: 0;
+    background-color: #00123386;
+    z-index: 100;
+    border: 1px solid #212d40;
+    padding: -5px 20px;
+    margin-top: 0px;
+    border-bottom: 1px solid #616369;
+    width: 100%;
+}
+
+    .barrasuperior2 > img {
+        height: 70px;
+        margin-bottom: 10px;
+    }
+
+.caixadetexto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+    .caixadetexto .texto > input {
+        margin-top: 20px;
+        border-radius: 30px;
+        height: 40px;
+        width: 350px;
+        background-color: #293242;
+        border: none;
+    }
+
+.texto {
+    margin-bottom: 15px;
+}
+
+.caixadetexto .texto > h5 {
+    margin-top: 20px;
+    height: 40px;
+    width: 350px;
+    color: rgba(128, 128, 128, 0.688);
+    margin-bottom: -35px;
+}
+
+.botao {
+    margin-top: 20px;
+    border-radius: 30px;
+    height: 40px;
+    width: 350px;
+    color: #e1e5f2;
+    background-color: #4279e6;
+    border: none;
+    font-weight: 900;
+}
+
+    .botao:hover {
+        background-color: #e9ebee;
+        border-radius: 30px;
+        color: #2f2f2f;
+        transition: color 100ms ease-out;
+        cursor: pointer;
+    }

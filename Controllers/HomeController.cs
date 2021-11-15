@@ -27,7 +27,7 @@ namespace Pindorama.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(User user)
+        public IActionResult Index(UserAntigo user)
         {
             var validUser = authService.GetUser(user);
 
@@ -48,7 +48,7 @@ namespace Pindorama.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Cadastro(User user)
+        public IActionResult Cadastro(UserAntigo user)
         {
             if (!ModelState.IsValid) return View(user);
 
@@ -63,11 +63,19 @@ namespace Pindorama.Controllers
             return View(user);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Logout()
         {
             authService.Logout();
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Amigos(string nome)
+        {
+            if (!authService.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
+            ViewBag.currentUser = authService.GetCurrentToken();
+            return View(authService.SearchUsers(nome));
         }
     }
 }

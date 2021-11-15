@@ -1,7 +1,9 @@
 ﻿<!--começo da barra lateral-->
-<div class="barra-pesquisa">
-    <input type="text" placeholder="Pesquise um usuário">
-</div>
+<form asp-controller="Home" asp-action="Amigos">
+    <div class="barra-pesquisa">
+        <input name="nome" type="text" placeholder="Pesquise um usuário">
+    </div>
+</form>
 <div class="divisao_tab"></div>
 <div class="barra-lateral-opcao">
     <i class="fa fa-home icone" aria-hidden="true"></i>

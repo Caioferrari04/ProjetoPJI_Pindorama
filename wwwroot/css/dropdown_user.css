@@ -169,25 +169,32 @@
     height: 65%;
 }
 
-.pessoa > img {
+.pessoa-inner > img {
     height: 40px;
     width: 40px;
-    margin-left: 20px;
-    margin-top: 50px;
 }
 
-.pessoa > h2 {
-    margin-top: -42px;
-    margin-left: 80px;
+.pessoa-inner > h2 {
     color: #e1e5f2;
 }
 
 .pessoa {
-    margin-top: 0px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
     border-bottom: 1px solid #6163697a;
     width: 100%;
-    margin-left: 300px;
-    height: 150px;
+}
+
+.pessoa-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 12%;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .Botao {
@@ -210,4 +217,7 @@
 
 .lista {
     margin-top: 49px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }

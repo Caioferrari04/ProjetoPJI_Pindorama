@@ -6,25 +6,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Pindorama.Auth
 {
     public class AuthService
     {
-        PindoramaContext context;
-        public AuthService(PindoramaContext context)
+        PindoramaContext _context;
+        IMemoryCache _cache;
+        public static readonly string AuthKey = "_AuthKey";
+
+        public AuthService(PindoramaContext context, IMemoryCache cache)
         {
-            this.context = context;
+            _context = context;
+            _cache = cache;
         }
 
-        public string Create(User user)
+        public string Create(UserAntigo user)
         {
             if (GetUser(user) is not null) return "Conta já existente!";
             try
             {
                 user.Role = "Common";
-                context.User.Add(user);
-                context.SaveChanges();
+                _context.UserAntigo.Add(user);
+                _context.SaveChanges();
                 return "Contra criada com sucesso!";
             }
             catch
@@ -33,19 +38,31 @@ namespace Pindorama.Auth
             }
         }
 
-        public User GetUser(User user)
+        public UserAntigo GetUser(UserAntigo user)
         {
-            var usuario = context.User.FirstOrDefault(u => u.Nome == user.Nome || u.Email == user.Email);
+            var usuario = _context.UserAntigo.FirstOrDefault(u => u.Nome == user.Nome || u.Email == user.Email);
             if (usuario != null && user.Senha == usuario.Senha)
                 return usuario;
             return null;
         }
 
-        public string UpdateUser(User user, User userValid)
+        public List<UserAntigo> SearchUsers(string nome)
         {
             try
             {
-                User userChange = new User()
+                return _context.UserAntigo.Where(u => u.Nome.ToLower().Contains(nome.ToLower())).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public string UpdateUser(UserAntigo user, UserAntigo userValid)
+        {
+            try
+            {
+                UserAntigo userChange = new UserAntigo()
                 {
                     Id = userValid.Id,
                     Nome = user.Nome is null || user.Nome == userValid.Senha ? userValid.Nome : user.Nome,
@@ -55,9 +72,9 @@ namespace Pindorama.Auth
                     Senha = user.Nome == userValid.Senha && user.Senha is not null ? user.Senha : userValid.Senha,
                     Role = userValid.Role
                 };
-                context.ChangeTracker.Clear();
-                context.User.Update(userChange);
-                context.SaveChanges();
+                _context.ChangeTracker.Clear();
+                _context.UserAntigo.Update(userChange);
+                _context.SaveChanges();
                 return "Conta editada com sucesso!";
             }
             catch
@@ -66,28 +83,33 @@ namespace Pindorama.Auth
             }
         }
 
-        //public User GetCurrentUser(Token token)
-        //{
-        //    try
-        //    {
-        //        return context.User.First(u => u.Id == token.UserId);
-        //    }
-        //    catch
-        //    {
-        //        throw new Exception("Usuário não autenticado!");
-        //    }
-        //}
-
-        public void GenerateToken(User user)
+        public void GenerateToken(UserAntigo user)
         {
-            try { 
+            try
+            {
                 Random rand = new Random();
                 string preToken = $"{rand.Next(0, 999999)}UvhaUHUasad{rand.Next(0, 999999)}";
                 Token token = new Token() { Role = user.Role, TokenName = preToken, UserId = user.Id, CreationTime = DateTime.Now };
-                context.Token.Add(token);
-                context.SaveChanges();
-                File.WriteAllText("authKey.txt", token.TokenName);
-            } 
+                //_context.Token.Add(token);
+                //_context.SaveChanges();
+                if (!_cache.TryGetValue(AuthKey, out Token cacheEntry))
+                {
+                    // Key not in cache, so get data.
+                    cacheEntry = token;
+
+                    var cacheEntryOptions = new MemoryCacheEntryOptions()
+                        // Set cache entry size by extension method.
+                        .SetSize(124)
+                        // Keep in cache for this time, reset time if accessed.
+                        .SetSlidingExpiration(TimeSpan.FromMinutes(30));
+
+                    // Set cache entry size via property.
+                    // cacheEntryOptions.Size = 1;
+
+                    // Save data in cache.
+                    _cache.Set(AuthKey, cacheEntry, cacheEntryOptions);
+                }
+            }
             catch
             {
                 throw new Exception("Erro ao gerar token!");
@@ -96,46 +118,42 @@ namespace Pindorama.Auth
 
         public bool ValidateToken()
         {
-            if (File.Exists("authKey.txt")) { 
-                var fileToken = File.ReadAllText("authKey.txt");
-                var serverToken = context.Token.FirstOrDefault(token => token.TokenName == fileToken);
-                if (serverToken is not null)
-                {
-                    if ((DateTime.Now - serverToken.CreationTime).TotalMinutes >= 10)
-                    {
-                        File.Delete("authKey.txt");
-                        context.Token.Remove(serverToken);
-                        return false;
-                    }
-                    return true;
-                }
+            if (_cache.TryGetValue(AuthKey, out Token cacheEntry))
+            {
+                var fileToken = cacheEntry;
+                var serverToken = new Token(); /*_context.Token.FirstOrDefault(token => token.TokenName == fileToken.TokenName);*/
+                if (serverToken is not null) return true;
             }
             return false;
         }
 
         public Token GetCurrentToken()
         {
-            var fileToken = File.ReadAllText("authKey.txt");
-            return context.Token.Include(u => u.UserToken).FirstOrDefault(token => token.TokenName == fileToken); ;
+            _cache.TryGetValue(AuthKey, out Token cacheEntry);
+            return new Token(); /*_context.Token.Include(u => u.UserToken).FirstOrDefault(token => token.TokenName == cacheEntry.TokenName);*/
         }
 
         public void Logout()
         {
-            var fileToken = File.ReadAllText("authKey.txt");
-            var serverToken = context.Token.First(t => t.TokenName == fileToken);
-            context.Remove(serverToken);
-            context.SaveChanges();
-            File.Delete("authKey.txt");
+            _cache.TryGetValue(AuthKey, out Token cacheEntry);
+            var serverToken = 0; /*_context.Token.First(t => t.TokenName == cacheEntry.TokenName);*/
+            _context.Remove(serverToken);
+            _context.SaveChanges();
+            _cache.Remove(AuthKey);
         }
 
-        public bool DeleteUser(User user, User userValid)
+        public bool DeleteUser(UserAntigo user, Token userValid)
         {
             try
             {
-                if(user.Senha == userValid.Senha)
+                if (user.Senha == userValid.UserToken.Senha)
                 {
-                    context.User.Remove(userValid);
-                    context.SaveChanges();
+                    _cache.TryGetValue(AuthKey, out Token cacheEntry);
+                    Token token = cacheEntry;
+                    _context.Remove(userValid);
+                    _cache.Remove(AuthKey);
+                    _context.UserAntigo.Remove(userValid.UserToken);
+                    _context.SaveChanges();
                     return true;
                 }
                 return false;

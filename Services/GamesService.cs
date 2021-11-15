@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Pindorama.Auth;
 using Pindorama.Data;
 using Pindorama.Models;
@@ -11,10 +12,14 @@ namespace Pindorama.Services
 {
     public class GamesService
     {
-        PindoramaContext context;
-        public GamesService(PindoramaContext context)
+        PindoramaContext _context;
+        UserManager<Usuario> _userManager;
+        SignInManager<Usuario> _signIn;
+        public GamesService(PindoramaContext context, UserManager<Usuario> userManager, SignInManager<Usuario> signIn)
         {
-            this.context = context;
+            _context = context;
+            _userManager = userManager;
+            _signIn = signIn;
         }
 
         public List<Game> GetAll(Categoria categoria = null) /*Como não há uma função de busca ainda, é valido implementar ela agora?*/
@@ -24,26 +29,26 @@ namespace Pindorama.Services
 
         public Game Get(int? id)
         {
-            return context.Game.Include(c => c.Categorias).Include(i => i.Imagens).FirstOrDefault(p => p.Id == id); ;
+            return _context.Game.Include(c => c.Categorias).Include(i => i.Imagens).FirstOrDefault(p => p.Id == id); ;
         }
 
-        public List<Game> GetAllOwnedGames(Token token)
+        public async Task<List<Game>> GetAllOwnedGames()
         {
-            User currentUser = context.User.First(u => u.Id == token.UserId);
-            return context.Game.Where(g => g.Users.Contains(currentUser)).ToList();
+            Usuario currentUser = await _userManager.GetUserAsync(_signIn.Context.User);
+            return _context.Game.Where(g => g.Users.Contains(currentUser)).ToList();
         }
 
-        public bool BuyGame(Token token, Game game)
+        public async Task<bool> BuyGame(Game game)
         {
             try 
             { 
-                User currentUser = context.User.First(u => u.Id == token.UserId);
-                game.Users = game.Users == null ? new List<User>() : game.Users;
+                Usuario currentUser = await _userManager.GetUserAsync(_signIn.Context.User);
+                game.Users = game.Users == null ? new List<Usuario>() : game.Users;
                 if (!game.Users.Contains(currentUser)) { 
                     game.Users.Add(currentUser);
                     game.compras++;
-                    context.Update(game);
-                    context.SaveChanges();
+                    _context.Update(game);
+                    await _context.SaveChangesAsync();
                     return true;
                 }
                 return false;
@@ -60,12 +65,12 @@ namespace Pindorama.Services
             {
                 List<Game> games = new List<Game>();
                 if (categoria != null) {
-                    Categoria catGames = context.Categorias.Include(u => u.Jogos).FirstOrDefault(ct => ct.Id == categoria.Id);
+                    Categoria catGames = _context.Categorias.Include(u => u.Jogos).FirstOrDefault(ct => ct.Id == categoria.Id);
                     games = catGames.Jogos;
                 } 
                 else 
                 { 
-                    games = context.Game.ToList();
+                    games = _context.Game.ToList();
                     games = games.OrderByDescending(p => p.compras).ToList();
                 }
                 return games;

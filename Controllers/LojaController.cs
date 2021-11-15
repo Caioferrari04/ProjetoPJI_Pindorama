@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Pindorama.Auth;
 using Pindorama.Models;
 using Pindorama.Services;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Pindorama.Controllers
 {
+    [Authorize]
     public class LojaController : Controller
     {
         AuthService auth;
@@ -22,48 +24,30 @@ namespace Pindorama.Controllers
         }
 
         public IActionResult Index() {
-            if (auth.ValidateToken()) { 
-                ViewBag.categorias = catService.getAll();
-                ViewBag.currentUser = auth.GetCurrentToken();
-                return View(service.GetAll());
-            }
-            return RedirectToAction("Index", "Home", new { area = "" });
+            ViewBag.categorias = catService.getAll();
+            return View(service.GetAll());
         }
 
         public IActionResult ReadSingle(int? id)
         {
-            if (auth.ValidateToken()) 
-            {
-                ViewBag.currentUser = auth.GetCurrentToken();
-                Game game = service.Get(id);
-                return game == null ? RedirectToAction(nameof(Index)) : View(game); 
-            }
-            return RedirectToAction("Index", "Home", new { area = "" });
+            Game game = service.Get(id);
+            return game == null ? RedirectToAction(nameof(Index)) : View(game); 
         }
 
-        public IActionResult Buy(int? id)
+        public async Task<IActionResult> Buy(int? id)
         {
-            if (!auth.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
-            ViewBag.currentUser = auth.GetCurrentToken();
-            return service.BuyGame(ViewBag.currentUser, service.Get(id)) ? RedirectToAction(nameof(CompraConfirmada)) : RedirectToAction(nameof(ReadSingle));
+            return await service.BuyGame(service.Get(id)) ? RedirectToAction(nameof(CompraConfirmada)) : RedirectToAction(nameof(ReadSingle));
         }
 
         public IActionResult ReadCategory(int? id)
         {
-            if (auth.ValidateToken())
-            {
-                ViewBag.currentUser = auth.GetCurrentToken();
-                var categoria = catService.getSingle(id);
-                ViewBag.categoria = categoria;
-                return View(service.GetAll(categoria));
-            }
-            return RedirectToAction("Index", "Home", new { area = "" });
+            var categoria = catService.getSingle(id);
+            ViewBag.categoria = categoria;
+            return View(service.GetAll(categoria));
         }
 
         public IActionResult CompraConfirmada()
         {
-            if(!auth.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
-            ViewBag.currentUser = auth.GetCurrentToken();
             return View();
         }
     }

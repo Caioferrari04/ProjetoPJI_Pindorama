@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Pindorama.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Pindorama.Data
 {
-    public class PindoramaContext : DbContext
+    public class PindoramaContext : IdentityDbContext
     {
         public PindoramaContext(DbContextOptions<PindoramaContext> options) : base(options)
         { }
@@ -15,15 +16,29 @@ namespace Pindorama.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Amizade>()
+                .HasKey(tt => new { tt.OrigemId, tt.AlvoId });
+
+            builder.Entity<Usuario>()
+                .HasMany(u => u.Origem)
+                .WithOne(uu => uu.Alvo)
+                .HasForeignKey(uu => uu.OrigemId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Usuario>()
+                .HasMany(u => u.Alvo)
+                .WithOne(uu => uu.Origem)
+                .HasForeignKey(uu => uu.AlvoId);
+
+
             //builder.Entity<CategoriasGame>()
             //    .HasKey(tt => new { tt.CategoriasId, tt.JogosId });
         }
 
-        public DbSet<User> User { get; set; }
+        public DbSet<UserAntigo> UserAntigo { get; set; }
 
         public DbSet<Game> Game { get; set; }
-
-        public DbSet<Token> Token { get; set; }
 
         public DbSet<Categoria> Categorias { get; set; }
 

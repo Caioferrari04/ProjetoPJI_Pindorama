@@ -1,0 +1,42 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+    <div class="caixadetexto">
+
+        <div class="criarconta">
+            <h4>NÃO POSSUI CONTA? CRIE A SUA!</h4>
+        </div>
+
+        <form asp-page="./RegisterDev" method="get" asp-route-returnUrl="@Model.ReturnUrl" class="criar">
+            <button type="submit" class="botaocriar">CONTA DESENVOLVEDOR</button>
+        </form>
+
+        <form asp-page="./Register" method="get" asp-route-returnUrl="@Model.ReturnUrl" class="criar">
+            <button type="submit" class="botaocriar">CONTA COMUM</button>
+        </form>
+
+        <h4 class="ou">OU</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form id="account" method="post">
+            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            <div class="texto">
+                <input asp-for="Input.UserName" placeholder="Digite seu nome de usuário">
+            </div>
+
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+            <div class="texto">
+                <input asp-for="Input.Password" placeholder="Digite sua senha">
+            </div>
+
+            <button type="submit" class="botao">LOGIN</button>
+        </form>
+        <h5 class="Esqueci">Esqueci minha senha</h5>
+
+    </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

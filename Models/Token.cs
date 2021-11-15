@@ -17,6 +17,6 @@ namespace Pindorama.Models
 
         public int UserId { get; set; }
 
-        public User UserToken { get; set; }
+        public UserAntigo UserToken { get; set; }
     }
 }

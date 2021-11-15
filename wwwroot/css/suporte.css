@@ -1,17 +1,4 @@
-﻿body {
-    background-color: #212d40;
-    font-family: "Montserrat", sans-serif;
-    margin: 0;
-    min-height: calc(100vh - 40px);
-    color: white;
-}
-
-a {
-    color: white;
-    text-decoration: none;
-}
-
-.suporte {
+﻿.suporte {
     display: flex;
     align-items: center;
     justify-content: center;

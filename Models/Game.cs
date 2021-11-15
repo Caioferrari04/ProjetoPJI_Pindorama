@@ -35,7 +35,7 @@ namespace Pindorama.Models
         [DataType(DataType.Date)]
         public DateTime DataLancamento { get; set; }
 
-        public List<User> Users { get; set; }
+        public List<Usuario> Users { get; set; }
 
         public List<Categoria> Categorias { get; set; }
 

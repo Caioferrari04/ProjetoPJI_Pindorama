@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Pindorama.Auth;
 using Pindorama.Models;
 using Pindorama.Services;
@@ -9,20 +10,11 @@ using System.Threading.Tasks;
 
 namespace Pindorama.Controllers
 {
+    [Authorize]
     public class SuporteController : Controller
     {
-        AuthService auth;
-        GamesService service;
-        public SuporteController(AuthService auth, GamesService service)
-        {
-            this.auth = auth;
-            this.service = service;
-        }
-
         public IActionResult Index()
         {
-            if (!auth.ValidateToken()) return RedirectToAction("Index", "Home", new { area = "" });
-            ViewBag.currentUser = auth.GetCurrentToken();
             return View();
         }
     }

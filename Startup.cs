@@ -3,12 +3,15 @@ using ElectronNET.API.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pindorama.Auth;
 using Pindorama.Data;
+using Pindorama.Hubs;
+using Pindorama.Models;
 using Pindorama.Services;
 using System;
 using System.Collections.Generic;
@@ -31,14 +34,20 @@ namespace Pindorama
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
             services.AddDbContext<PindoramaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Pindorama")));
+            services.AddDefaultIdentity<Usuario>().AddRoles<IdentityRole>().AddEntityFrameworkStores<PindoramaContext>();
             services.AddTransient<AuthService>();
             services.AddTransient<GamesService>();
             services.AddTransient<CategoriasService>();
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -55,20 +64,40 @@ namespace Pindorama
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Loja}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             if (HybridSupport.IsElectronActive)
             {
                 ElectronStatup();
             }
+            CreateRoles(serviceProvider);
         }
+
+        private void CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] roleNames = Enum.GetNames(typeof(RoleTypes)); ;
+            foreach (var role in roleNames)
+            {
+                var roleExist = roleManager.RoleExistsAsync(role);
+                if (!roleExist.Result)
+                {
+                    var roleResult = roleManager.CreateAsync(new IdentityRole(role));
+                    roleResult.Wait();
+                }
+            }
+        }
+
         private async void ElectronStatup()
         {
             CreateMenu();
@@ -78,7 +107,7 @@ namespace Pindorama
                     Width = 1152,
                     Height = 940,
                     Show = false
-                }
+                } 
             );
 
             await window.WebContents.Session.ClearCacheAsync();

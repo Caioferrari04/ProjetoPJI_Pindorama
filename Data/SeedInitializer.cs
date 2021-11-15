@@ -285,7 +285,7 @@ namespace Pindorama.Data
                 context.SaveChanges();
 
                 List<Categoria> categorias = context.Categorias.ToList();
-                FindIdByName returnId = new FindIdByName(context);
+                FindIdByName returnId = new FindIdByName();
                 List<int> ids = returnId.returnId(context.Game.ToList());
 
                 foreach (Game game in context.Game.Include(u => u.Categorias))

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Pindorama.Auth;
 using Pindorama.Models;
 using Pindorama.Services;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Pindorama.Controllers
 {
+    [Authorize]
     public class LibraryController : Controller
     {
         AuthService auth;
@@ -19,14 +21,9 @@ namespace Pindorama.Controllers
             this.service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if (auth.ValidateToken()) {
-                Token token = auth.GetCurrentToken();
-                ViewBag.currentUser = auth.GetCurrentToken();
-                return View(service.GetAllOwnedGames(token));
-            }
-            return RedirectToAction("Index", "Home", new { area = "" });
+            return View(await service.GetAllOwnedGames());
         }
     }
 }

@@ -1,0 +1,59 @@
+﻿.fundo {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.57);
+}
+
+.modal {
+    background-color: #1a2332;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid black;
+    border-radius: 3%;
+}
+
+.titulo-modal, .corpo-modal, .opcoes-modal {
+    padding: 20px;
+}
+
+.titulo-modal {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.opcoes-modal {
+    display: flex;
+    justify-content:flex-end;
+    width: 100%;
+}
+
+.botao-modal {
+    background-color: #001233;
+    cursor: pointer;
+    color: #e1e5f2;
+    border-radius: 20%;
+    outline: none;
+    border: none;
+    padding: 8px;
+    margin-left: 20px;
+    transition: 0.5s;
+}
+
+    .botao-modal:hover {
+        background-color: #e1e5f2;
+        color: #000;
+        transition: 0.2s;
+    }
+
+    .botao-modal:active {
+        background-color: #7083c2;
+        color: #000;
+        transition: 0.1s;
+    }

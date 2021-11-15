@@ -1,0 +1,22 @@
+﻿@model List<UserAntigo>
+<div class="lista">
+    @if(Model.Count > 0) { 
+    <h1 class="white-text">Resultados</h1>
+        @foreach(UserAntigo user in Model) { var perfil = user.LinkImagem is null ? "https://www.tecnipecas.com.br/assets/img/avatar.png" : user.LinkImagem;
+            <div class="pessoa">
+                <div class="pessoa-inner">
+                    <img src="@perfil" alt="Avatar">
+                    <h2>@user.Nome</h2>
+                </div>
+
+                <div class="botao">
+                    <button type="submit" class="Botao submit-request" id="@user.Id">Adicionar amigo</button>
+                </div>
+            
+            </div>
+        }
+    } 
+    else {
+        <h1 class="white-text">Não há pessoas com esse nome de usuário, tente novamente!</h1>
+    }
+</div>
