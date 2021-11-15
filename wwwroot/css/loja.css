@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: row;
     padding-bottom: 45px;
-    size: 10rem;
+    font-size: 10rem;
 }
 
 .row__poster:hover {
@@ -210,7 +210,7 @@
         display: flex;
         flex-direction: column;
         padding-bottom: 45px;
-        size: 10rem;
+        font-size: 10rem;
     }
 }
 

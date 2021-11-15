@@ -59,7 +59,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Valve",
                         Publisher = "Valve",
                         IsFree = true,
-                        DataLancamento = new DateTime(2012,8,21)
+                        DataLancamento = new DateTime(2012,8,21),
+                        LinkBanner = "https://arenaesports.com.br/wp-content/uploads/2018/07/Counter-Strike-Global-Offensive-requisistos-m%C3%ADnimos.jpg"
                     });
                     context.Game.Add(new Game //2
                     {
@@ -70,7 +71,8 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256795524/movie_max_vp9.webm?t=1599146533",
                         Desenvolvedor = "Remedy Entertainment",
                         Publisher = "505 Games",
-                        DataLancamento = new DateTime(2020, 8, 27)
+                        DataLancamento = new DateTime(2020, 8, 27),
+                        LinkBanner = "https://cdn-ext.fanatical.com/production/product/1280x720/3de44d6e-17ff-4260-be3f-86d15647f03e.jpeg"
                     });
                     context.Game.Add(new Game //3
                     {
@@ -81,7 +83,8 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256766382/movie_max.webm?t=1572955356",
                         Desenvolvedor = "Frontier Developments",
                         Publisher = "Frontier Developments",
-                        DataLancamento = new DateTime(2017, 11, 5)
+                        DataLancamento = new DateTime(2017, 11, 5),
+                        LinkBanner = "https://cdn-ext.fanatical.com/production/product/1280x720/35d6f92d-19d0-4458-9f1b-fc83063942c8.jpeg"
                     });
                     context.Game.Add(new Game //4
                     {
@@ -93,7 +96,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Bungie",
                         Publisher = "Bungie",
                         IsFree = true,
-                        DataLancamento = new DateTime(2019, 10, 1)
+                        DataLancamento = new DateTime(2019, 10, 1),
+                        LinkBanner = "http://guiadecompras.casasbahia.com.br/imagens/2017/12/Destiny-2-Official-Reveal-Art.jpg"
                     });
                     context.Game.Add(new Game //5
                     {
@@ -105,7 +109,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Digital Extremes",
                         Publisher = "Digital Extremes",
                         IsFree = true,
-                        DataLancamento = new DateTime(2013, 3, 25)
+                        DataLancamento = new DateTime(2013, 3, 25),
+                        LinkBanner = "https://www.oficinadanet.com.br/imagens/post/35877/warframe-capa.jpg"
                     });
                     context.Game.Add(new Game //6
                     {
@@ -117,7 +122,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Respawn Entertainment",
                         Publisher = "Electronic Arts",
                         IsFree = true,
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2020, 11, 5),
+                        LinkBanner = "https://sm.ign.com/t/ign_br/screenshot/default/apex-legends-lendas_6emk.1200.jpg"
                     });
                     context.Game.Add(new Game //7
                     {
@@ -128,7 +134,8 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256668473/movie_max.webm?t=1507541937",
                         Desenvolvedor = "Shiro games", 
                         Publisher = "Shiro games",
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2018, 3, 7),
+                        LinkBanner = "https://cdn2.unrealengine.com/egs-northgard-shirogames-g1a-00-1920x1080-315584a1b3b7.jpg"
                     });
                     context.Game.Add(new Game //8
                     {
@@ -139,7 +146,8 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256743980/movie_max.webm?t=1551200563",
                         Desenvolvedor = "Square Enix",
                         Publisher = "Square Enix",
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2017, 3, 17),
+                        LinkBanner = "https://compass-ssl.xbox.com/assets/10/15/1015045a-5c87-4837-9cc4-0ae2944d4b87.jpg?n=Nier-Automata_GLP-Page-Hero-1084_1920x1080.jpg"
                     });
                     context.Game.Add(new Game //9
                     {
@@ -150,7 +158,8 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256844239/movie_max_vp9.webm?t=1627310563",
                         Desenvolvedor = "DICE",
                         Publisher = "Eletronic Arts",
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2021, 11, 19),
+                        LinkBanner = "https://cdn2.unrealengine.com/egs-battlefield2042ultimateedition-dice-editions-g1a-00-1920x1080-15347ba44398.jpg"
                     });
                     context.Game.Add(new Game //10
                     {
@@ -161,7 +170,8 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256767815/movie_max.webm?t=1583175736",
                         Desenvolvedor = "Valve",
                         Publisher = "Valve",
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2020, 3, 23),
+                        LinkBanner = "https://i.ytimg.com/vi/LTLotwKpLgk/maxresdefault.jpg"
                     });
                     context.Game.Add(new Game //11
                     {
@@ -172,7 +182,8 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256795873/movie_max_vp9.webm?t=1597019302",
                         Desenvolvedor = "DICE",
                         Publisher = "Eletronic Arts",
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2016, 10, 20),
+                        LinkBanner = "https://i.ytimg.com/vi/PhE1db18ZK0/maxresdefault.jpg"
                     });
                     context.Game.Add(new Game //12
                     {
@@ -183,7 +194,8 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256853212/movie_max_vp9.webm?t=1632842438",
                         Desenvolvedor = "Amazon Games",
                         Publisher = "Amazon Games",
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2021, 9, 28),
+                        LinkBanner = "https://s2.glbimg.com/zPvvYfY_ATa1yMArOwf_9MW97c0=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/5/H/jSobTRTBScuiqf472Psg/keyartmask-3840.jpg"
                     });
                     context.Game.Add(new Game //13
                     {
@@ -195,7 +207,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Valve",
                         Publisher = "Valve",
                         IsFree = true,
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2013, 7, 9),
+                        LinkBanner = "https://s2.glbimg.com/-q8MvinX_0xiDazd60GdPbioyH0=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2019/l/Q/L8uEtSTYmy8JwFegBjiw/images-8-.jpg"
                     });
                     context.Game.Add(new Game //14
                     {
@@ -207,7 +220,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Wargaming Group Limited",
                         Publisher = "Wargaming Group Limited",
                         IsFree = true,
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2018, 9, 12),
+                        LinkBanner = "https://i.pinimg.com/originals/71/1c/e3/711ce3d86f82f993c45c0c639324135a.jpg"
                     });
                     context.Game.Add(new Game //15
                     {
@@ -219,7 +233,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Pixonic",
                         Publisher = "Pixonic",
                         IsFree = true,
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2018, 4, 5),
+                        LinkBanner = "https://imag.malavida.com/mvimgbig/download-fs/walking-war-robots-17300-1.jpg"
                     });
                     context.Game.Add(new Game //16
                     {
@@ -231,8 +246,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Grinding Gears Games",
                         Publisher = "Grinding Gears Games",
                         IsFree = true,
-                        DataLancamento = DateTime.Now,
-                        LinkBanner = ""
+                        DataLancamento = new DateTime(2013, 10, 23),
+                        LinkBanner = "https://cdn2.unrealengine.com/egs-pathofexile-grindinggeargames-s1-2560x1440-c9ae0f080546.jpg"
                     });
                     context.Game.Add(new Game //17
                     {
@@ -244,7 +259,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "MY.GAMES",
                         Publisher = "MY.GAMES",
                         IsFree = true,
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2012, 4, 12),
+                        LinkBanner = "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_Warface_AllodsTeam_S1_2560x1440-bf3c5da7b0239523117b1ff2bba16dc9"
                     });
                     context.Game.Add(new Game //18
                     {
@@ -256,7 +272,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Cryptic Studios",
                         Publisher = "Perfect World Entertainment",
                         IsFree = true,
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2013, 12, 5),
+                        LinkBanner = "https://cdn1.epicgames.com/salesEvent/salesEvent/EGS_Neverwinter_CrypticStudios_S1_2560x1440-907eede12f841fa505e7bccaf0dc48ce"
                     });
                     context.Game.Add(new Game //19
                     {
@@ -268,7 +285,8 @@ namespace Pindorama.Data
                         Desenvolvedor = "Gaijin Entertainment",
                         Publisher = "Gaijin Distribution KFT",
                         IsFree = true,
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2013, 8, 15),
+                        LinkBanner = "https://pbs.twimg.com/media/E_6Z_GvUYAgyDua.jpg"
                     });
                     context.Game.Add(new Game //20
                     {
@@ -279,7 +297,20 @@ namespace Pindorama.Data
                         LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256725042/movie_max.webm?t=1547501964",
                         Desenvolvedor = "WarMachine",
                         Publisher = "WarMachine",
-                        DataLancamento = DateTime.Now
+                        DataLancamento = new DateTime(2016, 10, 17),
+                        LinkBanner = "https://steamuserimages-a.akamaihd.net/ugc/785239053013150238/E5F39BE7076418D93DE46AD9A726755B0B08DD83/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+                    });
+                    context.Game.Add(new Game //21
+                    {
+                        Nome = "eFootball PES 2021 SEASON UPDATE",
+                        Descricao = "Comemore 25 anos do PES com o eFootball PES 2021 Season Update* - disponível por um preço especial de aniversário!",
+                        Preco = 99.9,
+                        LinkLogo = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/header.jpg?t=1618425524",
+                        LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256808957/movie480_vp9.webm?t=1605059321",
+                        Desenvolvedor = "Konami Digital Entertainment",
+                        Publisher = "Konami Digital Entertainment",
+                        DataLancamento = new DateTime(2020, 9, 15),
+                        LinkBanner = "https://img.konami.com/wepes/2021/s/img/order/homescreen_pes2021.jpg"
                     });
                 }
                 context.SaveChanges();
@@ -594,6 +625,21 @@ namespace Pindorama.Data
                     {
                         LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1238840/ss_25fbf466cb86f59e47ad06827788c003f079d403.600x338.jpg?t=1633006806",
                         GameId = ids[19]
+                    });
+                    context.Imagens.Add(new Imagem
+                    {
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_05b5733f8fc79533ffe773dfb628c1995d10af00.600x338.jpg?t=1618425524",
+                        GameId = ids[20]
+                    });
+                    context.Imagens.Add(new Imagem
+                    {
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_a98429404053757d2c4752d3af64f4bbf5cc13b6.600x338.jpg?t=1618425524",
+                        GameId = ids[20]
+                    });
+                    context.Imagens.Add(new Imagem
+                    {
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_0e814100dc3fca73e76a1c592316ed9285a374a6.600x338.jpg?t=1618425524",
+                        GameId = ids[20]
                     });
                 }
                 context.SaveChanges();
