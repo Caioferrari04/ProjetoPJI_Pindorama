@@ -23,6 +23,7 @@ namespace Pindorama.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.Amigos = await auth.getAmigosAsync();
             return View(await service.GetAllOwnedGames());
         }
     }

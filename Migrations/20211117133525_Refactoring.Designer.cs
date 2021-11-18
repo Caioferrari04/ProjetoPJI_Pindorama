@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pindorama.Data;
 
 namespace Pindorama.Migrations
 {
     [DbContext(typeof(PindoramaContext))]
-    partial class PindoramaContextModelSnapshot : ModelSnapshot
+    [Migration("20211117133525_Refactoring")]
+    partial class Refactoring
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,14 +265,11 @@ namespace Pindorama.Migrations
                     b.Property<string>("AlvoId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("Confirmada")
-                        .HasColumnType("bit");
-
                     b.HasKey("OrigemId", "AlvoId");
 
                     b.HasIndex("AlvoId");
 
-                    b.ToTable("Amizades");
+                    b.ToTable("Amizade");
                 });
 
             modelBuilder.Entity("Pindorama.Models.Categoria", b =>

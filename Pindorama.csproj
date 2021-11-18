@@ -4,6 +4,7 @@
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Models\CategoriasGame.cs" />
     <Compile Remove="Views\Shared\_ListaAmigos.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,11 @@
-﻿<!--começo da barra lateral-->
+﻿@{
+
+    List<Usuario> amigos = ViewBag.Amigos;
+}
+
 <form asp-controller="Home" asp-action="Amigos">
     <div class="barra-pesquisa">
-        <input name="nome" type="text" placeholder="Pesquise um usuário">
+        <input name="nome" class="white-text" type="text" placeholder="Pesquise um usuário">
     </div>
 </form>
 <div class="divisao_tab"></div>
@@ -10,95 +14,33 @@
     <h4>Início</h4>
 </div>
 
-<div class="barra-lateral-opcao">
+<a asp-controller="Home" asp-action="ListaAmigos" class="barra-lateral-opcao">
     <i class="fa fa-users icone" aria-hidden="true"></i>
     <h4>Lista de Amigos</h4>
-</div>
+</a>
 
 <div class="barra-lateral-titulo">
     <i class="fa fa-arrow-down icone" aria-hidden="true"></i>
     <h5>Chats Privados</h5>
 </div>
 <div class="barra-lateral-interna">
-
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-        <h4>Usuário 1</h4>
-    </div>
+@if(amigos.Count > 0) { 
+    @foreach(Usuario user in amigos) { 
+        <div class="barra-lateral-opcao">
+            @if(user.LinkImagem is null) { 
+                <i class="fa fa-user-circle icone" aria-hidden="true"></i>
+            } 
+            else
+            {
+                <img src="@user.LinkImagem" class="imagem-amigo" />
+            }
+            <h4>@user.UserName</h4>
+            <form asp-controller="Home" asp-action="RemoverAmigo">
+                <button type="submit" value="@user.Id" name="idAlvo" style="background-color: transparent; border: 0px; cursor: pointer; color: white;">
+                    <i class="fa fa-user-times icone"></i>
+                </button>
+            </form>
+        </div>
+    }
+}
 </div>

@@ -1,0 +1,35 @@
+﻿@model List<Usuario>
+@{
+    List<Usuario> amigos = ViewBag.Amigos;
+    List<Usuario> semiAmigos = ViewBag.semiAmigos;
+    ViewData["Title"] = "Amigos";
+}
+<div class="lista">
+    @if (Model.Count > 0)
+    {
+        <h1 class="white-text">Amigos</h1>
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (Usuario usuario in Model)
+            {
+                var perfil = usuario.LinkImagem is null ? "https://www.tecnipecas.com.br/assets/img/avatar.png" : usuario.LinkImagem;
+                <tr class="pessoa">
+                    <td><img src="@perfil" alt="Avatar"></td>
+                    <td><h2>@usuario.UserName</h2></td>
+                    <td>
+                        <button class="Botao">Iniciar conversa</button>
+                        <button class="Botao">Ver perfil</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <h1 class="white-text">Você não tem amigos! Encontre amigos pesquisando com a barra de pesquisa no menu lateral!</h1>
+    }
+</div>

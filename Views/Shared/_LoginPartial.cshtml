@@ -1,24 +1,46 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<Usuario> SignInManager
 @inject UserManager<Usuario> UserManager
+@{
+    var usuarioAtual = await UserManager.GetUserAsync(SignInManager.Context.User);
+    IList<string> cargoUsuario;
+    string imagemUsuario;
+    if (usuarioAtual is not null)
+    {
+        cargoUsuario = await UserManager.GetRolesAsync(usuarioAtual);
+        imagemUsuario = usuarioAtual.LinkImagem is null ? "/css/img/Usuario.jpg" : usuarioAtual.LinkImagem;
+    }
+    else
+    {
+        cargoUsuario = null;
+        imagemUsuario = "/css/img/Usuario.jpg";
+    }
+}
 
-
-<div class="container" onclick="minhaFuncao()">
-    <img src="/css/img/Usuario.jpg" alt="Usuario" class="barra_usuario">
-</div>
-<div class="Dropdown-Conteudo">
-    <div class="conteudo">
-        <div class="nome">@User.Identity.Name</div>
+@if (usuarioAtual is not null)
+{
+    <div class="container" onclick="minhaFuncao()">
+        <img src="@imagemUsuario" alt="Usuario" class="barra_usuario">
     </div>
-    <ul class="Links" style="padding-inline-start: 0px!important;">
-        <li><a asp-controller="Configuracoes" asp-action="Index"><i class="fa fa-cog" aria-hidden="true"></i>Configurações</a></li>
-        <div class="divisao"></div>
-        <li>
-            <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Loja", new {area = ""})"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a>
-        </li>
-    </ul>
-</div>
+    <div class="Dropdown-Conteudo">
+        <div class="conteudo">
+            <div class="nome">@usuarioAtual.UserName</div>
+        </div>
+        <ul class="Links" style="padding-inline-start: 0px!important;">
+            <li><a asp-controller="Configuracoes" asp-action="Index"><i class="fa fa-cog" aria-hidden="true"></i>Configurações</a></li>
+            @if (cargoUsuario.Contains("Desenvolvedor"))
+            {
 
-<script>
-    let origem = "";
-</script>
+                <div class="divisao"></div>
+                <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Opções de Produtor</a></li>
+            }
+            <div class="divisao"></div>
+            <li>
+                <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Loja", new {area = ""})"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let origem = "@usuarioAtual.Id";
+    </script>
+}

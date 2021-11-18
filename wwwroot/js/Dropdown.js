@@ -4,6 +4,6 @@
 }
 
 function abrirLista() {
-    document.getElementById("amigos").classList.toggle('not-visible');
+    document.getElementById("amigos").classList.toggle('visible');
     document.getElementById("botao-amigo").classList.toggle('selecionado-header');
 }

@@ -17,7 +17,7 @@ a {
 }
 
 .not-visible {
-    display: none !important;
+    left: -1000px;
 }
 
 .center {
@@ -69,11 +69,24 @@ a {
 }
 
 .visible {
-    display: flex!important;
+    left: 0px;
+    transition: 0.5s;
 }
 
 .botao-vermelho {
     outline: 1px solid red;
     outline-offset: 4px;
     color: red;
+}
+
+.botao-disabled {
+    background-color: dimgray;
+}
+
+.botao-disabled:hover {
+    width: initial;
+    height: initial;
+    color: initial;
+    padding: initial;
+    margin: initial;
 }

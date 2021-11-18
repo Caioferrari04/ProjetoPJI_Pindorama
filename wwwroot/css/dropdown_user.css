@@ -169,20 +169,31 @@
     height: 65%;
 }
 
-.pessoa-inner > img {
+.pessoa > td > img {
     height: 40px;
     width: 40px;
 }
 
-.pessoa-inner > h2 {
+.pessoa > td > h2 {
     color: #e1e5f2;
+    width: 12%;
+    margin: 30px 90vh 30px 2vh;
+}
+.pessoa > td {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.pessoa > td > button {
+    margin-right: 2vh;
 }
 
 .pessoa {
     display:flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     border-bottom: 1px solid #6163697a;
     width: 100%;
 }
@@ -192,9 +203,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    width: 12%;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    
 }
 
 .Botao {
@@ -220,4 +229,27 @@
     display:flex;
     flex-direction: column;
     align-items: center;
+}
+
+.imagem-amigo {
+    width: 40px;
+    height: 40px;
+}
+
+@media screen and (max-width: 1390px) {
+    .pessoa > td > h2 {
+        margin: 30px 60vh 30px 2vh;
+    }
+}
+
+@media screen and (max-width: 1170px) {
+    .pessoa > td > h2 {
+        margin: 30px 40vh 30px 2vh;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .pessoa > td > h2 {
+        margin: 30px 20vh 30px 2vh;
+    }
 }

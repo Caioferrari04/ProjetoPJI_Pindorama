@@ -36,7 +36,7 @@ namespace Pindorama.Data
             //    .HasKey(tt => new { tt.CategoriasId, tt.JogosId });
         }
 
-        public DbSet<UserAntigo> UserAntigo { get; set; }
+        //public DbSet<UserAntigo> UserAntigo { get; set; }
 
         public DbSet<Game> Game { get; set; }
 
@@ -45,5 +45,7 @@ namespace Pindorama.Data
         //public DbSet<CategoriasGame> CategoriasGames { get; set; }
 
         public DbSet<Imagem> Imagens { get; set; }
+
+        public DbSet<Amizade> Amizades { get; set; }
     }
 }
