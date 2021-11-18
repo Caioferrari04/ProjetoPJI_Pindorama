@@ -148,5 +148,5 @@ function buildModal(text, subtext) {
     botao_titulo.addEventListener("click", (event) => {
         event.preventDefault();
         destroyModal();
-    }, { once: true });
+    });
 }

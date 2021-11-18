@@ -35,6 +35,7 @@ namespace Pindorama.Controllers
 
         public async Task<IActionResult> Chat()
         {
+            ViewBag.Amigos = await authService.getAmigosAsync();
             return View();
         }
 

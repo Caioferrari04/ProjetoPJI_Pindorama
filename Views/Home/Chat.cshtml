@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Chat - Pindorama</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="/css/Chat.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header class="header">
+        <div class="left">
+            <div class="loja">
+                <form asp-controller="Loja" asp-action="Index" method="get">
+                    <button class="loja_title" id="botao-amigo">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </form>
+                <a asp-controller="Loja" asp-action="Index" class="loja_title">LOJA</a>
+                <a asp-controller="Library" asp-action="Index" class="loja_title">BIBLIOTECA</a>
+                <a class="loja_title">FORUM</a>
+                <a asp-controller="Suporte" asp-action="Index" class="loja_title">SUPORTE</a>
+            </div>
+        </div>
+        <div class="usuario">
+            <div class="dropdown">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </header>
+    <div class="tudo">
+        <div class="barra-lateral" id="amigos">
+            <partial name="_ListaAmigos" />
+        </div>
+        <!--começo da barra superior-->
+        <div class="barra-nav">
+            <div class="barra-pesquisa">
+                <input type="text" placeholder="Pesquise um usuário">
+            </div>
+        </div>
+        <!--fim barra superior-->
+        <!--começo da barra superior-->
+        <div class="barra-nome">
+            <div class="Pessoa">
+                <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
+                <h2>Usuário 1</h2>
+            </div>
+        </div>
+        <!--fim barra superior-->
+        <!--começo da barra superior-->
+        <div class="barra-mensagem">
+            <div class="Msg">
+                <input type="text" placeholder="Envie uma mensagem">
+                <i class="fa fa-paper-plane fa-lg" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div class="dialogo">
+
+            <div class="container">
+                <img src="https://www.tecnipecas.com.br/assets/img/avatar.png" alt="Avatar">
+                <p>Bom Dia! Como vai você?</p>
+                <span class="time-right">11:00</span>
+            </div>
+
+            <div class="container-darker">
+                <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="Avatar" class="right">
+                <p>Olá! Bom Dia! Estou bem graças a Deus!</p>
+                <span class="time-left">11:01</span>
+            </div>
+
+            <div class="container">
+                <img src="https://www.tecnipecas.com.br/assets/img/avatar.png" alt="Avatar">
+                <p>Tá afim de ir no cinema hoje?</p>
+                <span class="time-right">11:02</span>
+            </div>
+
+            <div class="container-darker">
+                <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="Avatar" class="right">
+                <p>Não, hoje estou ocupado, tenho uns trabalhos de escola para fazer</p>
+                <span class="time-left">11:05</span>
+            </div>
+
+        </div>
+    </div>
+    <script src="/js/chat.js"></script>
+</body>
+</html>
