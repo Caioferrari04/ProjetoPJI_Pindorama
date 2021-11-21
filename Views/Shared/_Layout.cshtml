@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="~/css/header.css" />
     <link rel="stylesheet" href="~/css/dropdown_user.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="~/css/commonStyle.css"/>
-    <link rel="stylesheet" href="~/css/pedido_amigo.css"/>
+    <link rel="stylesheet" href="~/css/commonStyle.css" />
+    <link rel="stylesheet" href="~/css/pedido_amigo.css" />
+    <link rel="stylesheet" href="/css/chat_novo.css" />
 </head>
 <body>
     <header class="header">
@@ -31,7 +32,7 @@
     </header>
     <div class="espacamento"></div>
     @RenderBody()
-    <div class="not-visible barra-lateral" id="amigos">
+    <div class="not-visible chat-barra" id="amigos">
         <partial name="_ListaAmigos" />
     </div>
 

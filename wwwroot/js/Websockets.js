@@ -150,3 +150,7 @@ function buildModal(text, subtext) {
         destroyModal();
     });
 }
+
+function buildMessage(author, text, img) {
+    
+}

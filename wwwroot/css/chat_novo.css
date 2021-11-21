@@ -1,0 +1,250 @@
+﻿#chat {
+    z-index: inherit;
+    display: flex;
+    flex-direction: column;
+    background-image: url('/css/img/pexels-mo-9934462 (1).jpg');
+    transition: 0.3s;
+    height: 95%;
+    width: 100%;
+}
+
+.barra-lateral-chat {
+    padding-top: 2%;
+}
+
+.chat-visible {
+    position: relative;
+    bottom: 0!important;
+    transition: 0.5s;
+}
+
+.chat-not-visible {
+    position: relative;
+    bottom: -100%!important;
+    transition: 0.3s;
+}
+
+.barra-nav {
+    z-index: inherit;
+    height: 5%;
+    width: 100%;
+    display: flex;
+    background-color: #212d40;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.443);
+    top: 0px;
+    overflow: hidden;
+}
+
+    .barra-nav .barra-pesquisa > input {
+        padding: 10px 10px;
+        border: none;
+        width: 60%;
+        border-radius: 5px;
+        outline: none;
+        background-color: #4647478b;
+        margin-left: 600px;
+        margin-top: 7px;
+    }
+
+.icone {
+    padding: 20px;
+}
+
+.barra-nome {
+    width: 100%;
+    height: 55px;
+    background-color: rgba(255, 255, 255, 0.313);
+    backdrop-filter: blur(5px);
+}
+
+.Pessoa {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Pessoa img {
+    border-radius: 50%;
+    height: 40px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.Pessoa i {
+    font-size: 30px;
+    padding: 10px;
+    color: black;
+}
+
+.Pessoa h2 {
+    color: black;
+    font-size: 15px;
+}
+
+.barra-mensagem {
+    position: fixed;
+    bottom: inherit;
+    width: 91%;
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.313);
+    backdrop-filter: blur(5px);
+}
+
+    .barra-mensagem .Msg > input {
+        padding: 10px 10px;
+        border: none;
+        width: 88%;
+        border-radius: 5px;
+        outline: none;
+        background-color: white;
+        margin-left: 10px;
+        margin-top: 20px;
+    }
+
+.Msg > img {
+    margin-top: 25px;
+    margin-left: 90px;
+    height: 30px;
+    width: 30px;
+}
+
+.dialogo {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    max-height: 81%;
+}
+
+/* Chat containers */
+.container-chat {
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-right: 60%;
+    margin-left: 2%;
+    background-color: #e1e5f2;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+}
+
+/* Darker chat container */
+.container-darker {
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-left: 60%;
+    margin-right: 2%;
+    background-color: #b5cdfd;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+}
+
+    .container-darker::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+/* Clear floats */
+.container-chat::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container-darker img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+    .container-darker img.right {
+        float: right;
+        margin-left: 20px;
+        margin-right: 0;
+    }
+
+.container-dark time-right {
+    float: right;
+    color: #aaa;
+}
+
+.container-dark time-left {
+    float: left;
+    color: #999;
+}
+
+/* Style images */
+.container-chat img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+    /* Style the right image */
+    .container-chat img.right {
+        float: right;
+        margin-left: 20px;
+        margin-right: 0;
+    }
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
+}
+
+
+@media screen and (max-width: 1580px) {
+    .container-chat {
+        margin-right: 55%!important;
+    }
+
+    .container-darker {
+        margin-left: 55%!important;
+    }
+    
+    .barra-mensagem {
+        width: 88%
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .container-chat {
+        margin-right: 50% !important;
+        padding: 15px;
+    }
+
+    .container-darker {
+        margin-left: 50% !important;
+        padding: 15px;
+    }
+
+    .barra-mensagem {
+        width: 86%
+    }
+}
+
+@media screen and (max-width: 1280px) {
+
+    .barra-mensagem {
+        width: 84%
+    }
+}
+
+@media screen and (max-width: 1024px) {
+
+    .barra-mensagem {
+        width: 76%
+    }
+}

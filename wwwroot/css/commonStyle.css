@@ -17,7 +17,8 @@ a {
 }
 
 .not-visible {
-    left: -1000px;
+    position: fixed;
+    left: -2000px;
 }
 
 .center {
@@ -69,8 +70,8 @@ a {
 }
 
 .visible {
-    left: 0px;
-    transition: 0.5s;
+    left: 0px!important;
+    transition: 0.5s!important;
 }
 
 .botao-vermelho {

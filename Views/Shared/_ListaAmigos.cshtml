@@ -2,45 +2,84 @@
 
     List<Usuario> amigos = ViewBag.Amigos;
 }
-
-<form asp-controller="Home" asp-action="Amigos" id="pesquisa-amigos">
-    <div class="barra-pesquisa">
-        <input name="nome" class="white-text" type="text" placeholder="Pesquise um usuário">
+<div class="not-visible barra-lateral" id="barra-amigos">
+    <form asp-controller="Home" asp-action="Amigos">
+        <div class="barra-pesquisa" id="pesquisa-amigos">
+            <input name="nome" class="white-text" type="text" placeholder="Pesquise um usuário">
+        </div>
+    </form>
+    <div class="divisao_tab"></div>
+    <div class="barra-lateral-opcao">
+        <i class="fa fa-home icone" aria-hidden="true"></i>
+        <h4>Início</h4>
     </div>
-</form>
-<div class="divisao_tab"></div>
-<div class="barra-lateral-opcao">
-    <i class="fa fa-home icone" aria-hidden="true"></i>
-    <h4>Início</h4>
+
+    <a asp-controller="Home" asp-action="ListaAmigos" class="barra-lateral-opcao">
+        <i class="fa fa-users icone" aria-hidden="true"></i>
+        <h4>Lista de Amigos</h4>
+    </a>
+
+    <div class="barra-lateral-titulo">
+        <i class="fa fa-arrow-down icone" aria-hidden="true"></i>
+        <h5>Chats Privados</h5>
+    </div>
+    <div class="barra-lateral-interna">
+        @if (amigos.Count > 0)
+        {
+            @foreach (Usuario user in amigos)
+            {
+                <div class="barra-lateral-opcao" onclick="abrirChat()">
+                    @if (user.LinkImagem is null)
+                    {
+                        <i class="fa fa-user-circle icone" aria-hidden="true"></i>
+                    }
+                    else
+                    {
+                        <img src="@user.LinkImagem" class="imagem-amigo" />
+                    }
+                    <h4>@user.UserName</h4>
+                    
+                </div>
+            }
+        }
+    </div>
 </div>
 
-<a asp-controller="Home" asp-action="ListaAmigos" class="barra-lateral-opcao">
-    <i class="fa fa-users icone" aria-hidden="true"></i>
-    <h4>Lista de Amigos</h4>
-</a>
-
-<div class="barra-lateral-titulo">
-    <i class="fa fa-arrow-down icone" aria-hidden="true"></i>
-    <h5>Chats Privados</h5>
-</div>
-<div class="barra-lateral-interna">
 @if(amigos.Count > 0) { 
     @foreach(Usuario user in amigos) { 
-        <div class="barra-lateral-opcao">
-            @if(user.LinkImagem is null) { 
-                <i class="fa fa-user-circle icone" aria-hidden="true"></i>
-            } 
-            else
-            {
-                <img src="@user.LinkImagem" class="imagem-amigo" />
-            }
-            <h4>@user.UserName</h4>
-            <form asp-controller="Home" asp-action="RemoverAmigo">
-                <button type="submit" value="@user.Id" name="idAlvo" style="background-color: transparent; border: 0px; cursor: pointer; color: white;">
-                    <i class="fa fa-user-times icone"></i>
-                </button>
-            </form>
+        <div class="chat-not-visible" id="chat">
+            <div class="barra-nome">
+                <div class="Pessoa">
+                    <div class="Pessoa">
+                        @if (user.LinkImagem is null)
+                        {
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        }
+                        else
+                        {
+                            <img src="@user.LinkImagem" class="imagem-amigo" />
+                        }
+                        <h2>@user.UserName</h2>
+                    </div>
+                    <form asp-controller="Home" asp-action="RemoverAmigo">
+                        <button type="submit" value="@user.Id" name="idAlvo" style="background-color: transparent; border: 0px; cursor: pointer; color: white;">
+                            <i class="fa fa-user-times"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="dialogo">
+
+
+            </div>
+
+            <div class="barra-mensagem">
+                <div class="Msg">
+                    <input type="text" placeholder="Envie uma mensagem">
+                    <i class="fa fa-paper-plane fa-lg icone" aria-hidden="true"></i>
+                </div>
+            </div>
         </div>
     }
 }
-</div>
