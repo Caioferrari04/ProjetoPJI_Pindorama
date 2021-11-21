@@ -34,8 +34,7 @@ namespace Pindorama
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddHttpContextAccessor();
-            services.AddDbContext<PindoramaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Pindorama")));
+            services.AddDbContext<PindoramaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Pindorama_db")));
             services.AddDefaultIdentity<Usuario>().AddRoles<IdentityRole>().AddEntityFrameworkStores<PindoramaContext>();
             services.AddTransient<AuthService>();
             services.AddTransient<GamesService>();

@@ -27,8 +27,6 @@ namespace Pindorama.Models
 
         public List<Game> Games { get; set; }
 
-        public string Role { get; set; }
-
         public List<Amizade> Origem { get; set; }
 
         public List<Amizade> Alvo { get; set; }

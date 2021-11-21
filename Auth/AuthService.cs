@@ -7,50 +7,52 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Identity;
+using Pindorama.Controllers;
 
 namespace Pindorama.Auth
 {
     public class AuthService
     {
         PindoramaContext _context;
-        IMemoryCache _cache;
-        public static readonly string AuthKey = "_AuthKey";
-
-        public AuthService(PindoramaContext context, IMemoryCache cache)
+        UserManager<Usuario> _userManager;
+        SignInManager<Usuario> _signIn;
+        public AuthService(UserManager<Usuario> userManager, SignInManager<Usuario> signIn, PindoramaContext context)
         {
+            _userManager = userManager;
+            _signIn = signIn;
             _context = context;
-            _cache = cache;
         }
 
-        public string Create(UserAntigo user)
+        public async Task<Usuario> GetCurrentUserAsync() => await _userManager.GetUserAsync(_signIn.Context.User);
+
+        public async Task<bool> RemoverAmigoAsync(string idAlvo)
         {
-            if (GetUser(user) is not null) return "Conta já existente!";
-            try
-            {
-                user.Role = "Common";
-                _context.UserAntigo.Add(user);
-                _context.SaveChanges();
-                return "Contra criada com sucesso!";
-            }
+            try { 
+                Usuario alvo = await _userManager.FindByIdAsync(idAlvo);
+                Usuario atual = await GetCurrentUserAsync();
+
+                Amizade amizade = _context.Amizades.FirstOrDefault(u => (u.AlvoId == alvo.Id || u.OrigemId == alvo.Id) && (u.AlvoId == atual.Id || u.OrigemId == atual.Id));
+
+                _context.Amizades.Remove(amizade);
+
+                await _context.SaveChangesAsync();
+
+                return true;
+            } 
             catch
             {
-                return "Erro!";
+                return false;
             }
-        }
+        } 
 
-        public UserAntigo GetUser(UserAntigo user)
-        {
-            var usuario = _context.UserAntigo.FirstOrDefault(u => u.Nome == user.Nome || u.Email == user.Email);
-            if (usuario != null && user.Senha == usuario.Senha)
-                return usuario;
-            return null;
-        }
-
-        public List<UserAntigo> SearchUsers(string nome)
+        public List<Usuario> SearchUsers(string nome)
         {
             try
             {
-                return _context.UserAntigo.Where(u => u.Nome.ToLower().Contains(nome.ToLower())).ToList();
+                List<Usuario> usuarios = _userManager.Users.Include(u => u.Origem).Include(a => a.Alvo).Where(u => u.NormalizedUserName.Contains(nome.Normalize())).ToList();
+                usuarios.Remove(GetCurrentUserAsync().Result);
+                return usuarios;
             }
             catch
             {
@@ -58,102 +60,33 @@ namespace Pindorama.Auth
             }
         }
 
-        public string UpdateUser(UserAntigo user, UserAntigo userValid)
+        public async Task<IdentityResult> UpdateUser(UsuarioDTO user)
+        {
+            Usuario usuarioValido = await GetCurrentUserAsync();
+
+            if (user.Password is not null)
+            {
+                var result = await _userManager.ChangePasswordAsync(usuarioValido, user.Password, user.NewPassword);
+                return result;
+            }
+
+            usuarioValido.UserName = user.UserName is null && (user.UserName.Length < 5 || user.UserName.Length > 100) ? usuarioValido.UserName : user.UserName;
+            usuarioValido.Email = user.Email is null ? usuarioValido.Email : user.Email;
+            usuarioValido.DataNascimento = user.DataNascimento is null ? usuarioValido.DataNascimento : user.DataNascimento;
+            usuarioValido.LinkImagem = user.LinkImagem is null ? usuarioValido.LinkImagem : user.LinkImagem;
+
+                
+            return await _userManager.UpdateAsync(usuarioValido);
+        }
+
+        public async Task<bool> DeleteUser(UsuarioDTO user)
         {
             try
             {
-                UserAntigo userChange = new UserAntigo()
+                Usuario usuarioAtual = await GetCurrentUserAsync();
+                if (await _userManager.CheckPasswordAsync(usuarioAtual, user.Password))
                 {
-                    Id = userValid.Id,
-                    Nome = user.Nome is null || user.Nome == userValid.Senha ? userValid.Nome : user.Nome,
-                    Email = user.Email is null ? userValid.Email : user.Email,
-                    LinkImagem = user.LinkImagem,
-                    DataNascimento = user.DataNascimento is null ? userValid.DataNascimento : user.DataNascimento,
-                    Senha = user.Nome == userValid.Senha && user.Senha is not null ? user.Senha : userValid.Senha,
-                    Role = userValid.Role
-                };
-                _context.ChangeTracker.Clear();
-                _context.UserAntigo.Update(userChange);
-                _context.SaveChanges();
-                return "Conta editada com sucesso!";
-            }
-            catch
-            {
-                return "Houve um erro ao editar seu perfil!";
-            }
-        }
-
-        public void GenerateToken(UserAntigo user)
-        {
-            try
-            {
-                Random rand = new Random();
-                string preToken = $"{rand.Next(0, 999999)}UvhaUHUasad{rand.Next(0, 999999)}";
-                Token token = new Token() { Role = user.Role, TokenName = preToken, UserId = user.Id, CreationTime = DateTime.Now };
-                //_context.Token.Add(token);
-                //_context.SaveChanges();
-                if (!_cache.TryGetValue(AuthKey, out Token cacheEntry))
-                {
-                    // Key not in cache, so get data.
-                    cacheEntry = token;
-
-                    var cacheEntryOptions = new MemoryCacheEntryOptions()
-                        // Set cache entry size by extension method.
-                        .SetSize(124)
-                        // Keep in cache for this time, reset time if accessed.
-                        .SetSlidingExpiration(TimeSpan.FromMinutes(30));
-
-                    // Set cache entry size via property.
-                    // cacheEntryOptions.Size = 1;
-
-                    // Save data in cache.
-                    _cache.Set(AuthKey, cacheEntry, cacheEntryOptions);
-                }
-            }
-            catch
-            {
-                throw new Exception("Erro ao gerar token!");
-            }
-        }
-
-        public bool ValidateToken()
-        {
-            if (_cache.TryGetValue(AuthKey, out Token cacheEntry))
-            {
-                var fileToken = cacheEntry;
-                var serverToken = new Token(); /*_context.Token.FirstOrDefault(token => token.TokenName == fileToken.TokenName);*/
-                if (serverToken is not null) return true;
-            }
-            return false;
-        }
-
-        public Token GetCurrentToken()
-        {
-            _cache.TryGetValue(AuthKey, out Token cacheEntry);
-            return new Token(); /*_context.Token.Include(u => u.UserToken).FirstOrDefault(token => token.TokenName == cacheEntry.TokenName);*/
-        }
-
-        public void Logout()
-        {
-            _cache.TryGetValue(AuthKey, out Token cacheEntry);
-            var serverToken = 0; /*_context.Token.First(t => t.TokenName == cacheEntry.TokenName);*/
-            _context.Remove(serverToken);
-            _context.SaveChanges();
-            _cache.Remove(AuthKey);
-        }
-
-        public bool DeleteUser(UserAntigo user, Token userValid)
-        {
-            try
-            {
-                if (user.Senha == userValid.UserToken.Senha)
-                {
-                    _cache.TryGetValue(AuthKey, out Token cacheEntry);
-                    Token token = cacheEntry;
-                    _context.Remove(userValid);
-                    _cache.Remove(AuthKey);
-                    _context.UserAntigo.Remove(userValid.UserToken);
-                    _context.SaveChanges();
+                    await _userManager.DeleteAsync(usuarioAtual);
                     return true;
                 }
                 return false;
@@ -162,6 +95,47 @@ namespace Pindorama.Auth
             {
                 return false;
             }
+        }
+
+        public UsuarioDTO ConverterParaDTO(Usuario user)
+        {
+            return new UsuarioDTO
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                DataNascimento = user.DataNascimento,
+                LinkImagem = user.LinkImagem
+            };
+        }
+
+        public async Task<List<Usuario>> getAmigosAsync()
+        {
+            Usuario usuarioAtual = await GetCurrentUserAsync();
+            List<Amizade> amizades = await _context.Amizades.Include(o => o.Alvo).Include(a => a.Origem).Where(u => u.Alvo == usuarioAtual || u.Origem == usuarioAtual).ToListAsync();
+            amizades.RemoveAll(u => !u.Confirmada);
+            List<Usuario> amigos = new List<Usuario>();
+            await Task.Run(() => {
+                amizades.ForEach(u => amigos.Add(u.Alvo));
+                amizades.ForEach(u => amigos.Add(u.Origem));
+            });
+
+            amigos.RemoveAll(u => u.Id == usuarioAtual.Id);
+            return amigos;
+        }
+
+        public async Task<List<Usuario>> GetPendentesAsync()
+        {
+            Usuario usuarioAtual = await GetCurrentUserAsync();
+            List<Amizade> amizades = await _context.Amizades.Include(o => o.Alvo).Include(a => a.Origem).Where(u => u.Alvo == usuarioAtual || u.Origem == usuarioAtual).ToListAsync();
+            amizades.RemoveAll(u => u.Confirmada);
+            List<Usuario> amigos = new List<Usuario>();
+            await Task.Run(() => {
+                amizades.ForEach(u => amigos.Add(u.Alvo));
+                amizades.ForEach(u => amigos.Add(u.Origem));
+            });
+
+            amigos.RemoveAll(u => u.Id == usuarioAtual.Id);
+            return amigos;
         }
     }
 }

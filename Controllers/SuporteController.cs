@@ -13,8 +13,16 @@ namespace Pindorama.Controllers
     [Authorize]
     public class SuporteController : Controller
     {
-        public IActionResult Index()
+        AuthService authService;
+        public SuporteController(AuthService authService)
         {
+            this.authService = authService;
+            
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.Amigos = await authService.getAmigosAsync();
             return View();
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Pindorama.Auth;
 using Pindorama.Data;
@@ -12,82 +13,73 @@ namespace Pindorama.Hubs
 {
     public class ChatHub : Hub
     {
-        PindoramaContext context;
-        AuthService auth;
-        public ChatHub(PindoramaContext context, AuthService auth)
+        PindoramaContext _context;
+        UserManager<Usuario> _userManager;
+        public ChatHub(PindoramaContext context, UserManager<Usuario> userManager)
         {
-            this.context = context;
-            this.auth = auth;
+            _context = context;
+            _userManager = userManager;
         }
 
-        public async Task CreateConnection(string conexao, int id)
+        public async Task EnviarPedidoAmizade(string origem, string destino)
         {
-            UserAntigo user = auth.GetCurrentToken().UserToken;
-            if (id != user.Id) return;
+            Usuario usuarioAtual = await _userManager.FindByIdAsync(origem);
+            Usuario usuarioDestino = await _userManager.FindByIdAsync(destino);
 
-            user.ConnectionString = conexao;
-            context.UserAntigo.Update(user);
-            await context.SaveChangesAsync();
+            if (usuarioAtual.Id != origem || usuarioAtual.Id == usuarioDestino.Id || usuarioDestino is null || usuarioAtual is null) return;
+
+            _context.Amizades.Add(new Amizade
+            {
+                AlvoId = destino,
+                OrigemId = origem
+            });
+
+            await _context.SaveChangesAsync();
+
+            await Clients.User(usuarioDestino.Id).SendAsync("PedidoAmizade", usuarioAtual.Id, usuarioDestino.Id, $"{usuarioAtual.UserName} enviou um pedido de amizade!", $"{usuarioAtual.UserName} enviou um pedido de amizade para você, deseja aceitar?");
         }
 
-        public async Task EnviarPedidoAmizade(int origem, int destino)
+        public async Task AceitarPedido(string origem, string destino)
         {
-            if (origem != auth.GetCurrentToken().UserId) return;
 
-            UserAntigo usuarioOrigem = context.UserAntigo.FirstOrDefault(u => u.Id == origem);
-            UserAntigo usuarioDestino = context.UserAntigo.FirstOrDefault(u => u.Id == destino);
+            Usuario usuarioAtual = await _userManager.FindByIdAsync(destino);
+            Usuario usuarioDestino = await _userManager.FindByIdAsync(origem);
+
+            if (usuarioAtual.Id != destino || usuarioAtual.Id == usuarioDestino.Id || usuarioDestino is null || usuarioAtual is null) return;
+
+            Amizade amizade = _context.Amizades.FirstOrDefault(u => u.AlvoId == usuarioAtual.Id && u.OrigemId == usuarioDestino.Id);
+            if (amizade is null) return;
+
+            amizade.Confirmada = true;
+
+            if (usuarioDestino.Origem is null) usuarioDestino.Origem = new List<Amizade>();
+            usuarioDestino.Origem.Add(amizade);
+            if (usuarioAtual.Alvo is null) usuarioAtual.Alvo = new List<Amizade>();
+            usuarioAtual.Alvo.Add(amizade);
+
+            await _userManager.UpdateAsync(usuarioDestino);
+            await _userManager.UpdateAsync(usuarioAtual);
+
+            await _context.SaveChangesAsync();
+
+            await Clients.User(usuarioDestino.Id).SendAsync("AceitarPedido", $"{usuarioAtual.UserName} aceitou seu pedido!", $"{usuarioAtual.UserName} aceitou seu pedido de amizade, encontre-o na sua barra de amigos e comecem a conversar!");
+        }
+
+        public async Task RecusarPedido(string origem, string destino)
+        {
+            Usuario usuarioAtual = await _userManager.FindByIdAsync(destino);
+            Usuario usuarioDestino = await _userManager.FindByIdAsync(origem);
 
             if (usuarioDestino == null) return;
 
-            /*Como o usuário que envia o pedido não pode ver o pedido aparecendo na tela, apenas o destinatário deve receber*/
-            //await Clients.User(usuarioDestino.ConnectionString).SendAsync("PedidoAmizade", usuarioOrigem.Id, usuarioDestino.Id, usuarioOrigem.Nome);
-            await Clients.Client(usuarioDestino.ConnectionString).SendAsync("PedidoAmizade", usuarioOrigem.Id, usuarioDestino.Id, usuarioOrigem.Nome);
-        }
+            Amizade amizade = _context.Amizades.FirstOrDefault(u => u.AlvoId == usuarioAtual.Id && u.OrigemId == usuarioDestino.Id);
+            if (amizade is null) return;
 
-        public async Task AceitarPedido(int origem, int destino)
-        {
-            if (destino != auth.GetCurrentToken().UserId) return;
+            _context.Amizades.Remove(amizade);
 
-            UserAntigo usuarioOrigem = new UserAntigo(); /*context.UserAntigo.Include(u => u.Origem).FirstOrDefault(u => u.Id == origem);*/
-            UserAntigo usuarioDestino = new UserAntigo(); /*context.UserAntigo.Include(u => u.Origem).FirstOrDefault(u => u.Id == destino);*/
-            List<string> usuarios = new List<string>() { usuarioOrigem.ConnectionString, usuarioDestino.ConnectionString };
+            await _context.SaveChangesAsync();
 
-            if (usuarioOrigem == null) return;
-
-            Amizade amizade = new Amizade()
-            {
-                AlvoId = "",
-                OrigemId = ""
-            };
-
-            //if(usuarioDestino.Origem is null) usuarioDestino.Origem = new List<Amizade>();
-            //usuarioDestino.Origem.Add(amizade);
-
-            amizade = new Amizade()
-            {
-                AlvoId = "",
-                OrigemId = ""
-            };
-
-            //if (usuarioOrigem.Origem is null) usuarioOrigem.Origem = new List<Amizade>();
-            //usuarioOrigem.Origem.Add(amizade);
-
-            context.UserAntigo.Update(usuarioOrigem);
-            context.UserAntigo.Update(usuarioDestino);
-            await context.SaveChangesAsync();
-
-            await Clients.Clients(usuarios).SendAsync("AceitarPedido", usuarioDestino.Nome);
-        }
-
-        public async Task RecusarPedido(string origem, int destino)
-        {
-            UserAntigo usuarioDestino = context.UserAntigo.FirstOrDefault(u => u.Id == destino);
-
-            if (usuarioDestino == null) return;
-
-            List<string> usuarios = new List<string>() { origem, usuarioDestino.ConnectionString };
-
-            await Clients.Clients(usuarios).SendAsync("RecusarPedido", usuarioDestino.Nome);
+            await Clients.User(usuarioDestino.Id).SendAsync("RecusarPedido", $"{usuarioDestino.UserName} recusou seu pedido!", $"Infelizmente, {usuarioDestino.UserName} recusou seu pedido. Não desista e procure mais amigos!");
         }
     }
 }

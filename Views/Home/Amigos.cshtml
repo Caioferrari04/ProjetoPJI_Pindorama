@@ -1,22 +1,48 @@
-﻿@model List<UserAntigo>
+﻿@model List<Usuario>
+@{
+    List<Usuario> amigos = ViewBag.Amigos;
+    List<Usuario> semiAmigos = ViewBag.semiAmigos;
+    ViewData["Title"] = "Resultados de busca";
+}
 <div class="lista">
-    @if(Model.Count > 0) { 
-    <h1 class="white-text">Resultados</h1>
-        @foreach(UserAntigo user in Model) { var perfil = user.LinkImagem is null ? "https://www.tecnipecas.com.br/assets/img/avatar.png" : user.LinkImagem;
-            <div class="pessoa">
-                <div class="pessoa-inner">
-                    <img src="@perfil" alt="Avatar">
-                    <h2>@user.Nome</h2>
-                </div>
+    @if (Model.Count > 0)
+    {
+        <h1 class="white-text">Resultados</h1>
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (Usuario usuario in Model)
+            {
+                var perfil = usuario.LinkImagem is null ? "https://www.tecnipecas.com.br/assets/img/avatar.png" : usuario.LinkImagem;
+        <tr class="pessoa">
+            <td><img src="@perfil" alt="Avatar"></td>
+            <td><h2>@usuario.UserName</h2></td>
+            <td>
+                @if (amigos.Contains(usuario))
+                {
+                    <button class="Botao">Iniciar conversa</button>
 
-                <div class="botao">
-                    <button type="submit" class="Botao submit-request" id="@user.Id">Adicionar amigo</button>
-                </div>
-            
-            </div>
+                }
+                else if (semiAmigos.Contains(usuario))
+                {
+                    <button class="Botao" disabled>Pedido pendente....</button>
+                }
+                else
+                {
+
+                    <button type="submit" class="Botao submit-request" id="@usuario.Id">Adicionar amigo</button>
+                }
+                <button class="Botao">Ver perfil</button>
+            </td>
+        </tr>
         }
-    } 
-    else {
+    </table>
+    }
+    else
+    {
         <h1 class="white-text">Não há pessoas com esse nome de usuário, tente novamente!</h1>
     }
 </div>

@@ -4,7 +4,7 @@
   "parameters": {
     "resourceGroupName": {
       "type": "string",
-      "defaultValue": "BlueBookSite",
+      "defaultValue": "Pindorama",
       "metadata": {
         "_parameterType": "resourceGroup",
         "description": "Nome do grupo de recursos do recurso. É recomendável colocar os recursos no mesmo grupo de recursos para melhor acompanhamento."
@@ -36,7 +36,7 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
-      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('BlueBook2service', subscription().subscriptionId)))]",
+      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('Pindoramaservice', subscription().subscriptionId)))]",
       "resourceGroup": "[parameters('resourceGroupName')]",
       "apiVersion": "2019-10-01",
       "dependsOn": [
@@ -56,7 +56,7 @@
                 "capacity": 1
               },
               "location": "[parameters('resourceLocation')]",
-              "name": "BlueBook2service",
+              "name": "Pindoramaservice",
               "type": "Microsoft.SignalRService/SignalR",
               "apiVersion": "2018-10-01"
             }

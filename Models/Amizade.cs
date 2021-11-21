@@ -7,6 +7,8 @@ namespace Pindorama.Models
 {
     public class Amizade
     {
+        public bool Confirmada { get; set; }
+
         public string OrigemId { get; set; }
 
         public Usuario Origem { get; set; }

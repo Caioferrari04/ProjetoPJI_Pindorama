@@ -6,6 +6,7 @@
         categorias = categorias + categoria.Nome;
     }
     string preco = Model.Preco <= 0 ? "Grátis" : "R$" + Model.Preco;
+    ViewData["Title"] = Model.Nome;
 }
 <link rel="stylesheet" href="~/css/ReadSingle.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, max-scale=1.0">
