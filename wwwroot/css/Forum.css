@@ -1,0 +1,281 @@
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #212d40;
+    margin: 0;
+    min-height: calc(100vh - 40px);
+    display: grid;
+    grid-template-rows: 13% 90%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.fa{
+    display: unset;
+}
+
+.barra-nav {
+    position: fixed;
+    top: 35px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 100%;
+    padding: 0 1rem;
+    background-color: #212d40;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.443);
+}
+
+    .barra-nav .barra-pesquisa > input {
+        padding: 10px 10px;
+        border: none;
+        width: 600px;
+        border-radius: 5px;
+        outline: none;
+        background-color: #4647478b;
+        margin-top: 7px;
+    }
+
+.barra-lateral-opcao {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.barra-lateral-titulo {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #616369;
+}
+
+i {
+    padding: 20px;
+}
+
+.inicio {
+    flex: 0.5;
+    min-width: fit-content;
+    overflow-y: scroll;
+}
+
+.inicioHeader {
+    top: 0;
+    background-color: #212d40;
+    z-index: 100;
+    border: 1px solid #212d40;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #6163697a;
+}
+
+.inicio::-webkit-scrollbar {
+    display: none;
+}
+
+.inicioHeader h2 {
+    font-size: 30px;
+    font-weight: 800;
+    color: #e1e5f2;
+}
+
+.CaixaTextoInput img {
+    border-radius: 50%;
+    height: 40px;
+}
+
+.CaixaTexto {
+    padding-bottom: 10px;
+    border-bottom: 5px solid #6163696d;
+    padding-right: 10px;
+    max-width: 700px;
+}
+
+    .CaixaTexto form {
+        display: flex;
+        flex-direction: column;
+    }
+
+.CaixaTextoInput {
+    display: flex;
+    padding: 20px;
+}
+
+    .CaixaTextoInput textarea {
+        background-color: #212d40;
+        flex: 1;
+        font-size: 20px;
+        border: none;
+        outline: none;
+        padding-bottom: -5px;
+        height: 10rem;
+        margin-left: 10px;
+    }
+
+.Botao {
+    background-color: #4279e6;
+    border: none;
+    color: white;
+    font-weight: 900;
+    border-radius: 10px;
+    width: 80px;
+    height: 40px;
+    margin-top: -10px;
+    margin-left: auto;
+}
+
+    .Botao:hover {
+        background-color: #e9ebee;
+        border-radius: 10px;
+        color: #2f2f2f;
+        transition: color 100ms ease-out;
+        cursor: pointer;
+    }
+
+.postUser img {
+    border-radius: 50%;
+    height: 40px;
+}
+
+.post {
+    z-index: -3;
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid #212d40;
+    padding-bottom: 150px;
+    width: 700px;
+}
+
+.reacoes {
+    display: flex;
+    margin-top: 1px;
+    margin-left: 75px;
+}
+
+.Username {
+    font-weight: 600;
+    font-size: 12px;
+    color: gray;
+    margin-left: 90px;
+}
+
+.postText h3 {
+    font-size: 15px;
+    margin-bottom: 1px;
+    margin-top: -65px;
+    margin-left: 90px;
+}
+
+.descricao {
+    margin-bottom: 10px;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-left: 90px;
+}
+
+.postCorpo {
+    flex: 5;
+    padding: 1px;
+    margin-top: 50px;
+    height: 10rem;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.062);
+    backdrop-filter: blur(50px);
+}
+
+.postUser {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.noticiasContainer {
+    width: 20px;
+}
+
+.noticiasTitulo {
+    color: #e1e5f2;
+    font-size: 18px;
+}
+
+.noticias {
+    grid-column: 2;
+    justify-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    z-index: -1;
+}
+
+.new {
+    max-width: 20px;
+}
+
+.post {
+    margin-bottom: -160px;
+}
+
+.tudo {
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 70% 15%;
+}
+
+.forum {
+    grid-column: 1;
+    justify-self: flex-end;
+}
+
+@media screen and (max-width: 1000px) {
+    .post {
+        width: 500px;
+    }
+
+    .CaixaTexto {
+        width: 500px;
+    }
+
+    .tudo {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 0fr 0fr;
+        grid-row-gap: 30px;
+        justify-self: center;
+    }
+
+    body {
+        display: grid;
+        grid-template-rows: 6% 90%;
+    }
+
+    .noticias {
+        grid-row: 2;
+        grid-column: 1;
+        justify-self: flex-start;
+    }
+
+    .forum {
+        grid-row: 1;
+        grid-column: 1;
+        justify-self: flex-start;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .post {
+        width: 400px;
+    }
+
+    .CaixaTexto {
+        width: 400px;
+    }
+
+    .barra-nav .barra-pesquisa > input {
+        width: 400px;
+    }
+}
