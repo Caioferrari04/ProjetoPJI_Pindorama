@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Pindorama.Auth;
 using Pindorama.Models;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Pindorama.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         AuthService authService;
@@ -23,19 +25,21 @@ namespace Pindorama.Controllers
         public async Task<IActionResult> Amigos(string nome)
         {
             ViewBag.Amigos = await authService.getAmigosAsync();
-            ViewBag.semiAmigos = await authService.GetPendentesAsync();
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
             return View(authService.SearchUsers(nome));
         }
 
         public async Task<IActionResult> ListaAmigos() 
         {
             ViewBag.Amigos = await authService.getAmigosAsync();
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
             return View(ViewBag.Amigos);
         }
 
-        public async Task<IActionResult> Chat()
+        public async Task<IActionResult> Perfil(string id)
         {
             ViewBag.Amigos = await authService.getAmigosAsync();
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
             return View();
         }
 

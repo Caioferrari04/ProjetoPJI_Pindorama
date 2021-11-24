@@ -91,3 +91,10 @@ a {
     padding: initial;
     margin: initial;
 }
+
+.button-icone {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: white;
+}

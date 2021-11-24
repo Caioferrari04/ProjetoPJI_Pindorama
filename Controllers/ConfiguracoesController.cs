@@ -29,6 +29,7 @@ namespace Pindorama.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(UsuarioDTO user)
         {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
             if (!ModelState.IsValid) return View(user);
 
@@ -37,12 +38,14 @@ namespace Pindorama.Controllers
 
         public async Task<IActionResult> AlterarSenha()
         {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
             return View();
         }
 
         public async Task<IActionResult> DeletarConta()
         {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
             return View();
         }
@@ -50,6 +53,7 @@ namespace Pindorama.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletarConta(UsuarioDTO user) {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
             return await authService.DeleteUser(user) ? Redirect("/Identity/Account/Login") : View(); 
         }

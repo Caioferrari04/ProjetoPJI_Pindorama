@@ -28,7 +28,7 @@
         {
             @foreach (Usuario user in amigos)
             {
-                <div class="barra-lateral-opcao" onclick="abrirChat()">
+                <div class="barra-lateral-opcao amigo" id="@user.Id">
                     @if (user.LinkImagem is null)
                     {
                         <i class="fa fa-user-circle icone" aria-hidden="true"></i>
@@ -47,7 +47,7 @@
 
 @if(amigos.Count > 0) { 
     @foreach(Usuario user in amigos) { 
-        <div class="chat-not-visible" id="chat">
+        <div class="chat chat-not-visible" id="chat-@user.Id">
             <div class="barra-nome">
                 <div class="Pessoa">
                     <div class="Pessoa">
@@ -62,24 +62,30 @@
                         <h2>@user.UserName</h2>
                     </div>
                     <form asp-controller="Home" asp-action="RemoverAmigo">
-                        <button type="submit" value="@user.Id" name="idAlvo" style="background-color: transparent; border: 0px; cursor: pointer; color: white;">
+                        <button type="submit" value="@user.Id" name="idAlvo" class="button-icone">
                             <i class="fa fa-user-times"></i>
+                        </button>
+                        <button type="button" class="button-icone fechar-chat" id="@user.Id">
+                            <i class="fa fa-times"></i>
                         </button>
                     </form>
                 </div>
             </div>
 
-            <div class="dialogo">
+            <div class="dialogo" id="dialogo-@user.Id">
 
 
             </div>
 
             <div class="barra-mensagem">
-                <div class="Msg">
-                    <input type="text" placeholder="Envie uma mensagem">
-                    <i class="fa fa-paper-plane fa-lg icone" aria-hidden="true"></i>
-                </div>
+                <form class="Msg">
+                    <input type="text" id="enviarMsg_@user.Id" placeholder="Envie uma mensagem">
+                    <button type="submit" id="submit_@user.Id">
+                        <i class="fa fa-paper-plane fa-lg icone" aria-hidden="true"></i>
+                    </button>
+                </form>
             </div>
         </div>
     }
 }
+

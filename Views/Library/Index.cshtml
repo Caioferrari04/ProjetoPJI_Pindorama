@@ -7,6 +7,7 @@
     ViewData["Title"] = "Biblioteca";
 }
 <link rel="stylesheet" href="~/css/loja.css"/>
+<link rel="stylesheet" href="~/css/biblioteca.css"/>
 
 <div class="biblioteca">
     @if (Model.Count > 0)
@@ -57,44 +58,18 @@
                 }
             </div>
         </div>
-        @*<div class="seus_jogos">
-                <h1>Seus jogos</h1>
-                <div class="flex">
-                    @for (int i = 0; i < tamanhoSlides; i++)
-                    {
-                        <div class="mySlides fade">
-                            <div class="jogos">
-                                @for (int j = 0; j < 4 && contador < Model.Count; j++)
-                                {
-                                    <img src="@Model[contador].LinkLogo" class="jogo" alt="@Model[contador].Nome">
-                                    contador++;
-                                }
-                            </div>
-                        </div>
-                    }
-                    <div class="centralizar">
-                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                    </div>
+        @foreach(Game game in Model) { 
+            <div class="popup">
+                <div class="fotocapa">
+                    <img src="@game.LinkBanner" alt="">
                 </div>
-            </div>*@
-        @*<div class="jogos_baixados"> Comentado por ora até implementado
-                <h1>Jogos baixados</h1>
-                <div class="flex">
-                    <div class="mySlides2 fade">
-                        <div class="jogos">
-                            <img src="hollow_knight.jpg" class="jogo" alt="jogo">
-                            <img src="hollow_knight.jpg" class="jogo" alt="jogo">
-                            <img src="hollow_knight.jpg" class="jogo" alt="jogo">
-                            <img src="hollow_knight.jpg" class="jogo" alt="jogo">
-                        </div>
-                    </div>
-                    <div class="centralizar">
-                        <a class="prev" onclick="plus(-1)">&#10094;</a>
-                        <a class="next" onclick="plus(1)">&#10095;</a>
-                    </div>
+
+                <div class="buttons">
+                    <button class="button">JOGAR</button>
                 </div>
-            </div>*@
+
+            </div>
+        }
     }
     else
     {

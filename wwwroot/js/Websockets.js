@@ -1,5 +1,5 @@
 ﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
-
+let mensagemRecente;
 
 function modifyModal(idOrigem, idDestino) {
     console.log("chegou aqui3")
@@ -32,30 +32,36 @@ function modifyModal(idOrigem, idDestino) {
     botao_titulo.addEventListener("click", (event) => {
         event.preventDefault();
         destroyModal();
-        connection.invoke("recusarPedido", idOrigem, idDestino).catch(function (err) {
-            return console.error(err.toString());
-        });
+        recusarPedido(idOrigem, idDestino);
     }, { once: true });
     console.log("chegou aqui17")
 
     botao_modal1.addEventListener("click", (event) => {
         event.preventDefault();
         destroyModal();
-        connection.invoke("aceitarPedido", idOrigem, idDestino).catch(function (err) {
-            return console.error(err.toString());
-        });
-        buildModal("Você aceitou o pedido!", "Você aceitou o pedido de amizade! Comece a conversar ao abrir a barra lateral e clicando no nome do seu novo amigo!");
+        aceitarPedido(idOrigem, idDestino);
     }, { once: true });
     console.log("chegou aqui18")
 
     botao_modal2.addEventListener("click", (event) => {
         event.preventDefault();
         destroyModal();
-        connection.invoke("recusarPedido", idOrigem, idDestino).catch(function (err) {
-            return console.error(err.toString());
-        });
+        recusarPedido(idOrigem, idDestino);
     }, {once: true});
     console.log("chegou aqui19")
+}
+
+function recusarPedido(idOrigem, idDestino) {
+    connection.invoke("recusarPedido", idOrigem, idDestino).catch(function (err) {
+        return console.error(err.toString());
+    });
+}
+
+function aceitarPedido(idOrigem, idDestino) {
+    connection.invoke("aceitarPedido", idOrigem, idDestino).catch(function (err) {
+        return console.error(err.toString());
+    });
+    buildModal("Você aceitou o pedido!", "Você aceitou o pedido de amizade! Comece a conversar ao abrir a barra lateral e clicando no nome do seu novo amigo!");
 }
 
 function destroyModal() {
@@ -151,6 +157,73 @@ function buildModal(text, subtext) {
     });
 }
 
-function buildMessage(author, text, img) {
+function buildMessage(author, data, text, img) {
+
+    let corpo_mensagem = document.createElement("div");
+    let imagem_mensagem = document.createElement("img");
+    let mensagem = document.createElement("p");
+    let data_envio = document.createElement("span");
+
+    imagem_mensagem.src = img;
     
+    mensagem.textContent = text;
+    mensagem.classList = "texto-chat";
+    data_envio.textContent = data;
+
+    if (author === origem) {
+        corpo_mensagem.classList = "container-darker";
+        data_envio.classList = "time-left";
+        imagem_mensagem.className = "right"
+    }
+    else {
+        corpo_mensagem.classList = "container-chat";
+        data_envio.classList = "time-right";
+        imagem_mensagem.className = "left"
+    }
+
+    corpo_mensagem.appendChild(imagem_mensagem);
+    corpo_mensagem.appendChild(mensagem);
+    corpo_mensagem.appendChild(data_envio);
+    return corpo_mensagem;
 }
+
+connection.on("CarregarMensagens", (mensagens, destino) => {
+    dialogo = document.getElementById("dialogo-" + destino);
+    for (let i = 0; i < mensagens.length; i++) {
+        let mensagem = buildMessage(mensagens[i].nome, formatDate(mensagens[i].data), mensagens[i].text, mensagens[i].img);
+        if (i === mensagens.length - 1) {
+            guardarMensagem(mensagens[i]);
+        }
+        dialogo.appendChild(mensagem)
+    }
+    dialogo.scrollTop = dialogo.scrollHeight;
+});
+
+function guardarMensagem(mensagem) {
+    mensagemRecente = mensagem
+}
+
+function formatDate(dateString) {
+    var date = new Date(Date.parse(dateString))
+    var dateStr =
+        ("00" + date.getDate()).slice(-2) + "/" +
+        ("00" + (date.getMonth() + 1)).slice(-2) + " " +
+        ("00" + date.getHours()).slice(-2) + ":" +
+        ("00" + date.getMinutes()).slice(-2)
+    return dateStr
+}
+
+connection.on("RemovidoGrupo", () => {
+    console.log("Removido do grupo!");
+});
+
+connection.on("ReceberMensagem", (msg, origemMsg, destino) => {
+    console.log("recebeuMensagem")
+    let mensagem = buildMessage(msg.nome, formatDate(msg.data), msg.text, msg.img)
+    guardarMensagem(msg);
+    let id = origemMsg != origem ? origemMsg : destino
+    console.log(id, origemMsg, destino)
+    dialogo = document.getElementById("dialogo-" + id);
+    dialogo.appendChild(mensagem);
+    dialogo.scrollTop = dialogo.scrollHeight;
+});

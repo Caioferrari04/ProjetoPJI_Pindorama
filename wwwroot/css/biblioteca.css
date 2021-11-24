@@ -20,3 +20,89 @@
     justify-content: center;
     font-size: 30px;
 }
+
+.inicio {
+    flex: 0.5;
+    margin-left: 1px;
+    margin-top: -60px;
+    min-width: fit-content;
+    overflow-y: scroll;
+}
+
+.inicioHeader {
+    top: 0;
+    background-color: #212d40;
+    z-index: 100;
+    border: 1px solid #212d40;
+    padding: 15px 20px;
+    margin-top: 60px;
+    border-bottom: 1px solid #6163697a;
+}
+
+.inicio::-webkit-scrollbar {
+    display: none;
+}
+
+.inicioHeader h2 {
+    font-size: 30px;
+    font-weight: 800;
+    color: #e1e5f2;
+}
+
+.fotocapa > img {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    width: -webkit-fill-available;
+    height: 300px;
+    border-radius: 10px
+}
+
+.button {
+    margin-left: 1px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: #42e655;
+    border: none;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.buttons {
+    margin-left: 10px;
+}
+
+.popup {
+    width: 54.3%;
+    border-radius: 10px;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.327);
+    background-color: rgba(80, 80, 80, 0.272);
+    backdrop-filter: blur(50px);
+    margin-top: 10px;
+    position: fixed;
+    top: 50%;
+    left: 40%;
+    height: 23rem;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+}
+
+button:hover {
+    background-color: #e9ebee;
+    border-radius: 10px;
+    color: #2f2f2f;
+    transition: color 100ms ease-out;
+    cursor: pointer;
+}
+
+.buttons > h2 {
+    color: #e9ebee;
+    margin-left: 150px;
+    margin-top: -40px;
+}
+
+.buttons {
+    margin-bottom: 10px;
+}

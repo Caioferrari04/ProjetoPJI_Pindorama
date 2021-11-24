@@ -25,16 +25,19 @@
             </div>
         </div>
         <div class="usuario">
+            <div class="notificacoes_botao">
+                <partial name="_Notificacoes" />
+            </div>
             <div class="dropdown">
                 <partial name="_LoginPartial" />
             </div>
         </div>
     </header>
     <div class="espacamento"></div>
-    @RenderBody()
     <div class="not-visible chat-barra" id="amigos">
         <partial name="_ListaAmigos" />
     </div>
+    @RenderBody()
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

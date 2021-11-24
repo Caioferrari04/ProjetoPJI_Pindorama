@@ -30,5 +30,7 @@ namespace Pindorama.Models
         public List<Amizade> Origem { get; set; }
 
         public List<Amizade> Alvo { get; set; }
+
+        public List<Mensagem> Mensagens { get; set; }
     }
 }

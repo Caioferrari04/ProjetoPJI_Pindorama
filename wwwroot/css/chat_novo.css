@@ -1,11 +1,12 @@
-﻿#chat {
-    z-index: inherit;
+﻿.chat {
+    z-index: 69;
     display: flex;
     flex-direction: column;
     background-image: url('/css/img/pexels-mo-9934462 (1).jpg');
     transition: 0.3s;
-    height: 95%;
-    width: 100%;
+    height: 96%;
+    width: 90%;
+    border-left: 2px solid black;
 }
 
 .barra-lateral-chat {
@@ -19,7 +20,7 @@
 }
 
 .chat-not-visible {
-    position: relative;
+    position: absolute;
     bottom: -100%!important;
     transition: 0.3s;
 }
@@ -52,7 +53,7 @@
 
 .barra-nome {
     width: 100%;
-    height: 55px;
+    height: 6%;
     background-color: rgba(255, 255, 255, 0.313);
     backdrop-filter: blur(5px);
 }
@@ -83,23 +84,37 @@
 }
 
 .barra-mensagem {
-    position: fixed;
-    bottom: inherit;
-    width: 91%;
-    height: 70px;
+    position: absolute;
+    display: inline-grid;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    height: 8%;
     background-color: rgba(255, 255, 255, 0.313);
     backdrop-filter: blur(5px);
 }
+    
+    .Msg {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        border-radius: 5px;
+        margin: 5px;
+        justify-content: space-between;
+    }
 
     .barra-mensagem .Msg > input {
-        padding: 10px 10px;
         border: none;
-        width: 88%;
-        border-radius: 5px;
+        width: 90%;
         outline: none;
-        background-color: white;
-        margin-left: 10px;
-        margin-top: 20px;
+        background-color: transparent;
+        font-size: 20px;
+    }
+
+    .barra-mensagem > .Msg > button {
+        border: none;
+        background: none;
+        cursor: pointer;
     }
 
 .Msg > img {
@@ -114,7 +129,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    max-height: 81%;
+    height: 85%;
 }
 
 /* Chat containers */
@@ -192,6 +207,10 @@
         margin-right: 0;
     }
 
+.texto-chat {
+    color: black;
+}
+
 /* Style time text */
 .time-right {
     float: right;
@@ -207,18 +226,26 @@
 
 @media screen and (max-width: 1580px) {
     .container-chat {
-        margin-right: 55%!important;
+        margin-right: 55% !important;
     }
 
     .container-darker {
-        margin-left: 55%!important;
+        margin-left: 55% !important;
     }
-    
-    .barra-mensagem {
-        width: 88%
-    }
-}
 
+    .barra-nav {
+        height: 10%;
+    }
+
+        .Pessoa i {
+            font-size: 20px;
+            padding: 5px;
+        }
+
+        .Pessoa h2 {
+            font-size: 15px;
+        }
+}
 @media screen and (max-width: 1366px) {
     .container-chat {
         margin-right: 50% !important;
@@ -230,21 +257,7 @@
         padding: 15px;
     }
 
-    .barra-mensagem {
-        width: 86%
-    }
-}
-
-@media screen and (max-width: 1280px) {
-
-    .barra-mensagem {
-        width: 84%
-    }
-}
-
-@media screen and (max-width: 1024px) {
-
-    .barra-mensagem {
-        width: 76%
+    .Msg > button > i {
+        padding: 10px;
     }
 }

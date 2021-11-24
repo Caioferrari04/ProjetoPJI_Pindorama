@@ -1,0 +1,32 @@
+﻿@{ 
+    List<Usuario> amigosPendentes = ViewBag.Pendentes;
+}
+<button class="button-icone" onclick="exibirNotificacoes()">
+    <i class="fa fa-bell"></i>
+</button>
+<div class="notificacoes not-visible" id="notificacoes">
+    @if(amigosPendentes.Count >= 1 && amigosPendentes is not null) {
+        @foreach(Usuario usuario in amigosPendentes)
+        {
+            string linkImagem = usuario.LinkImagem == null ? "/css/img/Usuario.jpg" : usuario.LinkImagem;
+            <div class="amizade" id="@usuario.Id">
+                <div class="perfil">
+                    <img src="@linkImagem" class="imagem-amigo" />
+                    <p class="white-text">@usuario.UserName</p>
+                </div>
+                <form class="perfil">
+                    <button type="button" onclick="recusarPedido(origem, '@usuario.Id'); destroyPedido('@usuario.Id');" class="button-icone">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button type="button" onclick="aceitarPedido(origem, '@usuario.Id'); destroyPedido('@usuario.Id');" class="button-icone">
+                        <i class="fa fa-check"></i>
+                    </button>
+                </form>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="white-text">Não há notificações!</p>
+    }
+</div>

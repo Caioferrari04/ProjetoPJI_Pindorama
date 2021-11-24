@@ -17,6 +17,11 @@ namespace Pindorama.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Mensagem>()
+                .HasOne(a => a.autor)
+                .WithMany(d => d.Mensagens)
+                .HasForeignKey(d => d.autorId);
+
             builder.Entity<Amizade>()
                 .HasKey(tt => new { tt.OrigemId, tt.AlvoId });
 
@@ -36,15 +41,13 @@ namespace Pindorama.Data
             //    .HasKey(tt => new { tt.CategoriasId, tt.JogosId });
         }
 
-        //public DbSet<UserAntigo> UserAntigo { get; set; }
-
         public DbSet<Game> Game { get; set; }
 
         public DbSet<Categoria> Categorias { get; set; }
 
-        //public DbSet<CategoriasGame> CategoriasGames { get; set; }
-
         public DbSet<Imagem> Imagens { get; set; }
+
+        public DbSet<Mensagem> Mensagens { get; set; }
 
         public DbSet<Amizade> Amizades { get; set; }
     }

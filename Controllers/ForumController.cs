@@ -10,11 +10,19 @@ using System.Threading.Tasks;
 
 namespace Pindorama.Controllers
 {
+    [Authorize]
     public class ForumController : Controller
     {
-        [Authorize]
-        public IActionResult Index()
+        AuthService authService;
+        public ForumController(AuthService authService)
         {
+            this.authService = authService;
+        }
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
             return View();
         }
     }

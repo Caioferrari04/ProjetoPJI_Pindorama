@@ -22,6 +22,7 @@ namespace Pindorama.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
             return View();
         }

@@ -81,5 +81,81 @@ namespace Pindorama.Hubs
 
             await Clients.User(usuarioDestino.Id).SendAsync("RecusarPedido", $"{usuarioDestino.UserName} recusou seu pedido!", $"Infelizmente, {usuarioDestino.UserName} recusou seu pedido. Não desista e procure mais amigos!");
         }
+
+        public async Task CarregarMensagens(string origem, string destino, bool aberto, string connectionId, MensagemDTO mensagemRecente = null)
+        {
+            Usuario usuarioAtual = await _userManager.FindByIdAsync(destino);
+            Usuario usuarioDestino = await _userManager.FindByIdAsync(origem);
+
+            if (usuarioAtual is null || usuarioDestino is null) return;
+
+            string[] nomes = new string[] { usuarioAtual.UserName, usuarioDestino.UserName };
+            Array.Sort(nomes, 0, 2);
+            string grupo = nomes[0] + nomes[1];
+
+            if (aberto) { 
+                await Groups.AddToGroupAsync(connectionId, grupo);
+                List<Mensagem> mensagens = _context.Mensagens.Where(u => (u.autorId == usuarioAtual.Id && u.alvoId == usuarioDestino.Id) || (u.autorId == usuarioDestino.Id && u.alvoId == usuarioAtual.Id)).ToList();
+                List<MensagemDTO> mensagemDTOs = new List<MensagemDTO>();
+
+                if(mensagemRecente is not null) mensagens.RemoveAll(u => mensagemRecente.data > u.dataEnvio || mensagemRecente.data == u.dataEnvio);
+
+                mensagens.ForEach(u => mensagemDTOs.Add(new MensagemDTO { 
+                    nome = u.autor.Id,
+                    data = u.dataEnvio,
+                    text = u.corpoMensagem,
+                    img = u.autor.LinkImagem is null ? "/css/img/Usuario.jpg" : u.autor.LinkImagem,
+                }));
+                
+                await Clients.Caller.SendAsync("CarregarMensagens", mensagemDTOs, destino);
+            } 
+            else
+            {
+                await Groups.RemoveFromGroupAsync(connectionId, grupo);
+                await Clients.Group(grupo).SendAsync("RemovidoGrupo");
+            }
+        }
+
+        public async Task EnviarMensagem(string origem, string destino, MensagemDTO msg)
+        {
+            Usuario usuarioAtual = await _userManager.FindByIdAsync(origem);
+            Usuario usuarioDestino = await _userManager.FindByIdAsync(destino);
+
+            if (usuarioAtual is null || usuarioDestino is null) return;
+
+            string[] nomes = new string[] { usuarioAtual.UserName, usuarioDestino.UserName };
+            Array.Sort(nomes, 0, 2);
+            string grupo = nomes[0] + nomes[1];
+
+            _context.Mensagens.Add(new Mensagem()
+            {
+                corpoMensagem = msg.text,
+                dataEnvio = DateTime.Now,
+                autorId = origem,
+                alvoId = destino
+            });
+
+            MensagemDTO novaMensagem = new MensagemDTO()
+            {
+                nome = usuarioAtual.Id,
+                data = DateTime.Now,
+                img = usuarioAtual.LinkImagem is null ? "/css/img/Usuario.jpg" : usuarioAtual.LinkImagem,
+                text = msg.text
+            };
+
+            await _context.SaveChangesAsync();
+            await Clients.Group(grupo).SendAsync("ReceberMensagem", novaMensagem, usuarioAtual.Id, usuarioDestino.Id);
+        }
+
+        public class MensagemDTO
+        {
+            public string nome { get; set; }
+
+            public DateTime? data { get; set; }
+
+            public string text { get; set; }
+
+            public string img { get; set; }
+        }
     }
 }
