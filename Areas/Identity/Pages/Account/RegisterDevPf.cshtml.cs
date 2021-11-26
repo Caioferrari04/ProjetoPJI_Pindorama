@@ -15,21 +15,22 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Pindorama.Auth;
 using Pindorama.Models;
+using Pindorama.Services;
 
 namespace Pindorama.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class RegisterDevModel : PageModel
+    public class RegisterDevPfModel : PageModel
     {
         private readonly SignInManager<Usuario> _signInManager;
         private readonly UserManager<Usuario> _userManager;
-        private readonly ILogger<RegisterDevModel> _logger;
+        private readonly ILogger<RegisterDevPfModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public RegisterDevModel(
+        public RegisterDevPfModel(
             UserManager<Usuario> userManager,
             SignInManager<Usuario> signInManager,
-            ILogger<RegisterDevModel> logger,
+            ILogger<RegisterDevPfModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -47,7 +48,7 @@ namespace Pindorama.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Informe o email!")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -57,26 +58,27 @@ namespace Pindorama.Areas.Identity.Pages.Account
             [Display(Name = "Nome de usuário")]
             public string UserName { get; set; }
 
+            [Required(ErrorMessage = "Insira seu CPF!")]
+            [Range(11, 11, ErrorMessage = "CPF inválido! Insira seu CPF completo!")]
             public string CPF { get; set; }
 
-            public string CNPJ { get; set; }
-
+            [Required(ErrorMessage = "Insira seu CEP!")]
+            [Range(8, 8, ErrorMessage = "CEP inválido! Insira seu CEP completo!")]
             public string CEP { get; set; }
 
             [Required(ErrorMessage = "Informe a data nascimento!")]
             [DataType(DataType.Date)]
-            [Display(Name = "Data de nascimento")]
+            [MinimumAge(18, ErrorMessage = "Precisa ser maior de 18!")]
             public DateTime? DataNascimento { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Informe a senha!")]
+            [StringLength(100, ErrorMessage = "A senha deve conter de 6 a 100 caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não são iguais.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -96,9 +98,8 @@ namespace Pindorama.Areas.Identity.Pages.Account
                     UserName = Input.UserName, 
                     DataNascimento = Input.DataNascimento, 
                     Email = Input.Email, 
-                    cpf = Input.CNPJ == null ? Input.CPF : null, 
-                    cep = Input.CEP,
-                    cnpj = Input.CPF == null ? Input.CNPJ : null
+                    cpf = Input.CPF, 
+                    cep = Input.CEP
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

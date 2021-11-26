@@ -17,8 +17,9 @@ a {
 }
 
 .not-visible {
-    position: fixed;
-    left: -2000px;
+    position: fixed !important;
+    left: -2000px !important;
+    transition: 1s;
 }
 
 .center {

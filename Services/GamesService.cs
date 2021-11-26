@@ -22,9 +22,9 @@ namespace Pindorama.Services
             _signIn = signIn;
         }
 
-        public List<Game> GetAll(Categoria categoria = null) /*Como não há uma função de busca ainda, é valido implementar ela agora?*/
+        public List<Game> GetAll(Categoria categoria = null, int? pagina = null) /*Como não há uma função de busca ainda, é valido implementar ela agora?*/
         {
-            return getMostPopular(categoria);
+            return getMostPopular(categoria, pagina);
         }
 
         public Game Get(int? id)
@@ -59,13 +59,14 @@ namespace Pindorama.Services
             }
         }
 
-        public List<Game> getMostPopular(Categoria categoria = null)
+        public List<Game> getMostPopular(Categoria categoria = null, int? pagina = null)
         {
             try
             {
                 List<Game> games = new List<Game>();
                 if (categoria != null) {
-                    Categoria catGames = _context.Categorias.Include(u => u.Jogos).FirstOrDefault(ct => ct.Id == categoria.Id);
+                    int? contaPagina = pagina is null ? 8 : pagina * 8;
+                    Categoria catGames = _context.Categorias.Include(u => u.Jogos).FirstOrDefault(ct => ct.Id == categoria.Id && ct.Id <= contaPagina);
                     games = catGames.Jogos;
                 } 
                 else 

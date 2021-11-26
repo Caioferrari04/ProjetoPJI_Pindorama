@@ -2,14 +2,34 @@
 @{
     Categoria categoria = ViewBag.Categoria;
     ViewData["Title"] = categoria.Nome;
+    int pagina = ViewBag.Pagina;
 }
 
+
+<!-- Criar sistema de paginação com C#, utilizando contadores -->
 <link rel="stylesheet" href="~/css/ReadCategory.css" />
 
-<h1>@categoria.Nome</h1>
+<h1 class="titulo">@categoria.Nome</h1>
 
-@foreach (Game game in Model)
-{
-    @game.Nome
-    <br />
-}
+<div class="absolutamente-tudo">
+    <div class="tudo-cat">
+        @foreach (Game game in Model)
+        {
+            var preco = game.Preco == 0 ? "Gratuito" : "R$" + game.Preco;
+            <a asp-controller="Loja" asp-action="ReadSingle" asp-route-id="@game.Id" class="card-jogo">
+                <img src="@game.LinkLogo" />
+                <p>@preco</p>
+            </a>
+        }
+    </div>
+    @if (Model.Count >= 8) {
+        var paginaMenos = pagina > 1 ? pagina-- : pagina;
+        pagina = Model.Count % 8 == 0 ? pagina++ : pagina;
+        <a asp-action="ReadSingle" asp-route-id="@categoria.Id" asp-route-pagina="@pagina">
+            <i class="fa fa-angle-right"></i>
+        </a>
+        <a asp-action="ReadSingle" asp-route-id="@categoria.Id" asp-route-pagina="@paginaMenos">
+            <i class="fa fa-angle-left"></i>
+        </a>
+    }
+</div>

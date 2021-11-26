@@ -1,3 +1,61 @@
 ﻿body {
     color: white;
 }
+
+.absolutamente-tudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 1%;
+}
+
+.tudo-cat {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 90%;
+    height: 90%;
+}
+
+.card-jogo {
+    display: flex;
+    flex-direction: column;
+    background-color: #4279e6;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+    .card-jogo:hover {
+        transform: scale(1.08);
+        transition: transform 0.5s;
+    }
+
+    .card-jogo > img {
+        border: 5px solid #4279e6;
+        border-radius: 10px;
+        width: 344px;
+        height: 200px;
+    }
+
+    .card-jogo > p {
+        padding: 10px 0 5px 5px;
+        width: fit-content;
+        background-color: #4279e6;
+    }
+
+.titulo {
+    padding: 30px;
+    border-bottom: 1px solid #6163697a;
+}
+
+#paginacao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

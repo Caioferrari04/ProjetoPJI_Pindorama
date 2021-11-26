@@ -27,7 +27,7 @@
                                 <div class="box1">
                                     @while (contador < Model.Count && contador_tipo < Model.Count && contador_tipo < 4)
                                     {
-                                        <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
+                                        <a class="game" id="game-@Model[contador].Id">
                                             <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster"></image>
                                         </a>
                                         contador_tipo++;
@@ -58,21 +58,27 @@
                 }
             </div>
         </div>
-        @foreach(Game game in Model) { 
-            <div class="popup">
-                <div class="fotocapa">
-                    <img src="@game.LinkBanner" alt="">
-                </div>
+        <div class="popups">
+            @foreach (Game game in Model)
+            {
+                <div class="popup not-visible">
+                    <div class="fotocapa">
+                        <img src="@game.LinkBanner" alt="">
+                    </div>
 
-                <div class="buttons">
-                    <button class="button">JOGAR</button>
-                </div>
+                    <div class="buttons">
+                        <button class="button">JOGAR</button>
+                        @game.Nome
+                    </div>
 
-            </div>
-        }
+                </div>
+            }
+        </div>
     }
     else
     {
         <h2>Você não tem jogos! Compre jogos por um excelente preço <a asp-controller="Loja" asp-action="Index">aqui!</a></h2>
     }
 </div>
+
+<script src="~/js/Library.js"></script>

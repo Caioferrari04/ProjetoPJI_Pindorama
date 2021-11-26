@@ -34,30 +34,29 @@ function modifyModal(idOrigem, idDestino) {
         destroyModal();
         recusarPedido(idOrigem, idDestino);
     }, { once: true });
-    console.log("chegou aqui17")
 
     botao_modal1.addEventListener("click", (event) => {
         event.preventDefault();
         destroyModal();
         aceitarPedido(idOrigem, idDestino);
     }, { once: true });
-    console.log("chegou aqui18")
 
     botao_modal2.addEventListener("click", (event) => {
         event.preventDefault();
         destroyModal();
         recusarPedido(idOrigem, idDestino);
     }, {once: true});
-    console.log("chegou aqui19")
 }
 
 function recusarPedido(idOrigem, idDestino) {
+    console.log("x");
     connection.invoke("recusarPedido", idOrigem, idDestino).catch(function (err) {
         return console.error(err.toString());
     });
 }
 
 function aceitarPedido(idOrigem, idDestino) {
+    console.log("y");
     connection.invoke("aceitarPedido", idOrigem, idDestino).catch(function (err) {
         return console.error(err.toString());
     });
