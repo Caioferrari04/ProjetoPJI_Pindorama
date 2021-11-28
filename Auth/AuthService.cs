@@ -137,5 +137,8 @@ namespace Pindorama.Auth
             amigos.RemoveAll(u => u.Id == usuarioAtual.Id);
             return amigos;
         }
+
+        public async Task<Usuario> GetUsuarioById(string id) => await _userManager.FindByIdAsync(id);
+     
     }
 }

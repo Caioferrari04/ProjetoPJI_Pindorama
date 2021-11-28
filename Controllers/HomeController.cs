@@ -40,7 +40,7 @@ namespace Pindorama.Controllers
         {
             ViewBag.Amigos = await authService.getAmigosAsync();
             ViewBag.Pendentes = await authService.GetPendentesAsync();
-            return View();
+            return View(await authService.GetUsuarioById(id));
         }
 
         [HttpPost]

@@ -1,0 +1,117 @@
+﻿@model Usuario
+
+@{ 
+    var imagemUsuario = @Model.LinkImagem is null ? "/css/img/Usuario.jpg" : @Model.LinkImagem;
+}
+<link rel="stylesheet" href="~/css/perfil.css" />
+
+<div class="barra-nav">
+    <div class="barra-pesquisa">
+        <input type="text" placeholder="Pesquise um usuário">
+    </div>
+</div>
+
+<div class="tudo">
+
+    <div class="conteiner">
+        <div class="fotocapa">
+            <img src="https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+        </div>
+
+        <div class="pessoa">
+            <div class="direita">
+                <div class="fotoperfil">
+                    <img src="@imagemUsuario" alt="">
+                </div>
+
+                <div class="nome">
+                    <div class="nomeperfil">
+                        <h2>@Model.UserName</h2>
+                    </div>
+                    <div class="nomeusuario">
+                        <h4>usuario1</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="solicitarAmizade">Solicitar Amizade</button>
+
+
+    <div class="posts">
+
+        <h2 class="titulo">Últimos posts</h2>
+
+        <div class="post">
+            <div class="postCorpo">
+                <div class="postUser">
+                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
+                </div>
+                <div class="postHeader">
+                    <div class="postText">
+                        <h3>Alexzin </h3>
+                    </div>
+                    <div class="descricao">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias! </p>
+                    </div>
+
+                    <div class="reacoes">
+                        <i class="fa fa-heart-o teste" aria-hidden="true"></i>
+                        <i class="fa fa-share teste" aria-hidden="true"></i>
+                        <i class="fa fa-comment teste" aria-hidden="true"></i>
+                        <i class="fa fa-flag teste" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="post">
+            <div class="postCorpo">
+                <div class="postUser">
+                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
+                </div>
+                <div class="postHeader">
+                    <div class="postText">
+                        <h3>Alexzin </h3>
+                    </div>
+                    <div class="descricao">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias!</p>
+                    </div>
+
+                    <div class="reacoes">
+                        <i class="fa fa-heart-o teste" aria-hidden="true"></i>
+                        <i class="fa fa-share teste" aria-hidden="true"></i>
+                        <i class="fa fa-comment teste" aria-hidden="true"></i>
+                        <i class="fa fa-flag teste" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="post">
+            <div class="postCorpo">
+                <div class="postUser">
+                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
+                </div>
+                <div class="postHeader">
+                    <div class="postText">
+                        <h3>Alexzin </h3>
+                    </div>
+                    <div class="descricao">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias!</p>
+                    </div>
+
+                    <div class="reacoes">
+                        <i class="fa fa-heart-o teste" aria-hidden="true"></i>
+                        <i class="fa fa-share teste" aria-hidden="true"></i>
+                        <i class="fa fa-comment teste" aria-hidden="true"></i>
+                        <i class="fa fa-flag teste" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
