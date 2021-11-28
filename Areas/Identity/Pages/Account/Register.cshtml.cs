@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Pindorama.Models;
+using Pindorama.Services;
 
 namespace Pindorama.Areas.Identity.Pages.Account
 {
@@ -22,13 +23,13 @@ namespace Pindorama.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<Usuario> _signInManager;
         private readonly UserManager<Usuario> _userManager;
-        private readonly ILogger<RegisterDevModel> _logger;
+        private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<Usuario> userManager,
             SignInManager<Usuario> signInManager,
-            ILogger<RegisterDevModel> logger,
+            ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -59,6 +60,7 @@ namespace Pindorama.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Informe a data nascimento!")]
             [DataType(DataType.Date)]
             [Display(Name = "Data de nascimento")]
+            [MinimumAge(18, ErrorMessage = "Precisa ser maior de 18!")]
             public DateTime? DataNascimento { get; set; }
 
             [Required]

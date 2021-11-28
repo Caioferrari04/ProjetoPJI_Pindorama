@@ -41,7 +41,6 @@ namespace Pindorama.Hubs
 
         public async Task AceitarPedido(string origem, string destino)
         {
-
             Usuario usuarioAtual = await _userManager.FindByIdAsync(destino);
             Usuario usuarioDestino = await _userManager.FindByIdAsync(origem);
 
@@ -79,7 +78,7 @@ namespace Pindorama.Hubs
 
             await _context.SaveChangesAsync();
 
-            await Clients.User(usuarioDestino.Id).SendAsync("RecusarPedido", $"{usuarioDestino.UserName} recusou seu pedido!", $"Infelizmente, {usuarioDestino.UserName} recusou seu pedido. Não desista e procure mais amigos!");
+            await Clients.User(usuarioDestino.Id).SendAsync("AceitarPedido", $"{usuarioDestino.UserName} recusou seu pedido!", $"Infelizmente, {usuarioDestino.UserName} recusou seu pedido. Não desista e procure mais amigos!");
         }
 
         public async Task CarregarMensagens(string origem, string destino, bool aberto, string connectionId, MensagemDTO mensagemRecente = null)
@@ -122,6 +121,8 @@ namespace Pindorama.Hubs
             Usuario usuarioDestino = await _userManager.FindByIdAsync(destino);
 
             if (usuarioAtual is null || usuarioDestino is null) return;
+
+            if (String.IsNullOrWhiteSpace(msg.text)) return;
 
             string[] nomes = new string[] { usuarioAtual.UserName, usuarioDestino.UserName };
             Array.Sort(nomes, 0, 2);

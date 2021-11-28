@@ -232,6 +232,8 @@
 .imagem-amigo {
     width: 40px;
     height: 40px;
+    border-radius: 100px;
+    margin: 0 15px 10px 15px;
 }
 
 .chat-barra {
@@ -258,7 +260,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    width: fit-content;
+    width: 200px;
     height: 450px;
     padding: 2px;
     background-color: #212d40;
@@ -278,11 +280,35 @@
     display: inline-flex;
     flex-direction: row;
     align-items: center;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.perfil > p {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.perfil > img {
+    border-radius: 300px;
 }
 
 .notificacoes_botao > .button-icone {
     font-size: 25px;
     padding-top: 6px;
+}
+
+.numero-notificacoes {
+    border-radius: 100px;
+    position: absolute;
+    max-height: 16px;
+    max-width: 16px;
+    padding: 4px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    background-color: red;
+    color: white;
 }
 
 @media screen and (max-width: 1390px) {

@@ -1,5 +1,5 @@
 ﻿@page
-@model RegisterDevModel
+@model RegisterDevPfModel
 @{
     ViewData["Title"] = "Register";
 }
@@ -27,18 +27,13 @@
     </div>
 
     <div class="texto">
-        <h5>CNPJ (Deixe em branco caso tenha inserido CPF):</h5>
-        <input asp-for="Input.CNPJ" placeholder="Digite sua CNPJ" class="cpf-cnpj">
-    </div>
-
-    <div class="texto">
-        <h5>CPF (Deixe em branco caso tenha inserido CNPJ):</h5>
-        <input asp-for="Input.CPF" placeholder="Digite seu CPF" class="cpf-cnpj">
+        <h5>CPF:</h5>
+        <input asp-for="Input.CPF" placeholder="Digite seu CPF" class="cpf-cnpj cpf">
     </div>
 
     <div class="texto">
         <h5>CEP:</h5>
-        <input asp-for="Input.CEP" placeholder="digite seu CEP" class="Infos">
+        <input asp-for="Input.CEP" placeholder="digite seu CEP" class="Infos cep">
     </div>
 
     <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -60,4 +55,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/jquery.mask.js"></script>
+    <script src="~/js/site.js"></script>
 }

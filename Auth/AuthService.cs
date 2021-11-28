@@ -126,7 +126,7 @@ namespace Pindorama.Auth
         public async Task<List<Usuario>> GetPendentesAsync()
         {
             Usuario usuarioAtual = await GetCurrentUserAsync();
-            List<Amizade> amizades = await _context.Amizades.Include(o => o.Alvo).Include(a => a.Origem).Where(u => u.Alvo == usuarioAtual || u.Origem == usuarioAtual).ToListAsync();
+            List<Amizade> amizades = await _context.Amizades.Include(o => o.Alvo).Include(a => a.Origem).Where(u => u.Origem == usuarioAtual).ToListAsync();
             amizades.RemoveAll(u => u.Confirmada);
             List<Usuario> amigos = new List<Usuario>();
             await Task.Run(() => {

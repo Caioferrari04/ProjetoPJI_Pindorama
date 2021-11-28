@@ -1,4 +1,11 @@
 ﻿
+
+.biblioteca {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .corpo {
     width: 100%;
     height: 80vh;
@@ -54,7 +61,7 @@
     margin-right: 5px;
     margin-top: 5px;
     width: -webkit-fill-available;
-    height: 300px;
+    height: 36rem;
     border-radius: 10px
 }
 
@@ -75,18 +82,17 @@
 }
 
 .popup {
-    width: 54.3%;
+    width: 100%;
     border-radius: 10px;
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.327);
     background-color: rgba(80, 80, 80, 0.272);
     backdrop-filter: blur(50px);
     margin-top: 10px;
-    position: fixed;
-    top: 50%;
-    left: 40%;
-    height: 23rem;
-    margin-top: -9em; /*set to a negative number 1/2 of your height*/
-    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    height: 100%;
+    position: relative;
+    left: 0;
+    top: 25%;
+    transition: 0.6s cubic-bezier(0, 0, 0, 1);
 }
 
 button:hover {
@@ -105,4 +111,14 @@ button:hover {
 
 .buttons {
     margin-bottom: 10px;
+}
+
+@keyframes popup{
+    from{width: 0; height: 0;}
+    to {width: 100%; height: 100%;}
+}
+
+.not-visible {
+    animation-name: popup;
+    animation-duration: 4s;
 }

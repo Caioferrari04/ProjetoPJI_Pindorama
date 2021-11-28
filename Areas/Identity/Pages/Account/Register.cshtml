@@ -6,8 +6,6 @@
 <link rel="stylesheet" href="~/css/cadastro.css"/>
 
 <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="caixadetexto">
-    <div asp-validation-summary="All" class="text-danger"></div>
-
     <span asp-validation-for="Input.UserName" class="text-danger"></span>
     <div class="texto">
         <h5>NOME DE USUÁRIO:</h5>
@@ -45,4 +43,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/jquery.mask.js"></script>
+    <script src="~/js/site.js"></script>
 }

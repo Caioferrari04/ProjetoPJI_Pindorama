@@ -2,7 +2,12 @@
     List<Usuario> amigosPendentes = ViewBag.Pendentes;
 }
 <button class="button-icone" onclick="exibirNotificacoes()">
-    <i class="fa fa-bell"></i>
+    <i class="fa fa-bell">
+        @if (amigosPendentes.Count >= 1 && amigosPendentes is not null)
+        {
+            <small class="numero-notificacoes" id="num-notif">@amigosPendentes.Count</small>
+        }
+    </i>
 </button>
 <div class="notificacoes not-visible" id="notificacoes">
     @if(amigosPendentes.Count >= 1 && amigosPendentes is not null) {
@@ -15,10 +20,10 @@
                     <p class="white-text">@usuario.UserName</p>
                 </div>
                 <form class="perfil">
-                    <button type="button" onclick="recusarPedido(origem, '@usuario.Id'); destroyPedido('@usuario.Id');" class="button-icone">
+                    <button type="button" onclick="recusarPedido('@usuario.Id', origem); destroyPedido('@usuario.Id');" class="button-icone">
                         <i class="fa fa-times"></i>
                     </button>
-                    <button type="button" onclick="aceitarPedido(origem, '@usuario.Id'); destroyPedido('@usuario.Id');" class="button-icone">
+                    <button type="button" onclick="aceitarPedido('@usuario.Id', origem); destroyPedido('@usuario.Id');" class="button-icone">
                         <i class="fa fa-check"></i>
                     </button>
                 </form>

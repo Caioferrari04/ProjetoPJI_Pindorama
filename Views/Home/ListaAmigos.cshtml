@@ -16,6 +16,7 @@
             </tr>
             @foreach (Usuario usuario in Model)
             {
+                @usuario.UserName
                 var perfil = usuario.LinkImagem is null ? "https://www.tecnipecas.com.br/assets/img/avatar.png" : usuario.LinkImagem;
                 <tr class="pessoa">
                     <td><img src="@perfil" alt="Avatar"></td>
@@ -35,3 +36,4 @@
         <h1 class="white-text">Você não tem amigos! Encontre amigos pesquisando com a barra de pesquisa no menu lateral!</h1>
     }
 </div>
+

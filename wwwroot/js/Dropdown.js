@@ -60,7 +60,17 @@ function minhaFuncao() {
 
 function destroyPedido(idAlvo) {
     let destruir = document.getElementById(idAlvo);
+    let parente = destruir.parentElement;
+    let notif_remov = document.getElementById("num-notif");
+    let quantidade_notif = parseInt(notif_remov.textContent) > 0 ? parseInt(notif_remov.textContent) - 1 : 0;
     destruir.remove();
+    if (quantidade_notif == 0) {
+        notif_remov.remove();
+        let texto = document.createElement("p");
+        texto.textContent = "Não há notificações!";
+        texto.className = "white-text";
+        parente.appendChild(texto);
+    } else { notif_remov.textContent = quantidade_notif; }
 }
 
 function exibirNotificacoes() {

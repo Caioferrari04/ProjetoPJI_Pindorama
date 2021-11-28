@@ -46,13 +46,14 @@ namespace Pindorama.Controllers
             return await service.BuyGame(service.Get(id)) ? RedirectToAction(nameof(CompraConfirmada)) : RedirectToAction(nameof(ReadSingle));
         }
 
-        public async Task<IActionResult> ReadCategory(int? id)
+        public async Task<IActionResult> ReadCategory(int? id, int? pagina = null)
         {
             ViewBag.Amigos = await auth.getAmigosAsync();
             ViewBag.Pendentes = await auth.GetPendentesAsync();
             var categoria = catService.getSingle(id);
             ViewBag.categoria = categoria;
-            return View(service.GetAll(categoria));
+            ViewBag.Pagina = pagina is null ? 1 : pagina;
+            return View(service.GetAll(categoria, pagina));
         }
 
         public async Task<IActionResult> CompraConfirmada()
