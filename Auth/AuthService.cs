@@ -9,14 +9,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Identity;
 using Pindorama.Controllers;
+using Pindorama.Services.Validation;
 
 namespace Pindorama.Auth
 {
     public class AuthService
     {
-        PindoramaContext _context;
-        UserManager<Usuario> _userManager;
-        SignInManager<Usuario> _signIn;
+        readonly PindoramaContext _context;
+        readonly UserManager<Usuario> _userManager;
+        readonly SignInManager<Usuario> _signIn;
         public AuthService(UserManager<Usuario> userManager, SignInManager<Usuario> signIn, PindoramaContext context)
         {
             _userManager = userManager;
@@ -66,17 +67,19 @@ namespace Pindorama.Auth
 
             if (user.Password is not null)
             {
-                var result = await _userManager.ChangePasswordAsync(usuarioValido, user.Password, user.NewPassword);
-                return result;
+                return await _userManager.ChangePasswordAsync(usuarioValido, user.Password, user.NewPassword);
             }
 
             usuarioValido.UserName = user.UserName is null && (user.UserName.Length < 5 || user.UserName.Length > 100) ? usuarioValido.UserName : user.UserName;
             usuarioValido.Email = user.Email is null ? usuarioValido.Email : user.Email;
             usuarioValido.DataNascimento = user.DataNascimento is null ? usuarioValido.DataNascimento : user.DataNascimento;
             usuarioValido.LinkImagem = user.LinkImagem is null ? usuarioValido.LinkImagem : user.LinkImagem;
+            usuarioValido.cep = user.cep is null ? usuarioValido.cep : user.cep;
 
-                
-            return await _userManager.UpdateAsync(usuarioValido);
+            SizeValidation validator = new SizeValidation();
+            var validationResult = await validator.ValidateAsync(usuarioValido);
+            dynamic result = validationResult.IsValid ? await _userManager.UpdateAsync(usuarioValido) : validationResult;
+            return result;
         }
 
         public async Task<bool> DeleteUser(UsuarioDTO user)
@@ -104,7 +107,10 @@ namespace Pindorama.Auth
                 UserName = user.UserName,
                 Email = user.Email,
                 DataNascimento = user.DataNascimento,
-                LinkImagem = user.LinkImagem
+                LinkImagem = user.LinkImagem,
+                cep = user.cep,
+                cnpj = user.cnpj,
+                cpf = user.cpf
             };
         }
 
@@ -136,6 +142,20 @@ namespace Pindorama.Auth
 
             amigos.RemoveAll(u => u.Id == usuarioAtual.Id);
             return amigos;
+        }
+
+        public async Task<bool> IsPj()
+        {
+            try
+            {
+                var userNew = await GetCurrentUserAsync();
+                return userNew.cnpj is null ? false : true;
+            } 
+            catch
+            {
+                return false;
+            }
+            
         }
     }
 }

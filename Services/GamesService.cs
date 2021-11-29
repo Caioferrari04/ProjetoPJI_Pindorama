@@ -27,9 +27,9 @@ namespace Pindorama.Services
             return getMostPopular(categoria, pagina);
         }
 
-        public Game Get(int? id)
+        public Game GetGameById(int? id)
         {
-            return _context.Game.Include(c => c.Categorias).Include(i => i.Imagens).FirstOrDefault(p => p.Id == id); ;
+            return _context.Game.Include(c => c.Categorias).Include(i => i.Imagens).Include(u => u.Postagens).FirstOrDefault(p => p.Id == id); ;
         }
 
         public async Task<List<Game>> GetAllOwnedGames()
@@ -47,7 +47,7 @@ namespace Pindorama.Services
                 if (!game.Users.Contains(currentUser)) { 
                     game.Users.Add(currentUser);
                     game.compras++;
-                    _context.Update(game);
+                    _context.Game.Update(game);
                     await _context.SaveChangesAsync();
                     return true;
                 }
@@ -57,6 +57,14 @@ namespace Pindorama.Services
             {
                 return false;
             }
+        }
+
+        public async Task<bool> HasGame(Game game)
+        {
+            Usuario currentUser = await _userManager.GetUserAsync(_signIn.Context.User);
+            Game gameAtual = await _context.Game.Include(o => o.Users).FirstAsync(u => u.Id == game.Id);
+            if (gameAtual.Users is not null && gameAtual.Users.Contains(currentUser)) return true;
+            return false;
         }
 
         public List<Game> getMostPopular(Categoria categoria = null, int? pagina = null)
@@ -81,5 +89,7 @@ namespace Pindorama.Services
                 throw new Exception("Houve um erro ao devolver os jogos mais populares!", ex);
             }
         }
+    
+        public List<Postagem> GetGamePostagens(int id) => GetGameById(id).Postagens;
     }
 }

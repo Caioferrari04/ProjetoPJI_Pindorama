@@ -14,16 +14,25 @@ namespace Pindorama.Controllers
     public class ForumController : Controller
     {
         AuthService authService;
-        public ForumController(AuthService authService)
+        GamesService _gamesService;
+        public ForumController(AuthService authService, GamesService gamesService)
         {
             this.authService = authService;
+            _gamesService = gamesService;
         }
-        [Authorize]
+
         public async Task<IActionResult> Index()
         {
             ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
-            return View();
+            return View(await _gamesService.GetAllOwnedGames());
+        }
+
+        public async Task<IActionResult> GameForum(int id)
+        {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
+            return View(_gamesService.GetGamePostagens(id));
         }
     }
 }

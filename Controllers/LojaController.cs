@@ -35,7 +35,7 @@ namespace Pindorama.Controllers
         {
             ViewBag.Amigos = await auth.getAmigosAsync();
             ViewBag.Pendentes = await auth.GetPendentesAsync();
-            Game game = service.Get(id);
+            Game game = service.GetGameById(id);
             return game == null ? RedirectToAction(nameof(Index)) : View(game); 
         }
 
@@ -43,7 +43,7 @@ namespace Pindorama.Controllers
         {
             ViewBag.Amigos = await auth.getAmigosAsync();
             ViewBag.Pendentes = await auth.GetPendentesAsync();
-            return await service.BuyGame(service.Get(id)) ? RedirectToAction(nameof(CompraConfirmada)) : RedirectToAction(nameof(ReadSingle));
+            return await service.BuyGame(service.GetGameById(id)) ? RedirectToAction(nameof(CompraConfirmada)) : RedirectToAction(nameof(ReadSingle));
         }
 
         public async Task<IActionResult> ReadCategory(int? id, int? pagina = null)

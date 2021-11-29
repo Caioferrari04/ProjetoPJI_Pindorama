@@ -100,55 +100,37 @@ function buildModal(text, subtext) {
     let fundo = document.createElement("div");
     fundo.classList = "fundo";
     fundo.id = "fundo";
-    console.log("chegou aqui5", fundo)
 
     let modal = document.createElement("div");
     modal.classList = "modal alinhar-centro";
-    console.log("chegou aqui6")
 
     let titulo_modal = document.createElement("div");
     titulo_modal.classList = ("titulo-modal");
     titulo_modal.textContent = text;
-    console.log("chegou aqui7")
 
     let botao_titulo = document.createElement("button");
     botao_titulo.classList = "botao-modal";
     botao_titulo.id = "botao_titulo";
-    console.log("chegou aqui8")
 
     let fechar_botao = document.createElement("i");
     fechar_botao.setAttribute("type", "submit");
     fechar_botao.classList = "fa fa-times";
-    console.log("chegou aqui9")
-
-    let divisao_tab1 = document.createElement("div");
-    divisao_tab1.classList = "divisao_tab";
-    console.log("chegou aqui10")
 
     let corpo_modal = document.createElement("div");
     corpo_modal.classList = "corpo-modal";
     corpo_modal.textContent = subtext;
-    console.log("chegou aqui11")
-
-    let divisao_tab2 = document.createElement("div");
-    divisao_tab2.classList = "divisao_tab";
-    console.log("chegou aqui12")
 
     let opcoes_modal = document.createElement("div");
     opcoes_modal.classList = "opcoes-modal";
     opcoes_modal.id = "opcoes";
-    console.log("chegou aqui13")
 
     fundo.appendChild(modal);
     botao_titulo.appendChild(fechar_botao);
     titulo_modal.appendChild(botao_titulo);
     modal.appendChild(titulo_modal);
-    modal.appendChild(divisao_tab1);
     modal.appendChild(corpo_modal);
-    modal.appendChild(divisao_tab2);
     modal.appendChild(opcoes_modal);
     document.body.appendChild(fundo);
-    console.log("chegou aqui16")
 
     botao_titulo.addEventListener("click", (event) => {
         event.preventDefault();

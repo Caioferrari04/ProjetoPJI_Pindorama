@@ -40,5 +40,7 @@ namespace Pindorama.Models
         public List<Categoria> Categorias { get; set; }
 
         public List<Imagem> Imagens { get; set; }
+
+        public List<Postagem> Postagens { get; set; }
     }
 }

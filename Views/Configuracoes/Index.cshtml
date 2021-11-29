@@ -1,6 +1,9 @@
-﻿@{
+﻿@using Pindorama.Auth;
+@inject AuthService authService;
+@{
     Layout = "_Configuracoes";
     ViewData["Title"] = "Editar informações";
+    bool isPj = await authService.IsPj();
 }
 @model UsuarioDTO
 <center class="white-text margem-baixo-leve">
@@ -31,12 +34,20 @@
             <label asp-for="Email" class="config-label white-text"></label>
             <input asp-for="Email" class="config-input" required />
         </div>
-
-        <div class="input">
-            <span class="text-danger" asp-validation-for="DataNascimento"></span>
-            <label asp-for="DataNascimento" class="config-label white-text"></label>
-            <input asp-for="DataNascimento" class="config-input" required />
-        </div>
+        @if(!isPj) {
+            <div class="input">
+                <span class="text-danger" asp-validation-for="DataNascimento"></span>
+                <label asp-for="DataNascimento" class="config-label white-text"></label>
+                <input asp-for="DataNascimento" class="config-input" required />
+            </div>
+        }
+        @if(Model.cpf is not null || isPj){
+            <div class="input">
+                <span class="text-danger" asp-validation-for="cep"></span>
+                <label asp-for="cep" class="config-label white-text"></label>
+                <input asp-for="cep" class="config-input cep" required />
+            </div>
+        }
     </div>
     <button type="submit" class="botao">Confirmar alterações</button>
 </form>
