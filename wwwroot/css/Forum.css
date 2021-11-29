@@ -4,7 +4,7 @@
     margin: 0;
     min-height: calc(100vh - 40px);
     display: grid;
-    grid-template-rows: 13% 90%;
+    grid-template-rows: 10% 90%;
 }
 
 * {
@@ -177,13 +177,15 @@ i {
     font-size: 15px;
     margin-top: 5px;
     margin-left: 90px;
+    margin-right: 20px;
 }
 
 .postCorpo {
     flex: 5;
     padding: 1px;
-    margin-top: 50px;
-    height: 10rem;
+    min-height: 10rem;
+    height: auto;
+    text-align: justify;
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.062);
@@ -217,7 +219,8 @@ i {
 }
 
 .post {
-    margin-bottom: -160px;
+    margin-bottom: -130px;
+    margin-top: 50px;
 }
 
 .tudo {

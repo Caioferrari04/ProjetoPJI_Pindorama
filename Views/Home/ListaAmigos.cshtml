@@ -23,7 +23,9 @@
                     <td><h2>@usuario.UserName</h2></td>
                     <td>
                         <button class="Botao">Iniciar conversa</button>
-                        <button class="Botao">Ver perfil</button>
+                        <form asp-action="Perfil" asp-route-id="@usuario.Id" method="get">
+                            <button type="submit" class="Botao">Ver perfil</button>
+                        </form>
                     </td>
                 </tr>
             }

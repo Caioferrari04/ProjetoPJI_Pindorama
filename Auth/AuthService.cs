@@ -144,6 +144,9 @@ namespace Pindorama.Auth
             return amigos;
         }
 
+        public async Task<Usuario> GetUsuarioById(string id) => await _userManager.FindByIdAsync(id);
+     
+
         public async Task<bool> IsPj()
         {
             try

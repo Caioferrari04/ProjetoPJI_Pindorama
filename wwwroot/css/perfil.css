@@ -1,0 +1,248 @@
+﻿* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #212d40;
+    margin: 0;
+    min-height: calc(100vh - 40px);
+}
+
+
+.barra-nav {
+    z-index: 2;
+    position: fixed;
+    top: 38px;
+    height: 50px;
+    width: 100%;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    background-color: #212d40;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.443);
+}
+
+    .barra-nav .barra-pesquisa > input {
+        padding: 10px 10px;
+        border: none;
+        width: 600px;
+        border-radius: 5px;
+        outline: none;
+        background-color: #4647478b;
+        margin-top: 7px;
+    }
+
+.tudo {
+    display: grid;
+    grid-template-rows: 100px 300px 270px auto;
+    justify-content: center;
+}
+
+.conteiner {
+    grid-row: 2;
+}
+
+/*.fotocapa{
+    grid-row: 2;
+}
+*/
+
+.fotocapa > img {
+    width: 1300px;
+    height: 300px;
+}
+
+.solicitarAmizade {
+    grid-row: 3;
+    justify-self: end;
+    background-color: #4279e6;
+    border: none;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.solicitarAmizade:hover {
+    background-color: #e9ebee;
+    border-radius: 10px;
+    color: #2f2f2f;
+    transition: color 100ms ease-out;
+    cursor: pointer;
+}
+
+.pessoa {
+    position: relative;
+    top: -110px;
+    border-bottom: 10px solid #6163696d;
+}
+
+.direita {
+    position: relative;
+    left: 40px;
+    display: table;
+    text-align: center;
+}
+
+.fotoperfil > img {
+    height: 170px;
+    width: 160px;
+    border-radius: 80px;
+}
+
+.nomeperfil {
+    margin-top: 20px;
+    color: #e9ebee;
+}
+
+.nomeusuario > h4 {
+    margin-top: 6px;
+    margin-bottom: 40px;
+    color: rgba(128, 128, 128, 0.681);
+}
+
+
+.nome {
+    z-index: -1;
+}
+
+.postUser img {
+    border-radius: 50%;
+    height: 40px;
+}
+
+.posts {
+    grid-row: 4;
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    z-index: -3;
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid #212d40;
+    padding-bottom: 40px;
+    width: 1300px;
+}
+
+.reacoes {
+    display: flex;
+    margin-top: 1px;
+    margin-left: 75px;
+}
+
+.Username {
+    font-weight: 600;
+    font-size: 12px;
+    color: gray;
+    margin-left: 90px;
+}
+
+.postText h3 {
+    font-size: 15px;
+    margin-bottom: 1px;
+    margin-top: -65px;
+    margin-left: 90px;
+}
+
+.descricao {
+    margin-bottom: 10px;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-left: 90px;
+    margin-right: 20px;
+}
+
+.postCorpo {
+    flex: 5;
+    padding: 1px;
+    min-height: 10rem;
+    height: auto;
+    text-align: justify;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.062);
+    backdrop-filter: blur(50px);
+}
+
+.postUser {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.titulo {
+    color: #e1e5f2;
+    margin-bottom: 30px;
+}
+
+.reacoes {
+    display: flex;
+    margin-top: 1px;
+    margin-left: 75px;
+    padding: 20px;
+}
+
+.teste{
+    margin-right: 40px;
+}
+
+@media screen and (max-width: 1300px) {
+    .fotocapa > img {
+        width: 900px;
+    }
+
+    .post {
+        width: 900px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .fotocapa > img {
+        width: 700px;
+    }
+
+    .post {
+        width: 700px;
+    }
+
+    .fotoperfil > img {
+        height: 120px;
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .fotocapa > img {
+        width: 450px;
+    }
+
+    .post {
+        width: 450px;
+    }
+
+    .fotoperfil > img {
+        height: 100px;
+        width: 100px;
+    }
+
+    .barra-nav .barra-pesquisa > input {
+        width: 400px;
+    }
+
+    .nomeperfil {
+        font-size: 9pt;
+    }
+
+    .nomeusuario > h4 {
+        font-size: 10pt;
+    }
+
+    .direita {
+        position: relative;
+        left: 20px;
+    }
+}
