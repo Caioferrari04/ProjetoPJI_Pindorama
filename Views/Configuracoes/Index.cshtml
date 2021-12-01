@@ -41,7 +41,7 @@
                 <input asp-for="DataNascimento" class="config-input" required />
             </div>
         }
-        @if(Model.cpf is not null || isPj){
+        @if(await authService.IsPf() || isPj){
             <div class="input">
                 <span class="text-danger" asp-validation-for="cep"></span>
                 <label asp-for="cep" class="config-label white-text"></label>

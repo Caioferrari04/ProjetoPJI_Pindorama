@@ -160,5 +160,19 @@ namespace Pindorama.Auth
             }
             
         }
+
+        public async Task<bool> IsPf()
+        {
+            try
+            {
+                var userNew = await GetCurrentUserAsync();
+                return userNew.cpf is null ? false : true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
     }
 }
