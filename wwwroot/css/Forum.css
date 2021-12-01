@@ -94,7 +94,7 @@ i {
     padding-bottom: 10px;
     border-bottom: 5px solid #6163696d;
     padding-right: 10px;
-    max-width: 700px;
+    width: 700px;
 }
 
     .CaixaTexto form {
@@ -143,6 +143,23 @@ i {
     height: 40px;
 }
 
+.postUser {
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.postUser h3{
+    font-size: 18px;
+}
+.postUser small {
+    font-size: 10px;
+}
+
 .post {
     z-index: -3;
     display: flex;
@@ -155,7 +172,7 @@ i {
 .reacoes {
     display: flex;
     margin-top: 1px;
-    margin-left: 75px;
+    margin-left: 55px;
 }
 
 .Username {
@@ -165,18 +182,11 @@ i {
     margin-left: 90px;
 }
 
-.postText h3 {
-    font-size: 15px;
-    margin-bottom: 1px;
-    margin-top: -65px;
-    margin-left: 90px;
-}
-
 .descricao {
     margin-bottom: 10px;
     font-size: 15px;
     margin-top: 5px;
-    margin-left: 90px;
+    margin-left: 70px;
     margin-right: 20px;
 }
 
@@ -190,11 +200,6 @@ i {
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.062);
     backdrop-filter: blur(50px);
-}
-
-.postUser {
-    padding: 20px;
-    margin-top: 20px;
 }
 
 .noticiasContainer {
@@ -232,6 +237,43 @@ i {
 .forum {
     grid-column: 1;
     justify-self: flex-end;
+}
+
+.clicar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.posts {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.inner-posts {
+    background-color: #2b3b54;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+    .inner-posts .post {
+        margin-bottom: 20px;
+        margin-top: 0;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #111822;
+    }
+
+.comentario {
+    background-color: #212d40;
+    border-radius: 20px;
+    padding-bottom: 0!important;
+    border-bottom: 0!important;
 }
 
 @media screen and (max-width: 1000px) {

@@ -12,7 +12,7 @@ namespace Pindorama.Models
         public string Texto { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime? MyProperty { get; set; }
+        public DateTime? DataPostagem { get; set; }
 
         public int PostagemPaiId { get; set; }
 

@@ -28,7 +28,7 @@
         <div class="direita">
             <image src="@Model.LinkLogo" width="350" height="150" class="img"></image>
             <div class="Compra">
-                <h2 class="preco">@preco <image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Windows_logo_-_2012_%28dark_blue%29.svg/1200px-Windows_logo_-_2012_%28dark_blue%29.svg.png" width="20" height="20" class="comp"></image><image src="http://assets.stickpng.com/thumbs/58480e82cef1014c0b5e4927.png" width="20" height="20" class="comp"></image></h2>
+                <h2 class="preco">@preco <image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Windows_logo_-_2012_%28dark_blue%29.svg/1200px-Windows_logo_-_2012_%28dark_blue%29.svg.png" width="20" height="20" class="comp"></image></h2>
                 @if(!await service.HasGame(Model)){
                     <form asp-action="Buy" asp-route-id="@Model.Id">
                         <button type="submit" class="titulo">ADIQUIRIR</button>

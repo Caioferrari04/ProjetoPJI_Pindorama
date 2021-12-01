@@ -32,7 +32,33 @@ namespace Pindorama.Controllers
         {
             ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
-            return View(_gamesService.GetGamePostagens(id));
+            var game = _gamesService.GetGameById(id);
+            ViewBag.Game = game;
+            return View(game.Postagens);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GameForum(string conteudoPost, int idJogo)
+        {
+            await _gamesService.Postar(conteudoPost, idJogo);
+            return RedirectToAction(nameof(GameForum), idJogo);
+        }
+
+        public async Task<IActionResult> Postagem(int id)
+        {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
+            ViewBag.Postagem = await _gamesService.GetPostagemAsync(id);
+            return View(await _gamesService.GetComentariosInPostAsync(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Postagem(string conteudoComment, int idPost)
+        {
+            await _gamesService.PostarComentario(conteudoComment, idPost);
+            return RedirectToAction(nameof(Postagem), idPost);
         }
     }
 }

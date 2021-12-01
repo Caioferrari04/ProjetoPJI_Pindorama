@@ -1,0 +1,69 @@
+﻿@model List<Comentario>
+@{
+    Postagem postagem = ViewBag.Postagem;
+    var linkImg = postagem.Usuario.LinkImagem is null ? "/css/img/Usuario.jpg" : postagem.Usuario.LinkImagem;
+}
+
+<link href="/css/Forum.css" rel="stylesheet"/>
+
+<style>
+    body{
+        grid-template-rows: 5% 100%
+    }
+</style>
+
+<div class="posts">
+    <div class="inner-posts">
+        <div class="post">
+            <div class="postCorpo">
+                <div class="postUser">
+                    <img src="@linkImg" alt="">
+                    <h3>@postagem.Usuario.UserName</h3>
+                    <small>@postagem.DataPostagem</small>
+                </div>
+                <div class="postHeader">
+                    <div class="descricao">
+                        <p>@postagem.Conteudo</p>
+                    </div>
+
+                    <div class="reacoes">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form asp-action="Postagem" style=" margin-bottom: 20px;">
+            <div class="CaixaTextoInput" style="padding:0;">
+                <textarea name="conteudoComment" style="margin:0 0 20px 0;" type="text" class="white-text" placeholder="No que você está pensando?"></textarea>
+            </div>
+            <button name="idPost" value="@postagem.Id" type="submit" class="Botao">Postar</button>
+        </form>
+        @if(Model is not null && Model.Count() > 0) {
+            @foreach(Comentario comment in Model){
+                var linkImagem = comment.Autor.LinkImagem is null ? "/css/img/Usuario.jpg" : comment.Autor.LinkImagem;
+                <div class="post comentario">
+                    <div class="postCorpo">
+                        <div class="postUser">
+                            <img src="@linkImagem" alt="">
+                            <h3>@comment.Autor.UserName</h3>
+                            <small>@comment.DataPostagem</small>
+                        </div>
+                        <div class="postHeader">
+                            <div class="descricao">
+                                <p>@comment.Texto</p>
+                            </div>
+
+                            <div class="reacoes">
+                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <h1>Não há comentários!</h1>
+        }
+    </div>
+</div>

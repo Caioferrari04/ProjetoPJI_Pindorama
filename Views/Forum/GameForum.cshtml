@@ -1,11 +1,16 @@
 ﻿@model List<Postagem>
+@{
+    Game game = ViewBag.Game;
+}
 <link href="~/css/Forum.css" rel="stylesheet" type="text/css" />
 
 <!--começo da barra superior-->
 <div class="barra-nav">
-    <div class="barra-pesquisa">
-        <input type="text" placeholder="Pesquise um usuário">
-    </div>
+    <form asp-controller="Home" asp-action="Amigos">
+        <div class="barra-pesquisa">
+            <input name="nome" class="white-text" type="text" placeholder="Pesquise um usuário">
+        </div>
+    </form>
 </div>
 <!--fim barra superior-->
 <div class="tudo">
@@ -15,116 +20,49 @@
         <!--Título da Página início-->
         <div class="inicio">
             <div class="inicioHeader">
-                <h2>Forum</h2>
+                <h2>@game.Nome</h2>
             </div>
         </div>
         <!--Título da Página fim-->
         <!--começo do post-->
         <div class="CaixaTexto">
-            <form>
+            <form asp-action="GameForum">
                 <div class="CaixaTextoInput">
                     <img src="https://www.tecnipecas.com.br/assets/img/avatar.png" alt="">
-                    <textarea type="text" placeholder="O que você está pensando?"></textarea>
+                    <textarea name="conteudoPost" type="text" class="white-text" placeholder="No que você está pensando?"></textarea>
                 </div>
-                <button class="Botao">Postar</button>
+                <button name="idJogo" value="@game.Id" type="submit" class="Botao">Postar</button>
             </form>
         </div>
         <!--fim do post-->
         <!--começo dos posts-->
-        <div class="post">
-            <div class="postCorpo">
-                <div class="postUser">
-                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
-                </div>
-                <div class="postHeader">
-                    <div class="postText">
-                        <h3>Psyon </h3>
-                    </div>
-                    <div class="descricao">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias!</p>
-                    </div>
+        @if(Model is not null && Model.Count() > 0) {
+            @foreach(Postagem post in Model.OrderByDescending(u => u.DataPostagem)){
+                var linkImagem = post.Usuario.LinkImagem is null ? "/css/img/Usuario.jpg" : post.Usuario.LinkImagem;
+                <div class="post">
+                    <div class="postCorpo">
+                        <div class="postUser">
+                            <img src="@linkImagem" alt="">
+                            <h3>@post.Usuario.UserName</h3>
+                            <small>@post.DataPostagem</small>
+                        </div>
+                        <div class="postHeader">
+                            <div class="descricao">
+                                <p>@post.Conteudo</p>
+                            </div>
 
-                    <div class="reacoes">
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
-                        <i class="fa fa-share" aria-hidden="true"></i>
-                        <i class="fa fa-comment" aria-hidden="true"></i>
-                        <i class="fa fa-flag" aria-hidden="true"></i>
+                            <div class="reacoes">
+                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                <a asp-action="Postagem" asp-route-id="@post.Id" class="clicar">
+                                    <i class="fa fa-comment" aria-hidden="true"></i>
+                                    <small>@post.QtyComentarios</small>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!--fim dos posts-->
-        <!--começo dos posts-->
-        <div class="post">
-            <div class="postCorpo">
-                <div class="postUser">
-                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
-                </div>
-                <div class="postHeader">
-                    <div class="postText">
-                        <h3>Alexzin </h3>
-                    </div>
-                    <div class="descricao">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias!</p>
-                    </div>
-
-                    <div class="reacoes">
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
-                        <i class="fa fa-share" aria-hidden="true"></i>
-                        <i class="fa fa-comment" aria-hidden="true"></i>
-                        <i class="fa fa-flag" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--fim dos posts-->
-        <!--começo dos posts-->
-        <div class="post">
-            <div class="postCorpo">
-                <div class="postUser">
-                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
-                </div>
-                <div class="postHeader">
-                    <div class="postText">
-                        <h3>Xaolim </h3>
-                    </div>
-                    <div class="descricao">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias!</p>
-                    </div>
-
-                    <div class="reacoes">
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
-                        <i class="fa fa-share" aria-hidden="true"></i>
-                        <i class="fa fa-comment" aria-hidden="true"></i>
-                        <i class="fa fa-flag" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--fim dos posts-->
-        <!--começo dos posts-->
-        <div class="post">
-            <div class="postCorpo">
-                <div class="postUser">
-                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
-                </div>
-                <div class="postHeader">
-                    <div class="postText">
-                        <h3>James Bond </h3>
-                    </div>
-                    <div class="descricao">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias!</p>
-                    </div>
-
-                    <div class="reacoes">
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
-                        <i class="fa fa-share" aria-hidden="true"></i>
-                        <i class="fa fa-comment" aria-hidden="true"></i>
-                        <i class="fa fa-flag" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+            }
+        }
         <!--fim dos posts-->
     </div>
 

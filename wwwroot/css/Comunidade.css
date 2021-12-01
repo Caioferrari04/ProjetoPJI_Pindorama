@@ -7,7 +7,9 @@
 }
 
 .absolutamente-tudo > h1 {
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
+    padding-left: 30px;
+    padding-bottom: 20px;
     border-bottom: 2px solid #3e3e3e;
 }
 
@@ -22,6 +24,7 @@
 }
 
 .cartao-jogo {
+    margin: 20px;
     background-position: center !important;
     box-shadow: 0 0 10px 5px black;
     width: 200px;
