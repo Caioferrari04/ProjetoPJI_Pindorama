@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "_Configuracoes";
+    ViewData["Title"] = "Alterar senha";
+}
+
+@model UsuarioDTO
+<form class="conteudo-inner" asp-action="Index">
+    <center class="white-text margem-baixo-leve">Para alterar a sua senha, basta inserir a sua senha atual no primeiro campo e a sua senha desejada no último campo.</center>
+    <div class="conteudo-input">
+        <div class="input">
+            <span class="text-danger" asp-validation-for="Password"></span>
+            <label asp-for="Password" class="config-label white-text">Sua senha atual</label>
+            <input asp-for="Password" type="password" class="config-input" required />
+        </div>
+        <div class="input">
+            <span class="text-danger" asp-validation-for="NewPassword"></span>
+            <label asp-for="NewPassword" class="config-label white-text">Nova senha</label>
+            <input asp-for="NewPassword" class="config-input" required />
+        </div>
+    </div>
+
+    <button type="submit" class="botao">Confirmar alterações</button>
+</form>
+<script src="~/js/Configuracao.js"></script>
+<script>
+    mostrarAba(1);
+</script>
