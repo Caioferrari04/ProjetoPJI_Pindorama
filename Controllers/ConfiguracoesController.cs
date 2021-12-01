@@ -66,16 +66,26 @@ namespace Pindorama.Controllers
         [Display(Name = "Link da imagem de perfil")]
         public string LinkImagem { get; set; }
 
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Email não é valido!")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Display(Name = "Nome de usuário")]
+        [RegularExpression(@"^(?=[a-zA-Z])[-\w.]{0,23}([a-zA-Z\d]|(?<![-.])_)$", ErrorMessage = "Nome de usuário inválido!")]
         public string UserName { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Data de nascimento")]
         public DateTime? DataNascimento { get; set; }
+
+        [Display(Name = "CPF")]
+        public string cpf { get; set; }
+
+        [Display(Name = "CNPJ")]
+        public string cnpj { get; set; }
+
+        [Display(Name = "CEP")]
+        public string cep { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Senha atual")]
@@ -83,6 +93,7 @@ namespace Pindorama.Controllers
 
         [DataType(DataType.Password)]
         [Display(Name = "Nova senha")]
+        [Compare("Password", ErrorMessage = "A senha de confirmação não é igual.")]
         public string NewPassword { get; set; }
     }
 }

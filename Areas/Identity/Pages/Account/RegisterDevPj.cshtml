@@ -1,5 +1,5 @@
 ﻿@page
-@model RegisterDevPfModel
+@model RegisterDevPjModel
 @{
     ViewData["Title"] = "Register";
 }
@@ -14,12 +14,6 @@
         <input asp-for="Input.UserName" placeholder="Digite seu nome de usuário" class="Infos">
     </div>
 
-    <span asp-validation-for="Input.DataNascimento" class="text-danger"></span>
-    <div class="texto">
-        <h5>DATA DE NASCIMENTO:</h5>
-        <input asp-for="Input.DataNascimento" placeholder="Digite sua data de nascimento" class="Infos">
-    </div>
-
     <span asp-validation-for="Input.Email" class="text-danger"></span>
     <div class="texto">
         <h5>E-MAIL:</h5>
@@ -27,8 +21,8 @@
     </div>
 
     <div class="texto">
-        <h5>CPF:</h5>
-        <input asp-for="Input.CPF" placeholder="Digite seu CPF" class="cpf-cnpj cpf">
+        <h5>CNPJ:</h5>
+        <input asp-for="Input.CNPJ" placeholder="Digite sua CNPJ" class="cpf-cnpj cnpj">
     </div>
 
     <div class="texto">

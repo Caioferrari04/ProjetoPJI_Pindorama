@@ -21,17 +21,17 @@ using Pindorama.Services.Validation;
 namespace Pindorama.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class RegisterDevPfModel : PageModel
+    public class RegisterDevPjModel : PageModel
     {
         private readonly SignInManager<Usuario> _signInManager;
         private readonly UserManager<Usuario> _userManager;
-        private readonly ILogger<RegisterDevPfModel> _logger;
+        private readonly ILogger<RegisterDevPjModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public RegisterDevPfModel(
+        public RegisterDevPjModel(
             UserManager<Usuario> userManager,
             SignInManager<Usuario> signInManager,
-            ILogger<RegisterDevPfModel> logger,
+            ILogger<RegisterDevPjModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -59,16 +59,11 @@ namespace Pindorama.Areas.Identity.Pages.Account
             [Display(Name = "Nome de usuário")]
             public string UserName { get; set; }
 
-            [Required(ErrorMessage = "Insira seu CPF!")]
-            public string CPF { get; set; }
+            [Required(ErrorMessage = "Insira seu CNPJ!")]
+            public string CNPJ { get; set; }
 
             [Required(ErrorMessage = "Insira seu CEP!")]
             public string CEP { get; set; }
-
-            [Required(ErrorMessage = "Informe a data nascimento!")]
-            [DataType(DataType.Date)]
-            [MinimumAge(18, ErrorMessage = "Precisa ser maior de 18!")]
-            public DateTime? DataNascimento { get; set; }
 
             [Required(ErrorMessage = "Informe a senha!")]
             [StringLength(100, ErrorMessage = "A senha deve conter de 6 a 100 caracteres.", MinimumLength = 6)]
@@ -93,16 +88,15 @@ namespace Pindorama.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                SizeValidation validator = new SizeValidation();
+                SizeValidation validation = new SizeValidation();
                 var user = new Usuario { 
-                    UserName = Input.UserName, 
-                    DataNascimento = Input.DataNascimento, 
+                    UserName = Input.UserName,  
                     Email = Input.Email, 
-                    cpf = Input.CPF, 
+                    cnpj = Input.CNPJ, 
                     cep = Input.CEP
                 };
-                var validationResult = await validator.ValidateAsync(user);
-                if (validationResult.IsValid) {
+                var validationResult = await validation.ValidateAsync(user);
+                if (validationResult.IsValid) { 
                     var result = await _userManager.CreateAsync(user, Input.Password);
                     if (result.Succeeded)
                     {

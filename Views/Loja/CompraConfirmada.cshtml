@@ -5,6 +5,15 @@
 
 <div class="corpo">
     <div class="cartao">
-        <center class="white-text">Compra realizada com sucesso! <a asp-controller="Library" asp-action="Index" class="text-danger">Clique aqui</a> para ver seus jogos comprados na biblioteca, ou <a asp-action="Index" class="text-danger">aqui</a> para comprar mais!</center>
+        <center class="white-text">Aquisição realizada com sucesso!</center>
+        <center class="white-text">Você pode visitar a sua biblioteca para ver o jogo adquirido, ou continuar navegando.</center>
+    </div>
+    <div class="botoes-confirmacao">
+        <a asp-action="Index" class="botao-confirmacao">
+            Continuar comprando
+        </a>
+        <a asp-controller="Library" asp-action="Index" class="botao-confirmacao">
+            Ir para biblioteca
+        </a>
     </div>
 </div>

@@ -15,11 +15,13 @@ namespace Pindorama.Services
         PindoramaContext _context;
         UserManager<Usuario> _userManager;
         SignInManager<Usuario> _signIn;
-        public GamesService(PindoramaContext context, UserManager<Usuario> userManager, SignInManager<Usuario> signIn)
+        AuthService _authService;
+        public GamesService(PindoramaContext context, UserManager<Usuario> userManager, SignInManager<Usuario> signIn, AuthService authService)
         {
             _context = context;
             _userManager = userManager;
             _signIn = signIn;
+            _authService = authService;
         }
 
         public List<Game> GetAll(Categoria categoria = null, int? pagina = null) /*Como não há uma função de busca ainda, é valido implementar ela agora?*/
@@ -27,9 +29,16 @@ namespace Pindorama.Services
             return getMostPopular(categoria, pagina);
         }
 
-        public Game Get(int? id)
+        public Game GetGameById(int? id)
         {
-            return _context.Game.Include(c => c.Categorias).Include(i => i.Imagens).FirstOrDefault(p => p.Id == id); ;
+            return _context.Game
+                .Include(c => c.Categorias)
+                .Include(i => i.Imagens)
+                .Include(u => u.Postagens)
+                .ThenInclude(p => p.Usuario)
+                .Include(u => u.Postagens)
+                .ThenInclude(y => y.Comentarios)
+                .FirstOrDefault(p => p.Id == id); ;
         }
 
         public async Task<List<Game>> GetAllOwnedGames()
@@ -47,7 +56,7 @@ namespace Pindorama.Services
                 if (!game.Users.Contains(currentUser)) { 
                     game.Users.Add(currentUser);
                     game.compras++;
-                    _context.Update(game);
+                    _context.Game.Update(game);
                     await _context.SaveChangesAsync();
                     return true;
                 }
@@ -57,6 +66,14 @@ namespace Pindorama.Services
             {
                 return false;
             }
+        }
+
+        public async Task<bool> HasGame(Game game)
+        {
+            Usuario currentUser = await _userManager.GetUserAsync(_signIn.Context.User);
+            Game gameAtual = await _context.Game.Include(o => o.Users).FirstAsync(u => u.Id == game.Id);
+            if (gameAtual.Users is not null && gameAtual.Users.Contains(currentUser)) return true;
+            return false;
         }
 
         public List<Game> getMostPopular(Categoria categoria = null, int? pagina = null)
@@ -81,5 +98,83 @@ namespace Pindorama.Services
                 throw new Exception("Houve um erro ao devolver os jogos mais populares!", ex);
             }
         }
+    
+        public List<Postagem> GetGamePostagens(int id) => GetGameById(id).Postagens;
+
+        public async Task<bool> Postar(string texto, int jogoId)
+        {
+            if (string.IsNullOrWhiteSpace(texto)) return false;
+
+            Usuario user = await _authService.GetCurrentUserAsync();
+            Game game = GetGameById(jogoId);
+
+            Postagem newPostagem = new Postagem()
+            {
+                Conteudo = texto,
+                DataPostagem = DateTime.Now,
+                ComunidadeId = game.Id,
+                UsuarioId = user.Id
+            };
+
+            if (game.Postagens is null) game.Postagens = new List<Postagem>();
+            game.Postagens.Add(newPostagem);
+
+            if (user.Postagens is null) user.Postagens = new List<Postagem>();
+            user.Postagens.Add(newPostagem);
+
+            try { 
+                await _userManager.UpdateAsync(user);
+                _context.Game.Update(game);
+                _context.Postagens.Add(newPostagem);
+                Console.WriteLine("Postagem criada com sucesso!");
+                return true;
+            } 
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message, ex.Data);
+                return false;
+            }
+        }
+
+        public async Task<Postagem> GetPostagemAsync(int id) => await Task.Run(() => _context.Postagens.Include(u => u.Usuario).First(p => p.Id == id));
+
+        public async Task<List<Comentario>> GetComentariosInPostAsync(int id) => await Task.Run(() => _context.Comentarios.Include(u => u.Autor).Where(p => p.PostagemPaiId == id).ToListAsync());
+
+        public async Task<bool> PostarComentario(string conteudoComment, int id)
+        {
+            if (string.IsNullOrWhiteSpace(conteudoComment)) return false;
+
+            Usuario user = await _authService.GetCurrentUserAsync();
+            Postagem postagem = await GetPostagemAsync(id);
+
+            Comentario newPostagem = new Comentario()
+            {
+                Texto = conteudoComment,
+                DataPostagem = DateTime.Now,
+                AutorId = user.Id,
+                PostagemPaiId = postagem.Id
+            };
+
+            if (postagem.Comentarios is null) postagem.Comentarios = new List<Comentario>();
+            postagem.Comentarios.Add(newPostagem);
+
+            if (user.Comentarios is null) user.Comentarios = new List<Comentario>();
+            user.Comentarios.Add(newPostagem);
+
+            try
+            {
+                await _userManager.UpdateAsync(user);
+                _context.Postagens.Update(postagem);
+                _context.Comentarios.Add(newPostagem);
+                Console.WriteLine("Comentario criado com sucesso!");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message, ex.Data);
+                return false;
+            }
+        }
+
     }
 }

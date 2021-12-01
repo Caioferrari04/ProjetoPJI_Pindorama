@@ -1,0 +1,91 @@
+﻿@model List<Postagem>
+@{
+    Game game = ViewBag.Game;
+}
+<link href="~/css/Forum.css" rel="stylesheet" type="text/css" />
+
+<!--começo da barra superior-->
+<div class="barra-nav">
+    <form asp-controller="Home" asp-action="Amigos">
+        <div class="barra-pesquisa">
+            <input name="nome" class="white-text" type="text" placeholder="Pesquise um usuário">
+        </div>
+    </form>
+</div>
+<!--fim barra superior-->
+<div class="tudo">
+
+    <div class="forum">
+
+        <!--Título da Página início-->
+        <div class="inicio">
+            <div class="inicioHeader">
+                <h2>@game.Nome</h2>
+            </div>
+        </div>
+        <!--Título da Página fim-->
+        <!--começo do post-->
+        <div class="CaixaTexto">
+            <form asp-action="GameForum">
+                <div class="CaixaTextoInput">
+                    <img src="https://www.tecnipecas.com.br/assets/img/avatar.png" alt="">
+                    <textarea name="conteudoPost" type="text" class="white-text" placeholder="No que você está pensando?"></textarea>
+                </div>
+                <button name="idJogo" value="@game.Id" type="submit" class="Botao">Postar</button>
+            </form>
+        </div>
+        <!--fim do post-->
+        <!--começo dos posts-->
+        @if(Model is not null && Model.Count() > 0) {
+            @foreach(Postagem post in Model.OrderByDescending(u => u.DataPostagem)){
+                var linkImagem = post.Usuario.LinkImagem is null ? "/css/img/Usuario.jpg" : post.Usuario.LinkImagem;
+                <div class="post">
+                    <div class="postCorpo">
+                        <div class="postUser">
+                            <img src="@linkImagem" alt="">
+                            <h3>@post.Usuario.UserName</h3>
+                            <small>@post.DataPostagem</small>
+                        </div>
+                        <div class="postHeader">
+                            <div class="descricao">
+                                <p>@post.Conteudo</p>
+                            </div>
+
+                            <div class="reacoes">
+                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                <a asp-action="Postagem" asp-route-id="@post.Id" class="clicar">
+                                    <i class="fa fa-comment" aria-hidden="true"></i>
+                                    <small>@post.QtyComentarios</small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <!--fim dos posts-->
+    </div>
+
+
+    <!--começo das notícias-->
+    <div class="noticias">
+
+        <div class="noticiasTitulo">
+            <h2>Notícias</h2>
+        </div>
+
+        <div class="news">
+            <div class="noticiasContainer">
+                <blockquote class="twitter-tweet" data-conversation="none" data-lang="pt" data-theme="dark"><p lang="en" dir="ltr">Enamel Pin close-ups! <a href="https://t.co/Zb2722KwV8">pic.twitter.com/Zb2722KwV8</a></p>&mdash; Team Cherry<a href="https://twitter.com/TeamCherryGames/status/1182098724933124097?ref_src=twsrc%5Etfw">10 de outubro de 2019</a></blockquote>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+
+            <div class="noticiasContainer">
+                <blockquote class="twitter-tweet" data-lang="pt" data-theme="dark"><p lang="pt" dir="ltr">Game leva heróis de &#39;LoL&#39; a jogo de cartas para celulares e computadores =&gt; <a href="https://t.co/6Yn1y72tKo">https://t.co/6Yn1y72tKo</a> <a href="https://twitter.com/hashtag/G1?src=hash&amp;ref_src=twsrc%5Etfw">#G1</a> <a href="https://t.co/IwsJN1ujKF">pic.twitter.com/IwsJN1ujKF</a></p>&mdash; g1 <a href="https://twitter.com/g1/status/1256040643626967045?ref_src=twsrc%5Etfw">1 de maio de 2020</a></blockquote>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+    </div>
+    <!--fim das notícias-->
+
+</div>

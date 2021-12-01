@@ -11,7 +11,11 @@
         </div>
 
         <form asp-page="./RegisterDevPf" method="get" asp-route-returnUrl="@Model.ReturnUrl" class="criar">
-            <button type="submit" class="botaocriar">CONTA DESENVOLVEDOR</button>
+            <button type="submit" class="botaocriar">CONTA DESENVOLVEDOR INDIE</button>
+        </form>
+
+        <form asp-page="./RegisterDevPj" method="get" asp-route-returnUrl="@Model.ReturnUrl" class="criar">
+            <button type="submit" class="botaocriar">CONTA DESENVOLVEDOR EMPRESA</button>
         </form>
 
         <form asp-page="./Register" method="get" asp-route-returnUrl="@Model.ReturnUrl" class="criar">
@@ -33,7 +37,6 @@
 
             <button type="submit" class="botao">LOGIN</button>
         </form>
-        <h5 class="Esqueci">Esqueci minha senha</h5>
 
     </div>
 

@@ -99,3 +99,15 @@ a {
     cursor: pointer;
     color: white;
 }
+
+.text-danger {
+    color: red;
+    font-weight: 800;
+    transition: 0.1s;
+}
+
+    .text-danger:hover {
+        color: white;
+        font-weight: 900;
+        transition: 0.1s;
+    }

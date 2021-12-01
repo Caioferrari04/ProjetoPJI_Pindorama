@@ -22,6 +22,16 @@ namespace Pindorama.Data
                 .WithMany(d => d.Mensagens)
                 .HasForeignKey(d => d.autorId);
 
+            builder.Entity<Postagem>()
+                .HasOne(u => u.Usuario)
+                .WithMany(u => u.Postagens)
+                .HasForeignKey(u => u.UsuarioId);
+
+            builder.Entity<Comentario>()
+                .HasOne(u => u.Autor)
+                .WithMany(u => u.Comentarios)
+                .HasForeignKey(u => u.AutorId);
+
             builder.Entity<Amizade>()
                 .HasKey(tt => new { tt.OrigemId, tt.AlvoId });
 
@@ -50,5 +60,9 @@ namespace Pindorama.Data
         public DbSet<Mensagem> Mensagens { get; set; }
 
         public DbSet<Amizade> Amizades { get; set; }
+
+        public DbSet<Postagem> Postagens { get; set; }
+
+        public DbSet<Comentario> Comentarios { get; set; }
     }
 }

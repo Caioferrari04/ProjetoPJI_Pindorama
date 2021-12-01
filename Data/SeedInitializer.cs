@@ -290,18 +290,6 @@ namespace Pindorama.Data
                     });
                     context.Game.Add(new Game //20
                     {
-                        Nome = "Genius! NAZI-GIRL GoePPels-Chan ep1",
-                        Descricao = "This is a slightly different history to the world we know. Having been appointed propaganda minister at the age of 14, the genius girl. Geri Goeppels, together with her private secretaries Rolly and Flute, is up to all sorts of secret maneuvers.",
-                        Preco = 6.49,
-                        LinkLogo = "https://cdn.cloudflare.steamstatic.com/steam/apps/921430/header.jpg?t=1633342111",
-                        LinkVideo = "https://cdn.cloudflare.steamstatic.com/steam/apps/256725042/movie_max.webm?t=1547501964",
-                        Desenvolvedor = "WarMachine",
-                        Publisher = "WarMachine",
-                        DataLancamento = new DateTime(2016, 10, 17),
-                        LinkBanner = "https://steamuserimages-a.akamaihd.net/ugc/785239053013150238/E5F39BE7076418D93DE46AD9A726755B0B08DD83/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
-                    });
-                    context.Game.Add(new Game //21
-                    {
                         Nome = "eFootball PES 2021 SEASON UPDATE",
                         Descricao = "Comemore 25 anos do PES com o eFootball PES 2021 Season Update* - disponível por um preço especial de aniversário!",
                         Preco = 99.9,
@@ -625,21 +613,6 @@ namespace Pindorama.Data
                     {
                         LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1238840/ss_25fbf466cb86f59e47ad06827788c003f079d403.600x338.jpg?t=1633006806",
                         GameId = ids[19]
-                    });
-                    context.Imagens.Add(new Imagem
-                    {
-                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_05b5733f8fc79533ffe773dfb628c1995d10af00.600x338.jpg?t=1618425524",
-                        GameId = ids[20]
-                    });
-                    context.Imagens.Add(new Imagem
-                    {
-                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_a98429404053757d2c4752d3af64f4bbf5cc13b6.600x338.jpg?t=1618425524",
-                        GameId = ids[20]
-                    });
-                    context.Imagens.Add(new Imagem
-                    {
-                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_0e814100dc3fca73e76a1c592316ed9285a374a6.600x338.jpg?t=1618425524",
-                        GameId = ids[20]
                     });
                 }
                 context.SaveChanges();
