@@ -17,9 +17,12 @@
             <a asp-action="AlterarSenha" class="botao-nav" id="alterar-senha">Alterar senha</a>
             <div class="divisao_tab"></div>
             <a asp-action="DeletarConta" class="botao-nav" id="deletar">Deletar conta</a>
-            @if(await auth.IsPj()){
+            @if(await auth.IsPf()){
                 <div class="divisao_tab"></div>
-                <a asp-action="DeletarConta" class="botao-nav" id="deletar">Deletar conta</a>
+                <a asp-action="Jogos" class="botao-nav" id="jogos">Jogos</a>
+                <div class="divisao_tab"></div>
+                <a asp-action="AdicionarJogo" class="botao-nav" id="AdicionarJogo">Adicionar Jogo</a>
+
             }
         </nav>
         <div class="divisao-vertical"></div>

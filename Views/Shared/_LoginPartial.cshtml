@@ -28,12 +28,7 @@
         </div>
         <ul class="Links" style="padding-inline-start: 0px!important;">
             <li><a asp-controller="Configuracoes" asp-action="Index"><i class="fa fa-cog" aria-hidden="true"></i>Configurações</a></li>
-            @if (cargoUsuario.Contains("Desenvolvedor"))
-            {
 
-                <div class="divisao"></div>
-                <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Opções de Produtor</a></li>
-            }
             <div class="divisao"></div>
             <li>
                 <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Loja", new {area = ""})"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a>

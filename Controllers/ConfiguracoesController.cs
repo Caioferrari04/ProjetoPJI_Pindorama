@@ -51,6 +51,27 @@ namespace Pindorama.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Jogos()
+        {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
+            return View();
+        }
+
+        public async Task<IActionResult> AdicionarJogo()
+        {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
+            return View();
+        }
+
+        public async Task<IActionResult> EditarJogo()
+        {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletarConta(UsuarioDTO user) {

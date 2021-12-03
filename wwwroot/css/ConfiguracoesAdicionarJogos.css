@@ -1,0 +1,155 @@
+﻿.conteudo-inner {
+    display: unset;
+}
+
+.divisao-vertical {
+    max-width: 1px;
+    margin-left: 5vh;
+    margin-right: 5vh;
+    border: 1px ridge #4e6a97;
+}
+
+.container2 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10vh;
+}
+
+a {
+    font-size: .8rem;
+}
+
+form {
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+label, input {
+    display: block;
+    width: 80%;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+}
+
+.input_login {
+    border: 2px solid #08558B;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    width: 97%;
+    border-radius: 5px;
+}
+
+.descricao {
+    border: 2px solid #08558B;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    width: 97%;
+    border-radius: 5px;
+    min-height: 40px;
+    height:auto;
+}
+
+input:focus {
+    border-bottom: 2px solid #08558B;
+}
+
+input[type="submit"] {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    height: 40px;
+    border-radius: 30px;
+    outline: 1px solid green;
+    outline-offset: 4px;
+    margin-top: 30px;
+    color: whitesmoke;
+    background-color: transparent;
+    margin-left: 80px;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover {
+        background-color: green;
+        transition: 0.2s;
+        outline-offset: 0px;
+    }
+
+    input[type="submit"]:active {
+        background-color: green;
+        transition: 0.1s;
+        outline-offset: 0px;
+        outline: 2px solid lightgreen;
+    }
+
+
+label[for="nome"] {
+    color: #fff;
+}
+
+label[for="email"] {
+    color: #ffff;
+}
+
+label[for="senha"] {
+    color: #ffff;
+}
+
+label[for="nascimento"] {
+    color: #ffff;
+}
+
+
+.container2 > h2 {
+    color: #fff;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.container2 > titulo {
+    color: #e1e5f2;
+    margin-top: -50px;
+}
+
+.container2 > h3 {
+    color: #fff;
+    font-weight: 800;
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
+.subtitulo {
+    margin-left: -1px;
+}
+
+.inicio {
+    flex: 0.5;
+    margin-left: 1px;
+    min-width: fit-content;
+}
+
+.inicioHeader {
+    top: 0;
+    background-color: #212d40;
+    z-index: 100;
+    border: 1px solid #212d40;
+    padding: -5px 20px;
+    margin-top: 3px;
+    border-bottom: 1px solid #6163697a;
+}
+
+    .inicioHeader h2 {
+        font-size: 30px;
+        font-weight: 800;
+        color: #e1e5f2;
+        margin-left: 30px;
+    }
+
+
+
+

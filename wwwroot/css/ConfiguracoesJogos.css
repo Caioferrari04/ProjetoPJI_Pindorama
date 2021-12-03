@@ -1,0 +1,64 @@
+﻿.conteudo-inner{
+    display: unset;
+}
+.editarJogo {
+    background-color: #4279e6;
+    border: none;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    margin-right: 30px;
+}
+
+    .editarJogo:hover {
+        background-color: #e9ebee;
+        border-radius: 10px;
+        color: #2f2f2f;
+        transition: color 100ms ease-out;
+        cursor: pointer;
+    }
+
+.excluirJogo {
+    background-color: #4279e6;
+    border: none;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+    .excluirJogo:hover {
+        background-color: red;
+        border-radius: 10px;
+        color: #2f2f2f;
+        transition: color 100ms ease-out;
+        cursor: pointer;
+    }
+
+.row__poster {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    object-fit: contain;
+    max-height: 100px;
+    transition: transform 450ms;
+    margin: 12px;
+}
+
+.tudo {
+    width: 95%;
+}
+
+.conteiner {
+    display: grid;
+    grid-template-columns: 20% 50%;
+    align-items: center;
+    border-bottom: 5px solid #6163696d;
+    margin-bottom: 50px;
+}
+
+.botoes {
+    display: flex;
+    justify-self:end;
+}
