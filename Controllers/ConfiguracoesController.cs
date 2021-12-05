@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pindorama.Areas.Identity.Pages.Account;
 using Pindorama.Auth;
 using Pindorama.Models;
+using Pindorama.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,9 +16,11 @@ namespace Pindorama.Controllers
     public class ConfiguracoesController : Controller
     {
         AuthService authService;
-        public ConfiguracoesController(AuthService authService)
+        GamesService _gameService;
+        public ConfiguracoesController(AuthService authService, GamesService gameService)
         {
             this.authService = authService;
+            _gameService = gameService;
         }
 
         public async Task<IActionResult> Index() {
@@ -65,11 +68,21 @@ namespace Pindorama.Controllers
             return View();
         }
 
-        public async Task<IActionResult> EditarJogo()
+        public async Task<IActionResult> EditarJogo(int id)
         {
             ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
-            return View();
+            return View(_gameService.GetGameById(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarJogo(Game game, string imagem1, string imagem2, string imagem3)
+        {
+            string[] imagens = new string[3] { imagem1, imagem2, imagem3 };
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
+            return await _gameService.UpdateGameAsync(game, imagens) ? View() : View(game);
         }
 
         [HttpPost]

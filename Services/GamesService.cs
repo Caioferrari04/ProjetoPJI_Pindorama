@@ -176,5 +176,40 @@ namespace Pindorama.Services
             }
         }
 
+        public async Task<bool> UpdateGameAsync(Game game, string[] imagens)
+        {
+            try
+            {
+                Game gameValido = GetGameById(game.Id);
+                foreach(string imagem in imagens)
+                {
+                    var imagemAdd = new Imagem
+                    {
+                        LinkImagem = imagem,
+                        GameId = game.Id
+                    };
+                    if (!gameValido.Imagens.Contains(imagemAdd)) { 
+                        _context.Imagens.Remove(await _context.Imagens.LastOrDefaultAsync(u => u.GameId == gameValido.Id));
+                        await _context.Imagens.AddAsync(imagemAdd);
+                    }
+                }
+                game.Id = gameValido.Id;
+                game.Imagens = gameValido.Imagens;
+                game.Categorias = gameValido.Categorias;
+                game.Postagens = gameValido.Postagens;
+                game.Users = gameValido.Users;
+                gameValido = game;
+
+                _context.Game.Update(gameValido);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
     }
 }
