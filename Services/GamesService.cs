@@ -176,6 +176,27 @@ namespace Pindorama.Services
             }
         }
 
+        public async Task<bool> AddGameAsync(Game game, string[] imagens)
+        {
+                await _context.Game.AddAsync(game);
+                await _context.SaveChangesAsync();
+
+                foreach (string imagem in imagens)
+                {
+                    var imagemAdd = new Imagem
+                    {
+                        LinkImagem = imagem,
+                        GameId = game.Id
+                    };
+
+                    await _context.Imagens.AddAsync(imagemAdd);
+                }
+                await _context.SaveChangesAsync();
+
+                return true;
+                
+        }
+
         public async Task<bool> UpdateGameAsync(Game game, string[] imagens)
         {
             try

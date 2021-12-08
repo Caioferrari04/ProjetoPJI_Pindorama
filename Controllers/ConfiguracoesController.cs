@@ -68,6 +68,17 @@ namespace Pindorama.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdicionarJogo(Game game, string imagem1, string imagem2, string imagem3)
+        {
+            string[] imagens = new string[3] { imagem1, imagem2, imagem3 };
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
+            return await _gameService.AddGameAsync(game, imagens) ? View() : View(game);
+        }
+
         public async Task<IActionResult> EditarJogo(int id)
         {
             ViewBag.Pendentes = await authService.GetPendentesAsync();
