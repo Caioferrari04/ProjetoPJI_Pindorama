@@ -24,6 +24,12 @@
         </div>
 
         <div class="input">
+            <span class="text-danger" asp-validation-for="LinkBanner"></span>
+            <label asp-for="LinkBanner" class="config-label white-text"></label>
+            <input asp-for="LinkBanner" class="config-input" />
+        </div>
+
+        <div class="input">
             <span class="text-danger" asp-validation-for="UserName"></span>
             <label asp-for="UserName" class="config-label white-text"></label>
             <input asp-for="UserName" class="config-input" required />

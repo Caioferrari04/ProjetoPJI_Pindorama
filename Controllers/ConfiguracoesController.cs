@@ -98,7 +98,12 @@ namespace Pindorama.Controllers
     public class UsuarioDTO
     {
         [Display(Name = "Link da imagem de perfil")]
+        [DataType(DataType.ImageUrl)]
         public string LinkImagem { get; set; }
+
+        [Display(Name = "Link do banner de perfil")]
+        [DataType(DataType.ImageUrl)]
+        public string LinkBanner { get; set; }
 
         [EmailAddress(ErrorMessage = "Email não é valido!")]
         [Display(Name = "Email")]

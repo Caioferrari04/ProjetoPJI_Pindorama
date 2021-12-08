@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pindorama.Data;
 
 namespace Pindorama.Migrations
 {
     [DbContext(typeof(PindoramaContext))]
-    partial class PindoramaContextModelSnapshot : ModelSnapshot
+    [Migration("20211207104911_HerancaLike")]
+    partial class HerancaLike
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,30 +391,30 @@ namespace Pindorama.Migrations
 
             modelBuilder.Entity("Pindorama.Models.LikeComment", b =>
                 {
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UsuarioId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("CommentId", "UsuarioId");
+                    b.Property<int>("CommentId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasKey("UsuarioId", "CommentId");
+
+                    b.HasIndex("CommentId");
 
                     b.ToTable("LikeComments");
                 });
 
             modelBuilder.Entity("Pindorama.Models.LikePost", b =>
                 {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UsuarioId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("PostId", "UsuarioId");
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasKey("UsuarioId", "PostId");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("LikePosts");
                 });
@@ -481,8 +483,8 @@ namespace Pindorama.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LinkBanner")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Dinheiro")
+                        .HasColumnType("float");
 
                     b.Property<string>("LinkImagem")
                         .HasColumnType("nvarchar(max)");
@@ -632,8 +634,7 @@ namespace Pindorama.Migrations
                     b.HasOne("Pindorama.Models.Comentario", "Comment")
                         .WithMany("Likes")
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Pindorama.Models.Usuario", "Usuario")
                         .WithMany("Likes")
@@ -651,8 +652,7 @@ namespace Pindorama.Migrations
                     b.HasOne("Pindorama.Models.Postagem", "Post")
                         .WithMany("Likes")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Pindorama.Models.Usuario", "Usuario")
                         .WithMany("LikesPost")

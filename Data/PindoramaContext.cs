@@ -46,9 +46,11 @@ namespace Pindorama.Data
                 .WithOne(uu => uu.Origem)
                 .HasForeignKey(uu => uu.AlvoId);
 
+            builder.Entity<LikeComment>()
+                .HasKey(tt => new { tt.CommentId, tt.UsuarioId });
 
-            //builder.Entity<CategoriasGame>()
-            //    .HasKey(tt => new { tt.CategoriasId, tt.JogosId });
+            builder.Entity<LikePost>()
+                .HasKey(tt => new { tt.PostId, tt.UsuarioId  });
         }
 
         public DbSet<Game> Game { get; set; }
@@ -64,5 +66,9 @@ namespace Pindorama.Data
         public DbSet<Postagem> Postagens { get; set; }
 
         public DbSet<Comentario> Comentarios { get; set; }
+
+        public DbSet<LikeComment> LikeComments { get; set; }
+
+        public DbSet<LikePost> LikePosts { get; set; }
     }
 }

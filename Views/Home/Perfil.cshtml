@@ -1,7 +1,15 @@
 ﻿@model Usuario
-
-@{ 
+@using Pindorama.Services;
+@using Pindorama.Auth;
+@inject GamesService _gameService;
+@inject AuthService _authService;
+@{
     var imagemUsuario = @Model.LinkImagem is null ? "/css/img/Usuario.jpg" : @Model.LinkImagem;
+    var postagens = ViewBag.postagens;
+    Usuario user = await _authService.GetCurrentUserAsync();
+    var pendentes = ViewBag.Pendentes;
+    var amigos = ViewBag.Amigos;
+    string imagemBanner = @Model.LinkBanner is null ? "https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" : @Model.LinkBanner;
 }
 <link rel="stylesheet" href="~/css/perfil.css" />
 
@@ -15,7 +23,7 @@
 
     <div class="conteiner">
         <div class="fotocapa">
-            <img src="https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+            <img src="@imagemBanner" alt="">
         </div>
 
         <div class="pessoa">
@@ -29,89 +37,77 @@
                         <h2>@Model.UserName</h2>
                     </div>
                     <div class="nomeusuario">
-                        <h4>usuario1</h4>
+                        <h4>             </h4>
                     </div>
                 </div>
             </div>
+            @if(user.Id.Equals(Model.Id)){
+                <form asp-controller="Configuracoes" asp-action="Index" method="get">
+                    <button type="submit" class="solicitarAmizade">Editar perfil</button>
+                </form>
+            }
+            else if(amigos.Contains(Model))
+            {
+                <form asp-controller="Home" asp-route-returnUrl="@Url.RouteUrl(ViewContext.RouteData.Values)" asp-action="RemoverAmigo">
+                    <button type="submit" value="@Model.Id" name="idAlvo" class="solicitarAmizade">Remover amigo</button>
+                </form>
+            }
+            else if(pendentes.Contains(Model))
+            {
+                <button class="solicitarAmizade">Amizade pendente...</button>
+            }
+            else
+            {
+                <button class="solicitarAmizade submit-request" id="@Model.Id">Solicitar Amizade</button>
+            }
         </div>
     </div>
 
-    <button class="solicitarAmizade">Solicitar Amizade</button>
+    
 
 
     <div class="posts">
 
         <h2 class="titulo">Últimos posts</h2>
 
-        <div class="post">
-            <div class="postCorpo">
-                <div class="postUser">
-                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
-                </div>
-                <div class="postHeader">
-                    <div class="postText">
-                        <h3>Alexzin </h3>
+        @foreach(Postagem postagem in postagens){
+            <div class="post">
+                <div class="postCorpo">
+                    <div class="postUser">
+                        <img src="@imagemUsuario" alt="">
+                        <h3>@Model.UserName</h3>
+                        <small>@postagem.DataPostagem</small>
+                        <small>Em @postagem.Comunidade.Nome</small>
                     </div>
-                    <div class="descricao">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias! </p>
-                    </div>
+                    <div class="postHeader">
+                        <div class="descricao">
+                            <p>@postagem.Conteudo</p>
+                        </div>
 
-                    <div class="reacoes">
-                        <i class="fa fa-heart-o teste" aria-hidden="true"></i>
-                        <i class="fa fa-share teste" aria-hidden="true"></i>
-                        <i class="fa fa-comment teste" aria-hidden="true"></i>
-                        <i class="fa fa-flag teste" aria-hidden="true"></i>
+                        <div class="reacoes">
+                            <div class="clicar">
+                            @if(await _gameService.IsLiked(user.Id, postagem.Id, true)){
+                                <i class="fa fa-heart like" aria-hidden="true" id="like_@postagem.Id"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-heart-o like" aria-hidden="true" id="like_@postagem.Id"></i>
+                            }
+                            <small id="qtyLikes_@postagem.Id">@postagem.QtyLikes</small>
+                            </div>
+                            <a asp-controller="Forum" asp-action="Postagem" asp-route-id="@postagem.Id" class="clicar">
+                                <i class="fa fa-comment" aria-hidden="true"></i>
+                                <small>@postagem.QtyComentarios</small>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
 
-        <div class="post">
-            <div class="postCorpo">
-                <div class="postUser">
-                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
-                </div>
-                <div class="postHeader">
-                    <div class="postText">
-                        <h3>Alexzin </h3>
-                    </div>
-                    <div class="descricao">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias!</p>
-                    </div>
-
-                    <div class="reacoes">
-                        <i class="fa fa-heart-o teste" aria-hidden="true"></i>
-                        <i class="fa fa-share teste" aria-hidden="true"></i>
-                        <i class="fa fa-comment teste" aria-hidden="true"></i>
-                        <i class="fa fa-flag teste" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="post">
-            <div class="postCorpo">
-                <div class="postUser">
-                    <img src="https://eduandrade.com/wp-content/themes/blog/assets/image/user.png" alt="">
-                </div>
-                <div class="postHeader">
-                    <div class="postText">
-                        <h3>Alexzin </h3>
-                    </div>
-                    <div class="descricao">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta architecto non fugit alias!</p>
-                    </div>
-
-                    <div class="reacoes">
-                        <i class="fa fa-heart-o teste" aria-hidden="true"></i>
-                        <i class="fa fa-share teste" aria-hidden="true"></i>
-                        <i class="fa fa-comment teste" aria-hidden="true"></i>
-                        <i class="fa fa-flag teste" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 
 </div>
+
+<script src="~/js/Likes.js"></script>

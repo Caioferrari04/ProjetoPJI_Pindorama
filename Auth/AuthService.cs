@@ -41,8 +41,9 @@ namespace Pindorama.Auth
 
                 return true;
             } 
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         } 
@@ -55,8 +56,9 @@ namespace Pindorama.Auth
                 usuarios.Remove(GetCurrentUserAsync().Result);
                 return usuarios;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -74,6 +76,7 @@ namespace Pindorama.Auth
             usuarioValido.Email = user.Email is null ? usuarioValido.Email : user.Email;
             usuarioValido.DataNascimento = user.DataNascimento is null ? usuarioValido.DataNascimento : user.DataNascimento;
             usuarioValido.LinkImagem = user.LinkImagem is null ? usuarioValido.LinkImagem : user.LinkImagem;
+            usuarioValido.LinkBanner = user.LinkBanner is null ? usuarioValido.LinkBanner : user.LinkBanner;
             usuarioValido.cep = user.cep is null ? usuarioValido.cep : user.cep;
 
             SizeValidation validator = new SizeValidation();
@@ -94,8 +97,9 @@ namespace Pindorama.Auth
                 }
                 return false;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -154,8 +158,9 @@ namespace Pindorama.Auth
                 var userNew = await GetCurrentUserAsync();
                 return userNew.cnpj is null ? false : true;
             } 
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
             
@@ -168,8 +173,9 @@ namespace Pindorama.Auth
                 var userNew = await GetCurrentUserAsync();
                 return userNew.cpf is null ? false : true;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
 

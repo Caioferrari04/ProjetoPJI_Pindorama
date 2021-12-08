@@ -24,12 +24,17 @@
     </div>
     <div class="Dropdown-Conteudo">
         <div class="conteudo">
-            <div class="nome">@usuarioAtual.UserName</div>
+            <div class="nome">
+                <a asp-controller="Home" asp-action="Perfil" asp-route-id="@usuarioAtual.Id">@usuarioAtual.UserName</a>
+            </div>
         </div>
         <ul class="Links" style="padding-inline-start: 0px!important;">
-            <li><a asp-controller="Configuracoes" asp-action="Index"><i class="fa fa-cog" aria-hidden="true"></i>Configurações</a></li>
+            <li><a asp-controller="Configuracoes" asp-action="Index">
+                <i class="fa fa-cog" aria-hidden="true"></i>Configurações</a>
+            </li>
 
             <div class="divisao"></div>
+
             <li>
                 <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Loja", new {area = ""})"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a>
             </li>

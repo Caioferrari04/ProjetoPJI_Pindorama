@@ -76,7 +76,6 @@ connection.start().then(function () {
         console.log(amigos[i]);
         amigos[i].addEventListener("click", function (event) {
             event.preventDefault();
-            console.log("chegou aqui2", amigos[i].id)
             connection.invoke("enviarPedidoAmizade", origem, amigos[i].id).catch(function (err) {
                 return console.error(err.toString());
             });
@@ -207,4 +206,16 @@ connection.on("ReceberMensagem", (msg, origemMsg, destino) => {
     dialogo = document.getElementById("dialogo-" + id);
     dialogo.appendChild(mensagem);
     dialogo.scrollTop = dialogo.scrollHeight;
+});
+
+connection.on("somarLike", (postId, isPost, sub) => {
+    let soma_like = isPost ? document.getElementById("qtyLikes_" + postId) : document.getElementById("qtyLikes_c_" + postId);
+    try {
+        console.log(soma_like);
+        let numLike = parseInt(soma_like.textContent);
+        numLike = sub ? numLike - 1 : numLike + 1;
+        soma_like.innerHTML = numLike;
+    } catch (ex) {
+        console.log(ex);
+    }
 });

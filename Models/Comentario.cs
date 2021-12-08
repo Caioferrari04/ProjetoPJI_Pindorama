@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Pindorama.Models
@@ -14,6 +15,8 @@ namespace Pindorama.Models
         [DataType(DataType.DateTime)]
         public DateTime? DataPostagem { get; set; }
 
+        public int QtyLikes { get => Likes.Count; }
+
         public int PostagemPaiId { get; set; }
 
         public Postagem PostagemPai { get; set; }
@@ -21,5 +24,7 @@ namespace Pindorama.Models
         public string AutorId { get; set; }
 
         public Usuario Autor { get; set; }
+
+        public List<LikeComment> Likes { get; set; }
     }
 }

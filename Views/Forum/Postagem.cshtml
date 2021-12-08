@@ -1,6 +1,11 @@
 ﻿@model List<Comentario>
+@using Pindorama.Services;
+@using Pindorama.Auth;
+@inject GamesService _gameService;
+@inject AuthService _authService;
 @{
     Postagem postagem = ViewBag.Postagem;
+    Usuario user = await _authService.GetCurrentUserAsync();
     var linkImg = postagem.Usuario.LinkImagem is null ? "/css/img/Usuario.jpg" : postagem.Usuario.LinkImagem;
 }
 
@@ -18,7 +23,7 @@
             <div class="postCorpo">
                 <div class="postUser">
                     <img src="@linkImg" alt="">
-                    <h3>@postagem.Usuario.UserName</h3>
+                    <h3><a asp-controller="Home" asp-action="Perfil" asp-route-id="@postagem.UsuarioId">@postagem.Usuario.UserName</a></h3>
                     <small>@postagem.DataPostagem</small>
                 </div>
                 <div class="postHeader">
@@ -26,8 +31,15 @@
                         <p>@postagem.Conteudo</p>
                     </div>
 
-                    <div class="reacoes">
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    <div class="clicar">
+                        @if(await _gameService.IsLiked(user.Id, postagem.Id, true)){
+                            <i class="fa fa-heart like" aria-hidden="true" id="like_@postagem.Id"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-heart-o like" aria-hidden="true" id="like_@postagem.Id"></i>
+                        }
+                        <small id="qtyLikes_@postagem.Id">@postagem.QtyLikes</small>
                     </div>
                 </div>
             </div>
@@ -45,7 +57,7 @@
                     <div class="postCorpo">
                         <div class="postUser">
                             <img src="@linkImagem" alt="">
-                            <h3>@comment.Autor.UserName</h3>
+                            <h3><a asp-controller="Home" asp-action="Perfil" asp-route-id="@comment.AutorId">@comment.Autor.UserName</a></h3>
                             <small>@comment.DataPostagem</small>
                         </div>
                         <div class="postHeader">
@@ -53,8 +65,15 @@
                                 <p>@comment.Texto</p>
                             </div>
 
-                            <div class="reacoes">
-                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                            <div class="clicar">
+                                @if (await _gameService.IsLiked(user.Id, comment.Id, false)) {
+                                    <i class="fa fa-heart like" aria-hidden="true" id="like_c_@comment.Id"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-heart-o like" aria-hidden="true" id="like_c_@comment.Id"></i>
+                                }
+                                <small id="qtyLikes_c_@comment.Id">@comment.QtyLikes</small>
                             </div>
                         </div>
                     </div>
@@ -67,3 +86,5 @@
         }
     </div>
 </div>
+
+<script src="~/js/Likes.js"></script>

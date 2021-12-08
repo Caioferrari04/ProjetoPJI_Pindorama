@@ -170,6 +170,7 @@
 .container-darker img {
     float: left;
     max-width: 60px;
+    max-height: 60px;
     width: 100%;
     margin-right: 20px;
     border-radius: 50%;
@@ -195,6 +196,7 @@
 .container-chat img {
     float: left;
     max-width: 60px;
+    max-height: 60px;
     width: 100%;
     margin-right: 20px;
     border-radius: 50%;

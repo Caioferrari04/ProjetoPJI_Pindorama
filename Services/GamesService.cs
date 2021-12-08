@@ -38,6 +38,8 @@ namespace Pindorama.Services
                 .ThenInclude(p => p.Usuario)
                 .Include(u => u.Postagens)
                 .ThenInclude(y => y.Comentarios)
+                .Include(c => c.Postagens)
+                .ThenInclude(k => k.Likes)
                 .FirstOrDefault(p => p.Id == id); ;
         }
 
@@ -99,7 +101,7 @@ namespace Pindorama.Services
             }
         }
     
-        public List<Postagem> GetGamePostagens(int id) => GetGameById(id).Postagens;
+        public List<Postagem> GetGamePostagens(int id) => _context.Postagens.Include(u => u.Likes).Include(c => c.Comentarios).Where(p => p.ComunidadeId == id).ToList();
 
         public async Task<bool> Postar(string texto, int jogoId)
         {
@@ -136,9 +138,11 @@ namespace Pindorama.Services
             }
         }
 
-        public async Task<Postagem> GetPostagemAsync(int id) => await Task.Run(() => _context.Postagens.Include(u => u.Usuario).First(p => p.Id == id));
+        public async Task<Postagem> GetPostagemAsync(int id) => await Task.Run(() => _context.Postagens.Include(u => u.Usuario).Include(u => u.Likes).First(p => p.Id == id));
 
-        public async Task<List<Comentario>> GetComentariosInPostAsync(int id) => await Task.Run(() => _context.Comentarios.Include(u => u.Autor).Where(p => p.PostagemPaiId == id).ToListAsync());
+        public async Task<List<Comentario>> GetComentariosInPostAsync(int id) => await Task.Run(() => _context.Comentarios.Include(u => u.Autor).Include(u => u.Likes).Where(p => p.PostagemPaiId == id).ToListAsync());
+
+        public async Task<Comentario> GetComentarioByIdAsync(int id) => await Task.Run(() => _context.Comentarios.Include(u => u.Autor).Include(u => u.Likes).First(p => p.Id == id));
 
         public async Task<bool> PostarComentario(string conteudoComment, int id)
         {
@@ -211,5 +215,24 @@ namespace Pindorama.Services
             }
         }
 
+        public async Task<bool> IsLiked(string origem, int postId, bool isPost) =>
+            await Task.Run(() => {
+                if (isPost) {
+                    Postagem postagens = _context.Postagens.Include(u => u.Likes).ThenInclude(p => p.Usuario).First(z => z.Id == postId);
+                    List<LikePost> likes = postagens.Likes.Where(u => u.UsuarioId == origem).ToList();
+                    return likes.Count > 0;
+                }
+                Comentario postagensC = _context.Comentarios.Include(u => u.Likes).ThenInclude(p => p.Usuario).First(z => z.Id == postId);
+                List<LikeComment> likesC = postagensC.Likes.Where(u => u.UsuarioId == origem).ToList();
+                return likesC.Count > 0;
+            });
+
+        public async Task<List<Postagem>> GetPostagemsFromUserAsync(string origem) => await Task.Run(() =>
+            _context.Postagens
+                .Include(u => u.Likes)
+                .Include(u => u.Comentarios)
+                .Include(u => u.Comunidade)
+                .Where(p => p.UsuarioId.Equals(origem)).ToList()
+        );
     }
 }

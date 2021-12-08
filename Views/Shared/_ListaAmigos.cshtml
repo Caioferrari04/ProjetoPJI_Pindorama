@@ -1,5 +1,4 @@
 ﻿@{
-
     List<Usuario> amigos = ViewBag.Amigos;
 }
 <div class="not-visible barra-lateral" id="barra-amigos">
@@ -59,9 +58,9 @@
                         {
                             <img src="@user.LinkImagem" class="imagem-amigo" />
                         }
-                        <h2>@user.UserName</h2>
+                        <a asp-controller="Home" asp-action="Perfil" asp-route-id="@user.Id"><h2>@user.UserName</h2></a>
                     </div>
-                    <form asp-controller="Home" asp-action="RemoverAmigo">
+                    <form asp-controller="Home" asp-route-returnUrl="@Url.RouteUrl(ViewContext.RouteData.Values)" asp-action="RemoverAmigo">
                         <button type="submit" value="@user.Id" name="idAlvo" class="button-icone">
                             <i class="fa fa-user-times"></i>
                         </button>

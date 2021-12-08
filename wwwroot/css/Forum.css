@@ -140,7 +140,8 @@ i {
 
 .postUser img {
     border-radius: 50%;
-    height: 40px;
+    max-width: 30px;
+    height: 30px;
 }
 
 .postUser {
@@ -153,12 +154,12 @@ i {
     align-items: center;
 }
 
-.postUser h3{
-    font-size: 18px;
-}
-.postUser small {
-    font-size: 10px;
-}
+    .postUser h3{
+        font-size: 18px;
+    }
+    .postUser small {
+        font-size: 10px;
+    }
 
 .post {
     z-index: -3;
@@ -274,6 +275,10 @@ i {
     border-radius: 20px;
     padding-bottom: 0!important;
     border-bottom: 0!important;
+}
+
+.fa-heart-o, .fa-heart {
+    transition: 0.3s;
 }
 
 @media screen and (max-width: 1000px) {

@@ -111,3 +111,7 @@ a {
         font-weight: 900;
         transition: 0.1s;
     }
+
+.like {
+    cursor: pointer;
+}

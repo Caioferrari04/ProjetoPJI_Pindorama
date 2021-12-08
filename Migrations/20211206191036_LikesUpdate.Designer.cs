@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pindorama.Data;
 
 namespace Pindorama.Migrations
 {
     [DbContext(typeof(PindoramaContext))]
-    partial class PindoramaContextModelSnapshot : ModelSnapshot
+    [Migration("20211206191036_LikesUpdate")]
+    partial class LikesUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -387,34 +389,31 @@ namespace Pindorama.Migrations
                     b.ToTable("Imagens");
                 });
 
-            modelBuilder.Entity("Pindorama.Models.LikeComment", b =>
+            modelBuilder.Entity("Pindorama.Models.Like", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ComentarioId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PostagemId")
                         .HasColumnType("int");
 
                     b.Property<string>("UsuarioId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("CommentId", "UsuarioId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComentarioId");
+
+                    b.HasIndex("PostagemId");
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("LikeComments");
-                });
-
-            modelBuilder.Entity("Pindorama.Models.LikePost", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsuarioId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("PostId", "UsuarioId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("LikePosts");
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("Pindorama.Models.Mensagem", b =>
@@ -481,8 +480,8 @@ namespace Pindorama.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LinkBanner")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Dinheiro")
+                        .HasColumnType("float");
 
                     b.Property<string>("LinkImagem")
                         .HasColumnType("nvarchar(max)");
@@ -627,40 +626,25 @@ namespace Pindorama.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("Pindorama.Models.LikeComment", b =>
+            modelBuilder.Entity("Pindorama.Models.Like", b =>
                 {
-                    b.HasOne("Pindorama.Models.Comentario", "Comment")
+                    b.HasOne("Pindorama.Models.Comentario", "Comentario")
                         .WithMany("Likes")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ComentarioId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Pindorama.Models.Postagem", "Postagem")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostagemId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Pindorama.Models.Usuario", "Usuario")
                         .WithMany("Likes")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsuarioId");
 
-                    b.Navigation("Comment");
+                    b.Navigation("Comentario");
 
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Pindorama.Models.LikePost", b =>
-                {
-                    b.HasOne("Pindorama.Models.Postagem", "Post")
-                        .WithMany("Likes")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Pindorama.Models.Usuario", "Usuario")
-                        .WithMany("LikesPost")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
+                    b.Navigation("Postagem");
 
                     b.Navigation("Usuario");
                 });
@@ -723,8 +707,6 @@ namespace Pindorama.Migrations
                     b.Navigation("Comentarios");
 
                     b.Navigation("Likes");
-
-                    b.Navigation("LikesPost");
 
                     b.Navigation("Mensagens");
 

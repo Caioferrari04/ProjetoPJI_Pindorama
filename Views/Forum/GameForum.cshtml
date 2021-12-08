@@ -1,6 +1,12 @@
 ﻿@model List<Postagem>
+@using Pindorama.Services;
+@using Pindorama.Auth;
+@inject GamesService _gameService;
+@inject AuthService _authService;
 @{
     Game game = ViewBag.Game;
+    Usuario user = await _authService.GetCurrentUserAsync();
+    var imagemUsuario = user.LinkImagem is null ? "/css/img/Usuario.jpg" : user.LinkImagem;
 }
 <link href="~/css/Forum.css" rel="stylesheet" type="text/css" />
 
@@ -28,7 +34,7 @@
         <div class="CaixaTexto">
             <form asp-action="GameForum">
                 <div class="CaixaTextoInput">
-                    <img src="https://www.tecnipecas.com.br/assets/img/avatar.png" alt="">
+                    <img src="@imagemUsuario" alt="">
                     <textarea name="conteudoPost" type="text" class="white-text" placeholder="No que você está pensando?"></textarea>
                 </div>
                 <button name="idJogo" value="@game.Id" type="submit" class="Botao">Postar</button>
@@ -43,7 +49,7 @@
                     <div class="postCorpo">
                         <div class="postUser">
                             <img src="@linkImagem" alt="">
-                            <h3>@post.Usuario.UserName</h3>
+                            <h3><a asp-controller="Home" asp-action="Perfil" asp-route-id="@post.UsuarioId">@post.Usuario.UserName</a></h3>
                             <small>@post.DataPostagem</small>
                         </div>
                         <div class="postHeader">
@@ -52,7 +58,16 @@
                             </div>
 
                             <div class="reacoes">
-                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                <div class="clicar">
+                                    @if(await _gameService.IsLiked(user.Id, post.Id, true)){
+                                        <i class="fa fa-heart like" aria-hidden="true" id="like_@post.Id"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-heart-o like" aria-hidden="true" id="like_@post.Id"></i>
+                                    }
+                                    <small id="qtyLikes_@post.Id">@post.QtyLikes</small>
+                                </div>
                                 <a asp-action="Postagem" asp-route-id="@post.Id" class="clicar">
                                     <i class="fa fa-comment" aria-hidden="true"></i>
                                     <small>@post.QtyComentarios</small>
@@ -89,3 +104,5 @@
     <!--fim das notícias-->
 
 </div>
+
+<script src="~/js/Likes.js"></script>

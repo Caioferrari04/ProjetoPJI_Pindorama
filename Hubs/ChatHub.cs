@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Pindorama.Auth;
 using Pindorama.Data;
 using Pindorama.Models;
+using Pindorama.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace Pindorama.Hubs
     {
         PindoramaContext _context;
         UserManager<Usuario> _userManager;
-        public ChatHub(PindoramaContext context, UserManager<Usuario> userManager)
+        GamesService _gamesService;
+        public ChatHub(PindoramaContext context, UserManager<Usuario> userManager, GamesService gamesService)
         {
             _context = context;
             _userManager = userManager;
+            _gamesService = gamesService;
         }
 
         public async Task EnviarPedidoAmizade(string origem, string destino)
@@ -122,7 +125,7 @@ namespace Pindorama.Hubs
 
             if (usuarioAtual is null || usuarioDestino is null) return;
 
-            if (String.IsNullOrWhiteSpace(msg.text)) return;
+            if (string.IsNullOrWhiteSpace(msg.text)) return;
 
             string[] nomes = new string[] { usuarioAtual.UserName, usuarioDestino.UserName };
             Array.Sort(nomes, 0, 2);
@@ -146,6 +149,50 @@ namespace Pindorama.Hubs
 
             await _context.SaveChangesAsync();
             await Clients.Group(grupo).SendAsync("ReceberMensagem", novaMensagem, usuarioAtual.Id, usuarioDestino.Id);
+        }
+
+        public async Task LikePost(string origem, string postId, bool isPost)
+        {
+            int postIntId = int.Parse(postId);
+            Usuario usuarioAtual = await _userManager.FindByIdAsync(origem);
+            dynamic post = isPost ? await _gamesService.GetPostagemAsync(postIntId) : await _gamesService.GetComentarioByIdAsync(postIntId);
+
+            if (usuarioAtual is null || post is null) return;
+
+            if(!await _gamesService.IsLiked(origem, postIntId, isPost))
+            {
+                if(isPost) {
+                    _context.LikePosts.Add(new LikePost()
+                    {
+                        PostId = postIntId,
+                        UsuarioId = origem
+                    });
+                } 
+                else
+                {
+                    _context.LikeComments.Add(new LikeComment()
+                    {
+                        CommentId = postIntId,
+                        UsuarioId = origem
+                    });
+                }
+                _context.SaveChanges();
+                await Clients.All.SendAsync("somarLike", postId, isPost, false); //false é utilizado para determinar se irá subtrair ou somar a conta de likes
+            } 
+            else
+            {
+                if(isPost) {
+                    LikePost like = _context.LikePosts.First(u => u.PostId == postIntId && u.UsuarioId == usuarioAtual.Id);
+                    _context.LikePosts.Remove(like);
+                } 
+                else
+                {
+                    LikeComment like = _context.LikeComments.First(u => u.CommentId == postIntId && u.UsuarioId == usuarioAtual.Id);
+                    _context.LikeComments.Remove(like);
+                }
+                await _context.SaveChangesAsync();
+                await Clients.All.SendAsync("somarLike", postId, isPost, true);
+            }
         }
 
         public class MensagemDTO

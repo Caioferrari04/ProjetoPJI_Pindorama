@@ -34,7 +34,7 @@ namespace Pindorama.Controllers
             ViewBag.Amigos = await authService.getAmigosAsync();
             var game = _gamesService.GetGameById(id);
             ViewBag.Game = game;
-            return View(game.Postagens);
+            return View(_gamesService.GetGamePostagens(id));
         }
 
         [HttpPost]

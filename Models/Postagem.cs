@@ -17,6 +17,8 @@ namespace Pindorama.Models
 
         public int QtyComentarios { get => Comentarios.Count; }
 
+        public int QtyLikes { get => Likes.Count; }
+
         public int ComunidadeId { get; set; }
 
         public Game Comunidade { get; set; }
@@ -26,5 +28,7 @@ namespace Pindorama.Models
         public Usuario Usuario { get; set; }
 
         public List<Comentario> Comentarios { get; set; }
+
+        public List<LikePost> Likes { get; set; }
     }
 }
