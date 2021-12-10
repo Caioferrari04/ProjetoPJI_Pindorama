@@ -12,6 +12,9 @@ namespace Pindorama.Models
         [DataType(DataType.MultilineText)]
         public string Conteudo { get; set; }
 
+        [DataType(DataType.ImageUrl)]
+        public string LinkImagem { get; set; }
+
         [DataType(DataType.DateTime)]
         public DateTime? DataPostagem { get; set; }
 

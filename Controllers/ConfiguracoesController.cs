@@ -95,7 +95,7 @@ namespace Pindorama.Controllers
             ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
             Game gameAtualizado = await _gameService.UpdateGameAsync(game, imagens, categorias);
-            return gameAtualizado is null ? View(game) : RedirectToRoute(nameof(LojaController) + nameof(LojaController.ReadSingle), new { id = gameAtualizado.Id }); ;
+            return gameAtualizado is null ? View(game) : RedirectToAction("ReadSingle", "Loja", new { id = gameAtualizado.Id, area = "" }); ;
         }
 
         [HttpPost]

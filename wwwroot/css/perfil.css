@@ -172,6 +172,7 @@ body {
     }
 
     .postUser small {
+        min-inline-size: max-content;
         font-size: 10px;
         margin-right: 10px;
     }

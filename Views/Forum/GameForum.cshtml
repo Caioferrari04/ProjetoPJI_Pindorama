@@ -36,6 +36,10 @@
                 <div class="CaixaTextoInput">
                     <img src="@imagemUsuario" alt="">
                     <textarea name="conteudoPost" type="text" class="white-text" placeholder="No que você está pensando?"></textarea>
+                    
+                </div>
+                <div class="CaixaTextoInput" style="margin-top: 20px;">
+                    <input name="imagemPost" type="text" class="white-text" placeholder="Insira uma imagem! (opcional)" style="height: fit-content;"/>
                 </div>
                 <button name="idJogo" value="@game.Id" type="submit" class="Botao">Postar</button>
             </form>
@@ -55,6 +59,10 @@
                         <div class="postHeader">
                             <div class="descricao">
                                 <p>@post.Conteudo</p>
+                                @if(post.LinkImagem is not null)
+                                {
+                                    <img src="@post.LinkImagem" class="imgPost"/>
+                                }
                             </div>
 
                             <div class="reacoes">

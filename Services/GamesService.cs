@@ -103,7 +103,7 @@ namespace Pindorama.Services
     
         public List<Postagem> GetGamePostagens(int id) => _context.Postagens.Include(u => u.Likes).Include(c => c.Comentarios).Where(p => p.ComunidadeId == id).ToList();
 
-        public async Task<bool> Postar(string texto, int jogoId)
+        public async Task<bool> Postar(string texto, string imagemPost, int jogoId)
         {
             if (string.IsNullOrWhiteSpace(texto)) return false;
 
@@ -114,6 +114,7 @@ namespace Pindorama.Services
             {
                 Conteudo = texto,
                 DataPostagem = DateTime.Now,
+                LinkImagem = imagemPost,
                 ComunidadeId = game.Id,
                 UsuarioId = user.Id
             };
@@ -144,7 +145,7 @@ namespace Pindorama.Services
 
         public async Task<Comentario> GetComentarioByIdAsync(int id) => await Task.Run(() => _context.Comentarios.Include(u => u.Autor).Include(u => u.Likes).First(p => p.Id == id));
 
-        public async Task<bool> PostarComentario(string conteudoComment, int id)
+        public async Task<bool> PostarComentario(string conteudoComment, string linkimagem, int id)
         {
             if (string.IsNullOrWhiteSpace(conteudoComment)) return false;
 
@@ -155,6 +156,7 @@ namespace Pindorama.Services
             {
                 Texto = conteudoComment,
                 DataPostagem = DateTime.Now,
+                LinkImagem = linkimagem,
                 AutorId = user.Id,
                 PostagemPaiId = postagem.Id
             };
@@ -188,6 +190,7 @@ namespace Pindorama.Services
                 var usuario = await _authService.GetCurrentUserAsync();
                 game.DistribuidoraId = usuario.Id;
                 game.DataLancamento = DateTime.UtcNow;
+                game.Users = new List<Usuario>() { await _authService.GetCurrentUserAsync() };
                 await _context.Game.AddAsync(game);
                 await _context.SaveChangesAsync();
                 Categoria[] categoriasExistentes = _context.Categorias.ToArray();
@@ -228,33 +231,6 @@ namespace Pindorama.Services
         {
             try
             {
-                //List<Imagem> imagensOrigem = await _context.Imagens.ToListAsync();
-                //Categoria[] categoriasExistentes = await _context.Categorias.ToArrayAsync();
-                //game.Categorias = _context.Categorias.AsNoTracking().Include(c => c.Jogos).Where(c => c.Jogos.Contains(game)).ToList();
-                //List<Categoria> novaLista = new List<Categoria>();
-                //foreach (string imagem in imagens)
-                //{
-                //    if (!string.IsNullOrWhiteSpace(imagem))
-                //    {
-                //        var imagemAdd = new Imagem
-                //        {
-                //            LinkImagem = imagem,
-                //            GameId = game.Id
-                //        };
-                //        if (imagensOrigem.FirstOrDefault(u => u.LinkImagem == imagemAdd.LinkImagem) is null)
-                //        {
-                //            imagensOrigem.Remove(imagensOrigem.FindLast(u => u.GameId == imagemAdd.GameId)); //Aqui1
-                //            await _context.Imagens.AddAsync(imagemAdd);
-                //        }
-                //    }
-                //}
-                //novaLista.RemoveAll(c => game.Categorias.Contains(c)); // Aqui2
-                //game.Categorias = novaLista;
-                //game.DataLancamento = gameValido.DataLancamento;
-                //game.DistribuidoraId = gameValido.DistribuidoraId;
-                //game.Publisher = gameValido.Publisher;
-                //game.compras = gameValido.compras;
-
                 Game gameValido = await _context.Game.Include(g => g.Imagens).Include(g => g.Categorias).FirstOrDefaultAsync(g => g.Id == game.Id);
                 gameValido.Categorias = _context.Categorias.Where(c => categorias.Contains(c.Nome.ToLower())).ToList();
                 _context.Imagens.RemoveRange(gameValido.Imagens);

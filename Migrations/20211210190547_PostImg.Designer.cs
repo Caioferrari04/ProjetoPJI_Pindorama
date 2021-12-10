@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pindorama.Data;
 
 namespace Pindorama.Migrations
 {
     [DbContext(typeof(PindoramaContext))]
-    partial class PindoramaContextModelSnapshot : ModelSnapshot
+    [Migration("20211210190547_PostImg")]
+    partial class PostImg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,9 +305,6 @@ namespace Pindorama.Migrations
 
                     b.Property<DateTime?>("DataPostagem")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("LinkImagem")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PostagemPaiId")
                         .HasColumnType("int");

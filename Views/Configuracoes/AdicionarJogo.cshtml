@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="~/css/ConfiguracoesAdicionarJogos.css" />
 
 
-<div class="container2" style="height: 50%; overflow: scroll;">
+<div class="container2" style="height: 140vh;">
     <!-- Caixa do login -->
 
-    <form asp-action="AdicionarJogo" class="container2">
+    <form asp-action="AdicionarJogo" class="container2" style="height: 50%;overflow-y: scroll; padding-bottom:20px;">
         <!-- Pode adicionar classes no form, mas não o delete!! -->
 
         <h2>Mídias de Divulgação</h2>
@@ -28,15 +28,11 @@
         <label asp-for="LinkLogo">Logo: </label>
         <input asp-for="LinkLogo" id="nome" class="input_login" placeholder="Coloque aqui o link do banner"> <!-- Caixa de entrada do email -->
 
-        <h3>Slide</h3>
-        <label for="imagem1">Imagem 1:</label>
-        <input type="text" name="imagens" id="senha" class="input_login" placeholder="Coloque aqui o link da imagem 1"> <!-- Caixa de entrada da senha -->
-
-        <label for="imagem2">Imagem 2: </label>
-        <input type="text" name="imagens" id="nascimento" class="input_login" placeholder="Coloque aqui o link da imagem 2"> <!-- Caixa de entrada da data de nascimento -->
-
-        <label for="imagem3">Imagem 3: </label>
-        <input type="text" name="imagens" id="nascimento" class="input_login" placeholder="Coloque aqui o link da imagem 3"> <!-- Caixa de entrada da data de nascimento -->
+        <h3>Imagens<button type="button" id="adicionar_imagem" class="botaoImg"><i class="fa fa-plus-square"></i></button></h3>
+        <div id="imagens">
+            <label for="imagem1">Imagem 1:</label>
+            <input type="url" name="imagens" class="input_login" placeholder="Coloque aqui o link da imagem 1"> <!-- Caixa de entrada da senha -->
+        </div>
 
         <h2>Dados Técnicos</h2>
 

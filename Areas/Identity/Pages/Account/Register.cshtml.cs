@@ -47,8 +47,8 @@ namespace Pindorama.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Informe o email!")]
+            [EmailAddress(ErrorMessage = "Email não é valido!")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -63,15 +63,15 @@ namespace Pindorama.Areas.Identity.Pages.Account
             [MinimumAge(18, ErrorMessage = "Precisa ser maior de 18!")]
             public DateTime? DataNascimento { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Informe a senha!")]
+            [StringLength(100, ErrorMessage = "A senha deve conter de 6 a 100 caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não são iguais.")]
             public string ConfirmPassword { get; set; }
         }
 

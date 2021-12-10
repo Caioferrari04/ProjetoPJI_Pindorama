@@ -19,8 +19,11 @@
 
 <div class="posts">
     <div class="inner-posts">
+        <a asp-action="GameForum" asp-route-id="@postagem.ComunidadeId">
+            <i class="fa fa-angle-left retornar"></i>
+        </a>
         <div class="post">
-            <div class="postCorpo">
+            <div class="postCorpo"> 
                 <div class="postUser">
                     <img src="@linkImg" alt="">
                     <h3><a asp-controller="Home" asp-action="Perfil" asp-route-id="@postagem.UsuarioId">@postagem.Usuario.UserName</a></h3>
@@ -47,6 +50,9 @@
         <form asp-action="Postagem" style=" margin-bottom: 20px;">
             <div class="CaixaTextoInput" style="padding:0;">
                 <textarea name="conteudoComment" style="margin:0 0 20px 0;" type="text" class="white-text" placeholder="No que você está pensando?"></textarea>
+            </div>
+            <div class="CaixaTextoInput">
+                <input name="imagemPost" type="text" class="white-text" placeholder="Insira uma imagem! (opcional)" style="height: fit-content;"/>
             </div>
             <button name="idPost" value="@postagem.Id" type="submit" class="Botao">Postar</button>
         </form>

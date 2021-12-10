@@ -314,6 +314,10 @@
     color: white;
 }
 
+.small{
+    width: fit-content!important;
+}
+
 @media screen and (max-width: 1390px) {
     .pessoa > td > h2 {
         margin: 30px 60vh 30px 2vh;

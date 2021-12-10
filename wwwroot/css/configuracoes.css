@@ -142,3 +142,11 @@ body {
     width: 100%;
 }
 
+.botaoImg {
+    background: none;
+    border: 0;
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+}
+

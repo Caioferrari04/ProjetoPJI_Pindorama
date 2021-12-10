@@ -39,9 +39,9 @@ namespace Pindorama.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> GameForum(string conteudoPost, int idJogo)
+        public async Task<IActionResult> GameForum(string conteudoPost, string imagemPost, int idJogo)
         {
-            await _gamesService.Postar(conteudoPost, idJogo);
+            await _gamesService.Postar(conteudoPost, imagemPost, idJogo);
             return RedirectToAction(nameof(GameForum), idJogo);
         }
 
@@ -55,9 +55,9 @@ namespace Pindorama.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Postagem(string conteudoComment, int idPost)
+        public async Task<IActionResult> Postagem(string conteudoComment, string imagemPost, int idPost)
         {
-            await _gamesService.PostarComentario(conteudoComment, idPost);
+            await _gamesService.PostarComentario(conteudoComment, imagemPost, idPost);
             return RedirectToAction(nameof(Postagem), idPost);
         }
     }

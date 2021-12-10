@@ -104,18 +104,24 @@ i {
 
 .CaixaTextoInput {
     display: flex;
-    padding: 20px;
 }
 
-    .CaixaTextoInput textarea {
-        background-color: #212d40;
+    .CaixaTextoInput textarea, .CaixaTextoInput input {
+        background-color: #232f43;
+        border: 0;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
         flex: 1;
-        font-size: 20px;
-        border: none;
+        font-size: 15px;
         outline: none;
-        padding-bottom: -5px;
+        padding: 20px;
         height: 10rem;
         margin-left: 10px;
+    }
+    .CaixaTextoInput input {
+        font-size: 10px;
+        padding: 5px;
+        margin: 0;
+        height: fit-content;
     }
 
 .Botao {
@@ -126,7 +132,7 @@ i {
     border-radius: 10px;
     width: 80px;
     height: 40px;
-    margin-top: -10px;
+    margin-top: 10px;
     margin-left: auto;
 }
 
@@ -158,6 +164,7 @@ i {
         font-size: 18px;
     }
     .postUser small {
+        min-inline-size: max-content;
         font-size: 10px;
     }
 
@@ -190,6 +197,9 @@ i {
     margin-left: 70px;
     margin-right: 20px;
 }
+    .descricao p {
+        margin-bottom: 10px;
+    }
 
 .postCorpo {
     flex: 5;
@@ -279,6 +289,17 @@ i {
 
 .fa-heart-o, .fa-heart {
     transition: 0.3s;
+}
+
+.img_post {
+    height: 100%;
+    width: 100%;
+}
+
+.retornar {
+    padding: 0;
+    font-size: 40px;
+    margin: 20px;
 }
 
 @media screen and (max-width: 1000px) {

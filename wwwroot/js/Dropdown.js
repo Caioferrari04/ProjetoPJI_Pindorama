@@ -11,6 +11,7 @@ let dialogo;
 for (let i = 0; i < amigos.length; i++) {
     fechar_chat[i].addEventListener("click", () => {
         let chat = document.getElementById("chat-" + fechar_chat[i].id);
+        chat_amigos.classList.toggle("small");
         chat.classList.toggle("chat-visible");
         chat.classList.toggle("chat-not-visible");
         
@@ -22,6 +23,7 @@ for (let i = 0; i < amigos.length; i++) {
     amigos[i].addEventListener("click", (event) => {
         event.preventDefault();
         console.log("chegou aq");
+        chat_amigos.classList.toggle("small");
         let chat = document.getElementById("chat-" + amigos[i].id);
         chat.classList.toggle("abertoUm");
         let aberto = chat.classList.contains("abertoUm");
