@@ -1,0 +1,35 @@
+﻿@model Game[];
+@{
+    Layout = "_Configuracoes";
+    ViewData["Title"] = "Ver Jogos Publicados";
+}
+
+<link rel="stylesheet" href="~/css/ConfiguracoesJogos.css" />
+
+<div class="tudo">
+
+    @foreach(Game game in Model){
+        <div class="conteiner">
+            <a asp-controller="Loja" asp-action="ReadSingle" asp-route-id="@game.Id">
+                <div class="jogo">
+                
+                        <image src="@game.LinkLogo" alt="" class="row__poster "></image>
+                        <h1>@game.Nome</h1>
+                
+                </div>
+            </a>
+            <div class="botoes">
+                <form asp-action="EditarJogo" asp-route-id="@game.Id" method="get">
+                    <button type="submit" class="editarJogo">Editar jogo</button>
+                </form>
+                <button class="excluirJogo ">Excluir jogo</button>
+            </div>
+        </div>
+    }
+</div>
+
+
+<script src="~/js/Configuracao.js"></script>
+<script>
+    mostrarAba(3);
+</script>

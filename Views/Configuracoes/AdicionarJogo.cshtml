@@ -7,56 +7,87 @@
 <link rel="stylesheet" href="~/css/ConfiguracoesAdicionarJogos.css" />
 
 
-<div class="container2">
+<div class="container2" style="height: 50%; overflow: scroll;">
     <!-- Caixa do login -->
 
     <form asp-action="AdicionarJogo" class="container2">
         <!-- Pode adicionar classes no form, mas não o delete!! -->
 
-        <h2 class=>Mídias de Divulgação</h2>
+        <h2>Mídias de Divulgação</h2>
 
         <h3>Perfil</h3>
+        <span asp-validation-for="LinkVideo" class="text-danger"></span>
         <label asp-for="LinkVideo">Trailer do Jogo: </label> <!-- Texto que aparece antes da caixa de entrada -->
         <input asp-for="LinkVideo" id="nome" class="input_login" placeholder="Coloque aqui o link do trailer"> <!-- Caixa de entrada do nome -->
 
-
+        <span asp-validation-for="LinkBanner" class="text-danger"></span>
         <label asp-for="LinkBanner">Banner: </label>
         <input asp-for="LinkBanner" id="nome" class="input_login" placeholder="Coloque aqui o link do banner"> <!-- Caixa de entrada do email -->
 
+        <span asp-validation-for="LinkLogo" class="text-danger"></span>
         <label asp-for="LinkLogo">Logo: </label>
         <input asp-for="LinkLogo" id="nome" class="input_login" placeholder="Coloque aqui o link do banner"> <!-- Caixa de entrada do email -->
 
         <h3>Slide</h3>
         <label for="imagem1">Imagem 1:</label>
-        <input type="text" name="imagem1" id="senha" class="input_login" placeholder="Coloque aqui o link da imagem 1"> <!-- Caixa de entrada da senha -->
+        <input type="text" name="imagens" id="senha" class="input_login" placeholder="Coloque aqui o link da imagem 1"> <!-- Caixa de entrada da senha -->
 
         <label for="imagem2">Imagem 2: </label>
-        <input type="text" name="imagem2" id="nascimento" class="input_login" placeholder="Coloque aqui o link da imagem 2"> <!-- Caixa de entrada da data de nascimento -->
+        <input type="text" name="imagens" id="nascimento" class="input_login" placeholder="Coloque aqui o link da imagem 2"> <!-- Caixa de entrada da data de nascimento -->
 
         <label for="imagem3">Imagem 3: </label>
-        <input type="text" name="imagem3" id="nascimento" class="input_login" placeholder="Coloque aqui o link da imagem 3"> <!-- Caixa de entrada da data de nascimento -->
+        <input type="text" name="imagens" id="nascimento" class="input_login" placeholder="Coloque aqui o link da imagem 3"> <!-- Caixa de entrada da data de nascimento -->
 
         <h2>Dados Técnicos</h2>
 
+        <span asp-validation-for="Nome" class="text-danger"></span>
         <label asp-for="Nome">Nome: </label> <!-- Texto que aparece antes da caixa de entrada -->
         <input asp-for="Nome" id="nome" class="input_login" placeholder="Coloque aqui o nome do jogo">
 
+        <span asp-validation-for="Preco" class="text-danger"></span>
         <label asp-for="Preco">Preço: </label> <!-- Texto que aparece antes da caixa de entrada -->
         <label asp-for="Preco">*para jogos gratuitos digite 0,00* </label>
         <input asp-for="Preco" id="nome" class="input_login" placeholder="Coloque aqui o preço do jogo">
 
+        <span asp-validation-for="Desenvolvedor" class="text-danger"></span>
         <label asp-for="Desenvolvedor">Desenvolvedor: </label> <!-- Texto que aparece antes da caixa de entrada -->
         <input asp-for="Desenvolvedor" id="nome" class="input_login" placeholder="Coloque aqui o nome do desenvolvedor">
 
-        <label asp-for="Publisher">Distribuidora </label> <!-- Texto que aparece antes da caixa de entrada -->
-        <input asp-for="Publisher" id="nome" class="input_login" placeholder="Coloque aqui o nome da distribuidora">
+        <h4>Categorias:</h4>
+        <div class="categorias">
+            <div class="inner-cat">
+                <label for="categorias">Ação</label>
+                <input type="checkbox" name="categorias" value="ação"/>
+            </div>
 
+            <div class="inner-cat">
+                <label for="categorias">Aventura</label>
+                <input type="checkbox" name="categorias" value="aventura"/>
+            </div>
+
+            <div class="inner-cat">
+                <label for="categorias">Indie</label>
+                <input type="checkbox" name="categorias" value="indie"/>
+            </div>
+
+            <div class="inner-cat"> 
+                <label for="categorias">Multiplayer</label>
+                <input type="checkbox" name="categorias" value="multiplayer"/>
+            </div>
+
+            <div class="inner-cat">                                  
+                <label for="categorias">Singleplayer</label>      
+                <input type="checkbox" name="categorias" value="singleplayer"/>
+            </div>    
+        </div>
+        
+        <span asp-validation-for="Descricao" class="text-danger"></span>
         <label asp-for="Descricao">Descrição: </label>
-        <input asp-for="Descricao" id="nome" class="descricao" placeholder="Coloque aqui a descrição do jogo">
+        <textarea asp-for="Descricao" id="nome" class="descricao" placeholder="Coloque aqui a descrição do jogo"></textarea>
 
         <input class="botao2" type="submit" value="Publicar!" />
 
-    </form>
+    </form>                             
 </div>
 
 

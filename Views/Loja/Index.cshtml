@@ -50,27 +50,27 @@
                 @for (int j = 0; j < 2; ++j) {
                 <div class="box1">
                     @while(contador < Model.Count && contador_tipo < Model.Count && contador_tipo < 4) {
-                                if (Model[contador].IsFree) {
-                    <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
-                        <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
-                    </a>
-                                    contador_tipo++;
-                                }
-                                contador++;
-                            }
+                        if (Model[contador].IsFree) {
+                            <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
+                                <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
+                            </a>
+                            contador_tipo++;
+                        }
+                        contador++;
+                    }
                     @{
-                                contador_slide += contador_tipo;
-                                contador_tipo = 0;
-                                if (contador_slide >= 8) {
-                        <script>
-                            document.getElementById("primeira_seta").classList = "centralizar"
-                        </script>
-                                    contador_slide = 0;
-                                    tamanho_slide++;
-                                }
+                        contador_slide += contador_tipo;
+                        contador_tipo = 0;
+                        if (contador_slide >= 8) {
+                            <script>
+                                document.getElementById("primeira_seta").classList = "centralizar"
+                            </script>
+                            contador_slide = 0;
+                            tamanho_slide++;
+                        }
                     }
                 </div>
-                    }
+                }
             </div>
         </div>
         }
@@ -103,30 +103,30 @@
                     {
                 <div class="box1">
                     @while (contador < Model.Count && contador_tipo < Model.Count && contador_tipo < 4)
-                            {
-                                if (!Model[contador].IsFree)
-                                {
-                    <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
-                        <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
-                    </a>
-                                    contador_tipo++;
-                                }
-                                contador++;
-                            }
+                    {
+                        if (!Model[contador].IsFree)
+                        {
+                            <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
+                                <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
+                            </a>
+                            contador_tipo++;
+                        }
+                        contador++;
+                    }
                     @{
-                                contador_slide += contador_tipo;
-                                contador_tipo = 0;
-                                if (contador_slide >= 8)
-                                {
-                        <script>
-                            document.getElementById("primeira_seta2").classList = "centralizar"
-                        </script>
-                                    contador_slide = 0;
-                                    tamanho_slide++;
-                                }
+                        contador_slide += contador_tipo;
+                        contador_tipo = 0;
+                        if (contador_slide >= 8)
+                        {
+                            <script>
+                                document.getElementById("primeira_seta2").classList = "centralizar"
+                            </script>
+                            contador_slide = 0;
+                            tamanho_slide++;
+                        }
                     }
                 </div>
-                    }
+                }
             </div>
         </div>
         }
@@ -157,30 +157,30 @@
         <div class="mySlides3 fade">
             <div class="row___posters">
                 @for (int j = 0; j < 2; ++j)
-                    {
+                {
                 <div class="box1">
                     @while (contador < Model.Count && contador_tipo < Model.Count && contador_tipo < 4)
-                            {
-                    <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
-                        <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
-                    </a>
-                                contador_tipo++;
-                                contador++;
-                            }
+                    {
+                        <a asp-action="ReadSingle" asp-route-id="@Model[contador].Id">
+                            <image src="@Model[contador].LinkLogo" alt="@Model[contador].Nome" class="row__poster "></image>
+                        </a>
+                        contador_tipo++;
+                        contador++;
+                    }
                     @{
-                                contador_slide += contador_tipo;
-                                contador_tipo = 0;
-                                if (contador_slide >= 8)
-                                {
-                        <script>
-                            document.getElementById("primeira_seta3").classList = "centralizar"
-                        </script>
-                                    contador_slide = 0;
-                                    tamanho_slide++;
-                                }
+                        contador_slide += contador_tipo;
+                        contador_tipo = 0;
+                        if (contador_slide >= 8)
+                        {
+                            <script>
+                                document.getElementById("primeira_seta3").classList = "centralizar"
+                            </script>
+                            contador_slide = 0;
+                            tamanho_slide++;
+                        }
                     }
                 </div>
-                    }
+                }
             </div>
         </div>
         }

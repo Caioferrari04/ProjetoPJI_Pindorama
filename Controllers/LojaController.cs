@@ -36,7 +36,7 @@ namespace Pindorama.Controllers
             ViewBag.Amigos = await auth.getAmigosAsync();
             ViewBag.Pendentes = await auth.GetPendentesAsync();
             Game game = service.GetGameById(id);
-            return game == null ? RedirectToAction(nameof(Index)) : View(game); 
+            return game is null ? RedirectToAction(nameof(Index)) : View(game); 
         }
 
         public async Task<IActionResult> Buy(int? id)

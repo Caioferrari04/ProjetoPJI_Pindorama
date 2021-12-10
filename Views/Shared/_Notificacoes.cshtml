@@ -17,7 +17,7 @@
             <div class="amizade" id="@usuario.Id">
                 <div class="perfil">
                     <img src="@linkImagem" class="imagem-amigo" />
-                    <p class="white-text">@usuario.UserName</p>
+                    <a asp-controller="Home" asp-action="Perfil" asp-route-id="@usuario.Id"><p class="white-text">@usuario.UserName</p></a>
                 </div>
                 <form class="perfil">
                     <button type="button" onclick="recusarPedido('@usuario.Id', origem); destroyPedido('@usuario.Id');" class="button-icone">

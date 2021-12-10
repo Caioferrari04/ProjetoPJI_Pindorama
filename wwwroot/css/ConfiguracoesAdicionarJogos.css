@@ -150,6 +150,15 @@ label[for="nascimento"] {
         margin-left: 30px;
     }
 
+.categorias {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
 
-
+.inner-cat {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 30px 10px 0;   
+}
 

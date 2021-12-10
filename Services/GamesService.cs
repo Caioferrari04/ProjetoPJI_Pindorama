@@ -40,7 +40,7 @@ namespace Pindorama.Services
                 .ThenInclude(y => y.Comentarios)
                 .Include(c => c.Postagens)
                 .ThenInclude(k => k.Likes)
-                .FirstOrDefault(p => p.Id == id); ;
+                .FirstOrDefault(p => p.Id == id);
         }
 
         public async Task<List<Game>> GetAllOwnedGames()
@@ -180,10 +180,17 @@ namespace Pindorama.Services
             }
         }
 
-        public async Task<bool> AddGameAsync(Game game, string[] imagens)
+        public async Task<Game> AddGameAsync(Game game, string[] imagens, string[] categorias)
         {
+            if (_context.Game.FirstOrDefault(u => u.Nome == game.Nome) is not null) return null;
+            try { 
+                
+                var usuario = await _authService.GetCurrentUserAsync();
+                game.DistribuidoraId = usuario.Id;
+                game.DataLancamento = DateTime.UtcNow;
                 await _context.Game.AddAsync(game);
                 await _context.SaveChangesAsync();
+                Categoria[] categoriasExistentes = _context.Categorias.ToArray();
 
                 foreach (string imagem in imagens)
                 {
@@ -195,44 +202,95 @@ namespace Pindorama.Services
 
                     await _context.Imagens.AddAsync(imagemAdd);
                 }
+                game.Categorias = new List<Categoria>();
+                for (int i = 0; i < categoriasExistentes.Length; i++)
+                {
+                    for(int j = 0; j < categorias.Length; j++) { 
+                        if (categoriasExistentes[i].Nome.ToLower().Equals(categorias[j]))
+                        {
+                            game.Categorias.Add(categoriasExistentes[i]);
+                        }
+                    }
+                }
+                _context.Game.Update(game);
                 await _context.SaveChangesAsync();
 
-                return true;
-                
+                return game;
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+                return null;
+            }
         }
 
-        public async Task<bool> UpdateGameAsync(Game game, string[] imagens)
+        public async Task<Game> UpdateGameAsync(Game game, string[] imagens, string[] categorias)
         {
             try
             {
-                Game gameValido = GetGameById(game.Id);
-                foreach(string imagem in imagens)
+                //List<Imagem> imagensOrigem = await _context.Imagens.ToListAsync();
+                //Categoria[] categoriasExistentes = await _context.Categorias.ToArrayAsync();
+                //game.Categorias = _context.Categorias.AsNoTracking().Include(c => c.Jogos).Where(c => c.Jogos.Contains(game)).ToList();
+                //List<Categoria> novaLista = new List<Categoria>();
+                //foreach (string imagem in imagens)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(imagem))
+                //    {
+                //        var imagemAdd = new Imagem
+                //        {
+                //            LinkImagem = imagem,
+                //            GameId = game.Id
+                //        };
+                //        if (imagensOrigem.FirstOrDefault(u => u.LinkImagem == imagemAdd.LinkImagem) is null)
+                //        {
+                //            imagensOrigem.Remove(imagensOrigem.FindLast(u => u.GameId == imagemAdd.GameId)); //Aqui1
+                //            await _context.Imagens.AddAsync(imagemAdd);
+                //        }
+                //    }
+                //}
+                //novaLista.RemoveAll(c => game.Categorias.Contains(c)); // Aqui2
+                //game.Categorias = novaLista;
+                //game.DataLancamento = gameValido.DataLancamento;
+                //game.DistribuidoraId = gameValido.DistribuidoraId;
+                //game.Publisher = gameValido.Publisher;
+                //game.compras = gameValido.compras;
+
+                Game gameValido = await _context.Game.Include(g => g.Imagens).Include(g => g.Categorias).FirstOrDefaultAsync(g => g.Id == game.Id);
+                gameValido.Categorias = _context.Categorias.Where(c => categorias.Contains(c.Nome.ToLower())).ToList();
+                _context.Imagens.RemoveRange(gameValido.Imagens);
+
+                gameValido.Nome = game.Nome;
+                gameValido.Descricao = game.Descricao;
+                gameValido.Preco = game.Preco;
+                gameValido.LinkLogo = game.LinkLogo;
+                gameValido.Desenvolvedor = game.Desenvolvedor;
+                gameValido.LinkVideo = game.LinkVideo;
+                gameValido.LinkBanner = game.LinkBanner;
+                
+                gameValido.Imagens = new List<Imagem>();
+                foreach (string imagem in imagens)
                 {
-                    var imagemAdd = new Imagem
+                    if (!string.IsNullOrWhiteSpace(imagem))
                     {
-                        LinkImagem = imagem,
-                        GameId = game.Id
-                    };
-                    if (!gameValido.Imagens.Contains(imagemAdd)) { 
-                        _context.Imagens.Remove(await _context.Imagens.LastOrDefaultAsync(u => u.GameId == gameValido.Id));
-                        await _context.Imagens.AddAsync(imagemAdd);
+                        var imagemAdd = new Imagem
+                        {
+                            LinkImagem = imagem,
+                            GameId = game.Id
+                        };
+                        
+                        //await _context.Imagens.AddAsync(imagemAdd);
+                        gameValido.Imagens.Add(imagemAdd);
                     }
                 }
-                game.Id = gameValido.Id;
-                game.Imagens = gameValido.Imagens;
-                game.Categorias = gameValido.Categorias;
-                game.Postagens = gameValido.Postagens;
-                game.Users = gameValido.Users;
-                gameValido = game;
 
                 _context.Game.Update(gameValido);
                 await _context.SaveChangesAsync();
-                return true;
+                return gameValido;
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                Console.Error.WriteLine(ex.Message);
+                return null;
             }
         }
 
@@ -255,5 +313,18 @@ namespace Pindorama.Services
                 .Include(u => u.Comunidade)
                 .Where(p => p.UsuarioId.Equals(origem)).ToList()
         );
+
+        public Game[] GetDevelopedGamesAsync(Usuario distribuidora)
+        {
+            try
+            {
+                return _context.Game.Where(game => game.DistribuidoraId == distribuidora.Id).ToArray();
+            } 
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+                return null;
+            }
+        }
     }
 }

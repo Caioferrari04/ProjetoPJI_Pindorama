@@ -3,7 +3,6 @@
 @{
     Layout = "_Layout";
 }
-@model UsuarioDTO
 <link rel="stylesheet" href="~/css/configuracoes.css" />
 
 <div class="alinhar-centro">
@@ -19,10 +18,9 @@
             <a asp-action="DeletarConta" class="botao-nav" id="deletar">Deletar conta</a>
             @if(await auth.IsPf() || await auth.IsPj()){
                 <div class="divisao_tab"></div>
-                <a asp-action="Jogos" class="botao-nav" id="jogos">Jogos</a>
+                <a asp-action="VerJogos" class="botao-nav" id="jogos">Jogos</a>
                 <div class="divisao_tab"></div>
                 <a asp-action="AdicionarJogo" class="botao-nav" id="AdicionarJogo">Adicionar Jogo</a>
-
             }
         </nav>
         <div class="divisao-vertical"></div>

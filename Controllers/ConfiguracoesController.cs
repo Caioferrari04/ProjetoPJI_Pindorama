@@ -54,11 +54,11 @@ namespace Pindorama.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Jogos()
+        public async Task<IActionResult> VerJogos()
         {
             ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
-            return View();
+            return View(_gameService.GetDevelopedGamesAsync(authService.GetCurrentUserAsync().Result));
         }
 
         public async Task<IActionResult> AdicionarJogo()
@@ -71,12 +71,12 @@ namespace Pindorama.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdicionarJogo(Game game, string imagem1, string imagem2, string imagem3)
+        public async Task<IActionResult> AdicionarJogo(Game game, string[] imagens, string[] categorias)
         {
-            string[] imagens = new string[3] { imagem1, imagem2, imagem3 };
             ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
-            return await _gameService.AddGameAsync(game, imagens) ? View() : View(game);
+            Game gameNovo = await _gameService.AddGameAsync(game, imagens, categorias);
+            return gameNovo is null ? View(game) : RedirectToAction("ReadSingle", "Loja", game.Id);
         }
 
         public async Task<IActionResult> EditarJogo(int id)
@@ -88,12 +88,14 @@ namespace Pindorama.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditarJogo(Game game, string imagem1, string imagem2, string imagem3)
+        public async Task<IActionResult> EditarJogo(Game game, string[] imagens, string[] categorias)
         {
-            string[] imagens = new string[3] { imagem1, imagem2, imagem3 };
+            if (!ModelState.IsValid) return View(game);
+
             ViewBag.Pendentes = await authService.GetPendentesAsync();
             ViewBag.Amigos = await authService.getAmigosAsync();
-            return await _gameService.UpdateGameAsync(game, imagens) ? View() : View(game);
+            Game gameAtualizado = await _gameService.UpdateGameAsync(game, imagens, categorias);
+            return gameAtualizado is null ? View(game) : RedirectToRoute(nameof(LojaController) + nameof(LojaController.ReadSingle), new { id = gameAtualizado.Id }); ;
         }
 
         [HttpPost]
@@ -104,46 +106,5 @@ namespace Pindorama.Controllers
             return await authService.DeleteUser(user) ? Redirect("/Identity/Account/Login") : View(); 
         }
 
-}
-
-    public class UsuarioDTO
-    {
-        [Display(Name = "Link da imagem de perfil")]
-        [DataType(DataType.ImageUrl)]
-        public string LinkImagem { get; set; }
-
-        [Display(Name = "Link do banner de perfil")]
-        [DataType(DataType.ImageUrl)]
-        public string LinkBanner { get; set; }
-
-        [EmailAddress(ErrorMessage = "Email não é valido!")]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-
-        [Display(Name = "Nome de usuário")]
-        [RegularExpression(@"^(?=[a-zA-Z])[-\w.]{0,23}([a-zA-Z\d]|(?<![-.])_)$", ErrorMessage = "Nome de usuário inválido!")]
-        public string UserName { get; set; }
-
-        [DataType(DataType.Date)]
-        [Display(Name = "Data de nascimento")]
-        public DateTime? DataNascimento { get; set; }
-
-        [Display(Name = "CPF")]
-        public string cpf { get; set; }
-
-        [Display(Name = "CNPJ")]
-        public string cnpj { get; set; }
-
-        [Display(Name = "CEP")]
-        public string cep { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Senha atual")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Nova senha")]
-        [Compare("Password", ErrorMessage = "A senha de confirmação não é igual.")]
-        public string NewPassword { get; set; }
     }
 }

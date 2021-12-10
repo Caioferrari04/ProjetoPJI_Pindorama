@@ -1,14 +1,17 @@
 ﻿@using Pindorama.Services
+@using Pindorama.Auth
 @inject GamesService service;
+@inject AuthService auth;
 @model Game
 @{
     string categorias = "";
     foreach (Categoria categoria in Model.Categorias)
     {
-        categorias = categorias + categoria.Nome;
+        categorias = categorias + categoria.Nome + " ";
     }
     string preco = Model.Preco <= 0 ? "Grátis" : "R$" + Model.Preco;
     ViewData["Title"] = Model.Nome;
+    var publisher = Model.DistribuidoraId is null ? Model.Publisher : auth.GetUsuarioById(Model.DistribuidoraId).Result.UserName;
 }
 <link rel="stylesheet" href="~/css/ReadSingle.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, max-scale=1.0">
@@ -44,7 +47,7 @@
                     <h4 class="gen">TÍTULO: @Model.Nome</h4>
                     <h4 class="gen">GÊNEROS: @categorias</h4>
                     <h4 class="produtor">DESENVOLVEDOR: @Model.Desenvolvedor</h4>
-                    <h4 class="gen">DISTRIBUIDORA: @Model.Publisher</h4>
+                    <h4 class="gen">DISTRIBUIDORA: @publisher</h4>
                     <h4 class="gen">DATA DE LANÇAMENTO: @Html.DisplayFor(u => u.DataLancamento)</h4>
                 </div>
             </div>

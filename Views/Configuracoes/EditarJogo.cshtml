@@ -2,57 +2,78 @@
 @{
     Layout = "_Configuracoes";
     ViewData["Title"] = "Adicionar Jogos";
+    string[] categorias = new string[] { "ação", "aventura", "indie", "multiplayer", "singleplayer" };
 }
 
 <link rel="stylesheet" href="~/css/ConfiguracoesAdicionarJogos.css" />
 
 
-<div class="container2">
+<div class="container2" style="height: 50%; overflow: scroll;">
     <!-- Caixa do login -->
 
-    <form class="container2">
+    <form asp-action="EditarJogo" class="container2">
         <!-- Pode adicionar classes no form, mas não o delete!! -->
 
-        <h2 class=>Mídias de Divulgação</h2>
+        <h2>Mídias de Divulgação</h2>
 
         <h3>Perfil</h3>
+        <span asp-validation-for="LinkVideo" class="text-danger"></span>
         <label asp-for="LinkVideo">Trailer do Jogo: </label> <!-- Texto que aparece antes da caixa de entrada -->
         <input asp-for="LinkVideo" id="nome" class="input_login" placeholder="Coloque aqui o link do trailer"> <!-- Caixa de entrada do nome -->
+        
+        <span asp-validation-for="LinkBanner" class="text-danger"></span>
+        <label asp-for="LinkLogo">Link do logo: </label> <!-- Texto que aparece antes da caixa de entrada -->
+        <input asp-for="LinkLogo" id="nome" class="input_login" placeholder="Coloque aqui o link do trailer"> <!-- Caixa de entrada do nome -->
 
-
-        <label asp-for="LinkBanner">Banner: </label>
+        <span asp-validation-for="LinkLogo" class="text-danger"></span>
+        <label asp-for="LinkBanner">Link do banner: </label>
         <input asp-for="LinkBanner" id="nome" class="input_login" placeholder="Coloque aqui o link do banner"> <!-- Caixa de entrada do email -->
 
         <h3>Slide</h3>
-        <label for="imagem1">Imagem 1:</label>
-        <input type="text" name="imagem1" id="senha" class="input_login" placeholder="Coloque aqui o link da imagem 1"> <!-- Caixa de entrada da senha -->
-
-        <label for="imagem2">Imagem 2: </label>
-        <input type="text" name="imagem2" id="nascimento" class="input_login" placeholder="Coloque aqui o link da imagem 2"> <!-- Caixa de entrada da data de nascimento -->
-
-        <label for="imagem3">Imagem 3: </label>
-        <input type="text" name="imagem3" id="nascimento" class="input_login" placeholder="Coloque aqui o link da imagem 3"> <!-- Caixa de entrada da data de nascimento -->
-
+        @for(int i = 0; i < Model.Imagens.Count; i++){
+            var contador = i + 1;
+            <label for="imagens">Imagem @contador:</label>
+            <input type="text" name="imagens" class="input_login" placeholder="" value="@Model.Imagens[i].LinkImagem"> <!-- Caixa de entrada da senha -->
+        }
         <h2>Dados Técnicos</h2>
 
+        <span asp-validation-for="Nome" class="text-danger"></span>
         <label asp-for="Nome">Nome: </label> <!-- Texto que aparece antes da caixa de entrada -->
         <input asp-for="Nome" id="nome" class="input_login" placeholder="Coloque aqui o nome do jogo">
 
+        <span asp-validation-for="Preco" class="text-danger"></span>
         <label asp-for="Preco">Preço: </label> <!-- Texto que aparece antes da caixa de entrada -->
         <label asp-for="Preco">*para jogos gratuitos digite 0,00* </label>
         <input asp-for="Preco" id="nome" class="input_login" placeholder="Coloque aqui o preço do jogo">
 
+        <span asp-validation-for="Desenvolvedor" class="text-danger"></span>
         <label asp-for="Desenvolvedor">Desenvolvedor: </label> <!-- Texto que aparece antes da caixa de entrada -->
         <input asp-for="Desenvolvedor" id="nome" class="input_login" placeholder="Coloque aqui o nome do desenvolvedor">
 
-        <label asp-for="Publisher">Distribuidora </label> <!-- Texto que aparece antes da caixa de entrada -->
-        <input asp-for="Publisher" id="nome" class="input_login" placeholder="Coloque aqui o nome da distribuidora">
+        <h6>Categorias</h6>
+        <div class="categorias">
+            @for(int i = 0; i < categorias.Length; i++){
+            <div class="inner-cat">
+                <label for="categorias">@categorias[i]</label>
+                @if(Model.Categorias.FirstOrDefault(u => u.Nome.ToLower() == categorias[i]) is not null){
+                    <input type="checkbox" name="categorias" value="@categorias[i]" checked/>
+                }else{
+                    <input type="checkbox" name="categorias" value="@categorias[i]"/>
+                }
+            </div>
+            }
+        </div>
 
+        <span asp-validation-for="Descricao" class="text-danger"></span>
         <label asp-for="Descricao">Descrição: </label>
-        <input asp-for="Descricao" id="nome" class="descricao" placeholder="Coloque aqui a descrição do jogo">
-
+        <textarea asp-for="Descricao" id="nome" class="descricao" placeholder="Coloque aqui a descrição do jogo"></textarea>
 
         <input class="botao2" type="submit" value="Editar" />
 
     </form>
 </div>
+
+<script src="~/js/Configuracao.js"></script>
+<script>
+    mostrarAba(3);
+</script>
