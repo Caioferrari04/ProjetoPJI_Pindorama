@@ -8,10 +8,13 @@
         </div>
     </form>
     <div class="divisao_tab"></div>
-    <div class="barra-lateral-opcao">
-        <i class="fa fa-home icone" aria-hidden="true"></i>
-        <h4>Início</h4>
-    </div>
+    <a asp-controller="Loja" asp-action="Index">
+        <div class="barra-lateral-opcao">
+            <i class="fa fa-home icone" aria-hidden="true"></i>
+            <h4>Início</h4>
+        </div>
+    </a>
+    
 
     <a asp-controller="Home" asp-action="ListaAmigos" class="barra-lateral-opcao">
         <i class="fa fa-users icone" aria-hidden="true"></i>

@@ -23,7 +23,9 @@
             <td>
                 @if (amigos.Contains(usuario))
                 {
-                    <button class="Botao">Iniciar conversa</button>
+                    <form asp-controller="Home" asp-action="RemoverAmigo">
+                        <button type="submit" value="@usuario.Id" name="idAlvo" class="Botao">Remover amigo</button>
+                    </form>     
 
                 }
                 else if (semiAmigos.Contains(usuario))

@@ -22,7 +22,9 @@
                     <td><img src="@perfil" alt="Avatar"></td>
                     <td><h2>@usuario.UserName</h2></td>
                     <td>
-                        <button class="Botao">Iniciar conversa</button>
+                        <form asp-controller="Home" asp-route-returnUrl="@Url.RouteUrl(ViewContext.RouteData.Values)" asp-action="RemoverAmigo">
+                            <button type="submit" value="@usuario.Id" name="idAlvo" class="Botao">Remover amigo</button>
+                        </form>
                         <form asp-action="Perfil" asp-route-id="@usuario.Id" method="get">
                             <button type="submit" class="Botao">Ver perfil</button>
                         </form>
