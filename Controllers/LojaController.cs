@@ -48,9 +48,11 @@ namespace Pindorama.Controllers
 
         public async Task<IActionResult> ReadCategory(int? id, int? pagina = null)
         {
+            if (id is null || id == 0) return RedirectToAction(nameof(Index));
             ViewBag.Amigos = await auth.getAmigosAsync();
             ViewBag.Pendentes = await auth.GetPendentesAsync();
             var categoria = catService.getSingle(id);
+            if (categoria is null) return RedirectToAction(nameof(Index));
             ViewBag.categoria = categoria;
             pagina = pagina is null ? 1 : pagina;
             ViewBag.Pagina = pagina;
@@ -60,7 +62,7 @@ namespace Pindorama.Controllers
 
         public async Task<IActionResult> CategorySearch(string nome, int categoria)
         {
-            if (string.IsNullOrWhiteSpace(nome)) return RedirectToAction(nameof(ReadCategory), categoria);
+            if (string.IsNullOrWhiteSpace(nome)) return RedirectToAction(nameof(ReadCategory), new { id = categoria});
             ViewBag.Amigos = await auth.getAmigosAsync();
             ViewBag.Pendentes = await auth.GetPendentesAsync();
             Categoria catValido = catService.getSingle(categoria);
