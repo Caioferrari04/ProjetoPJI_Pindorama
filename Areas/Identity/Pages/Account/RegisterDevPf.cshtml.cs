@@ -67,7 +67,7 @@ namespace Pindorama.Areas.Identity.Pages.Account
 
             [Required(ErrorMessage = "Informe a data nascimento!")]
             [DataType(DataType.Date)]
-            [MinimumAge(18, ErrorMessage = "Precisa ser maior de 18!")]
+            [MinimumAge(18, 121, ErrorMessage = "Precisa ser maior de 18!")]
             public DateTime? DataNascimento { get; set; }
 
             [Required(ErrorMessage = "Informe a senha!")]
