@@ -30,7 +30,7 @@
                     <small>@postagem.DataPostagem</small>
                     @if(user.Id == postagem.UsuarioId || user.Id == postagem.Comunidade.DistribuidoraId)
                     {
-                        <form asp-action="DeletarPostagem"  asp-route-isComment="false" asp-route-id="@postagem.Id" asp-route-returnUrl="@Url.RouteUrl(ViewContext.RouteData.Values)">
+                        <form asp-action="DeletarPostagem" asp-route-returnUrl="/Forum/GameForum/@postagem.ComunidadeId"  asp-route-isComment="false" asp-route-id="@postagem.Id">
                             <button type="submit" class="button-icone">
                                 <i class="fa fa-trash"></i>
                             </button>
