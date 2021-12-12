@@ -13,6 +13,7 @@ using Pindorama.Data;
 using Pindorama.Hubs;
 using Pindorama.Models;
 using Pindorama.Services;
+using Pindorama.Services.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,11 +35,18 @@ namespace Pindorama
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<PindoramaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Pindorama_db")));
-            services.AddDefaultIdentity<Usuario>().AddRoles<IdentityRole>().AddEntityFrameworkStores<PindoramaContext>();
-            services.AddTransient<AuthService>();
-            services.AddTransient<GamesService>();
+
+            services.AddDefaultIdentity<Usuario>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<PindoramaContext>()
+                .AddErrorDescriber<ErrorDescriber>();
+
+            services.AddScoped<AuthService>();
+            services.AddScoped<GamesService>();
             services.AddTransient<CategoriasService>();
+
             services.AddSignalR(options =>
             {
                 options.EnableDetailedErrors = true;

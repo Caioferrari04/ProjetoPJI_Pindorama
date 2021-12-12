@@ -92,6 +92,9 @@ namespace Pindorama.Auth
                 Usuario usuarioAtual = await GetCurrentUserAsync();
                 if (await _userManager.CheckPasswordAsync(usuarioAtual, user.Password))
                 {
+                    _context.Amizades.RemoveRange(_context.Amizades.Where(a => a.AlvoId == usuarioAtual.Id || a.OrigemId == usuarioAtual.Id));
+                    _context.Mensagens.RemoveRange(_context.Mensagens.Where(a => a.autorId == usuarioAtual.Id || a.alvoId == usuarioAtual.Id));
+                    _context.Postagens.RemoveRange(_context.Postagens.Where(a => a.UsuarioId == usuarioAtual.Id));
                     await _userManager.DeleteAsync(usuarioAtual);
                     return true;
                 }
@@ -99,7 +102,7 @@ namespace Pindorama.Auth
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.Error.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -112,6 +115,7 @@ namespace Pindorama.Auth
                 Email = user.Email,
                 DataNascimento = user.DataNascimento,
                 LinkImagem = user.LinkImagem,
+                LinkBanner = user.LinkBanner,
                 cep = user.cep,
                 cnpj = user.cnpj,
                 cpf = user.cpf

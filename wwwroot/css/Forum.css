@@ -155,7 +155,7 @@ i {
     margin-top: 10px;
     display: flex;
     flex-direction: row;
-    width: 40%;
+    width: 50%;
     justify-content: space-evenly;
     align-items: center;
 }
@@ -180,7 +180,7 @@ i {
 .reacoes {
     display: flex;
     margin-top: 1px;
-    margin-left: 55px;
+    margin-left: 5px;
 }
 
 .Username {
@@ -190,15 +190,18 @@ i {
     margin-left: 90px;
 }
 
+.postHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .descricao {
-    margin-bottom: 10px;
     font-size: 15px;
-    margin-top: 5px;
-    margin-left: 70px;
-    margin-right: 20px;
 }
     .descricao p {
         margin-bottom: 10px;
+        margin-left: 10px;
     }
 
 .postCorpo {

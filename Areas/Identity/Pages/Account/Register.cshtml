@@ -6,15 +6,18 @@
 <link rel="stylesheet" href="~/css/cadastro.css"/>
 
 <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="caixadetexto">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <span asp-validation-for="Input.UserName" class="text-danger"></span>
     <div class="texto">
         <h5>NOME DE USUÁRIO:</h5>
+        <small>Seu nome de usuário não pode conter caracteres especiais e deve haver de 6 a 100 caracteres e caracteres não-alfanuméricos ("_/-").</small>
         <input asp-for="Input.UserName" placeholder="Digite seu nome de usuário" class="Infos">
     </div>
 
     <span asp-validation-for="Input.DataNascimento" class="text-danger"></span>
     <div class="texto">
         <h5>DATA DE NASCIMENTO:</h5>
+        <small>Apenas maiores de 12 anos podem acessar a plataforma.</small>
         <input asp-for="Input.DataNascimento" placeholder="Digite sua data de nascimento" class="Infos">
     </div>
 
@@ -27,6 +30,7 @@
     <span asp-validation-for="Input.Password" class="text-danger"></span>
     <div class="texto">
         <h5>SENHA:</h5>
+        <small>Sua senha deve possuir de 5 a 100 caracteres e conter nenhum caracter especial</small>
         <input asp-for="Input.Password" placeholder="Digite sua senha" class="Infos">
     </div>
 

@@ -3,13 +3,22 @@
     Categoria categoria = ViewBag.Categoria;
     ViewData["Title"] = categoria.Nome;
     int pagina = ViewBag.Pagina;
+    int paginas = ViewBag.Paginas;
 }
 
 
 <!-- Criar sistema de paginação com C#, utilizando contadores -->
 <link rel="stylesheet" href="~/css/ReadCategory.css" />
 
-<h1 class="titulo">@categoria.Nome</h1>
+<h1 class="titulo">@categoria.Nome 
+    <form asp-action="CategorySearch" method="get" class="search">
+        <input name="nome" class="white-text barra-pesquisa-cat" type="text" placeholder="Pesquise um jogo"/>
+        <button type="submit" class="button-icone search-icon" name="categoria" value="@categoria.Id">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+</h1>
+
 
 <div class="absolutamente-tudo">
     <div class="tudo-cat">
@@ -22,14 +31,25 @@
             </a>
         }
     </div>
-    @if (Model.Count >= 8) {
-        var paginaMenos = pagina > 1 ? pagina-- : pagina;
-        pagina = Model.Count % 8 == 0 ? pagina++ : pagina;
-        <a asp-action="ReadSingle" asp-route-id="@categoria.Id" asp-route-pagina="@pagina">
-            <i class="fa fa-angle-right"></i>
-        </a>
-        <a asp-action="ReadSingle" asp-route-id="@categoria.Id" asp-route-pagina="@paginaMenos">
-            <i class="fa fa-angle-left"></i>
-        </a>
+    @if (Model.Count >= 8 || pagina > 1) {
+        var paginaMenos = pagina > 1 ? pagina - 1 : pagina;
+        <div id="paginacao">
+            @if(pagina != 1){
+            <a asp-action="ReadCategory" asp-route-id="@categoria.Id" asp-route-pagina="@paginaMenos">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            }
+            @for(int i = 1; i <= paginas; i++)
+            {
+                <a asp-action="ReadCategory" asp-route-id="@categoria.Id" asp-route-pagina="@i">
+                    <i class="fa fa-circle dot"></i>
+                </a>
+            }
+            @if(Model.Count == 8){ pagina++;
+            <a asp-action="ReadCategory" asp-route-id="@categoria.Id" asp-route-pagina="@pagina">
+                <i class="fa fa-angle-right"></i>
+            </a>
+            }
+        </div>  
     }
 </div>

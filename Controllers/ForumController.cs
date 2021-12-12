@@ -55,6 +55,16 @@ namespace Pindorama.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletarPostagem(int id, bool isComment, string returnUrl)
+        {
+            ViewBag.Pendentes = await authService.GetPendentesAsync();
+            ViewBag.Amigos = await authService.getAmigosAsync();
+            await _gamesService.DeletePostagemAsync(id, isComment);
+            return Redirect(returnUrl);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Postagem(string conteudoComment, string imagemPost, int idPost)
         {
             await _gamesService.PostarComentario(conteudoComment, imagemPost, idPost);

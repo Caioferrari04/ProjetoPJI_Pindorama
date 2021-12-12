@@ -41,24 +41,31 @@
 }
 
     .caixadetexto .texto > input {
-        margin-top: 20px;
         border-radius: 30px;
         height: 40px;
         width: 350px;
+        color: #999999;
         background-color: #293242;
         border: none;
     }
 
 .texto {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 15px;
+    max-width: 350px;
 }
 
+    .texto small {
+        color: #999999;
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+
 .caixadetexto .texto > h5 {
-    margin-top: 20px;
-    height: 40px;
     width: 350px;
-    color: rgba(128, 128, 128, 0.688);
-    margin-bottom: -35px;
+    margin: 10px 0px 10px 0px;
+    color: #999999;
 }
 
 .botao {

@@ -54,8 +54,46 @@
 }
 
 #paginacao {
+    margin-top: 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
+
+ #paginacao a {
+     display: flex;
+     margin-left: 20px;
+     height: fit-content;
+     align-items: center;
+ }
+
+ .dot {
+     font-size: 8px;
+ }
+
+.barra-pesquisa-cat {
+    padding: 10px 10px;
+    border: none;
+    width: 100%;
+    outline: none;
+    background-color: #4647478b;
+}
+
+.search {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 7px;
+}
+
+.search-icon {
+    background-color: #4647478b;
+    border-left: 1px solid #323434;
+    transition: 0.3s;
+}
+
+    .search-icon:hover, .search-icon:active {
+        background-color: #656767;
+        transition: 0.3s;
+    }

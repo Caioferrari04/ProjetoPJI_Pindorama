@@ -10,6 +10,7 @@
     var pendentes = ViewBag.Pendentes;
     var amigos = ViewBag.Amigos;
     string imagemBanner = @Model.LinkBanner is null ? "https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" : @Model.LinkBanner;
+    ViewData["Title"] = $"{Model.UserName}";
 }
 <link rel="stylesheet" href="~/css/perfil.css" />
 

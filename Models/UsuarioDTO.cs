@@ -40,7 +40,6 @@ namespace Pindorama.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Nova senha")]
-        [Compare("Password", ErrorMessage = "A senha de confirmação não é igual.")]
         public string NewPassword { get; set; }
     }
 }

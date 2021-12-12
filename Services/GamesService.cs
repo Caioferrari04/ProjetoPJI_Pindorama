@@ -85,19 +85,34 @@ namespace Pindorama.Services
                 List<Game> games = new List<Game>();
                 if (categoria != null) {
                     int? contaPagina = pagina is null ? 8 : pagina * 8;
-                    Categoria catGames = _context.Categorias.Include(u => u.Jogos).FirstOrDefault(ct => ct.Id == categoria.Id && ct.Id <= contaPagina);
+                    Categoria catGames = _context.Categorias.Include(u => u.Jogos).FirstOrDefault(ct => ct.Id == categoria.Id);
                     games = catGames.Jogos;
+                    var contador = contaPagina - 8;
+                    if(games.Count > 8) { 
+                        while (contador != contaPagina || games.Count > contaPagina)
+                        {
+                            if (games.Count == contaPagina) break;
+                            contador++;
+                            games.Remove(games.Last());
+                        }
+                    }
                 } 
                 else 
                 { 
                     games = _context.Game.ToList();
                     games = games.OrderByDescending(p => p.compras).ToList();
+                    if (games.Count > 24) {
+                        while (games.Count > 24) {
+                            games.Remove(games.Last());
+                        }
+                    }
                 }
                 return games;
             }
             catch (Exception ex)
             {
-                throw new Exception("Houve um erro ao devolver os jogos mais populares!", ex);
+                Console.Error.WriteLine(ex.Message);
+                return null;
             }
         }
     
@@ -139,11 +154,11 @@ namespace Pindorama.Services
             }
         }
 
-        public async Task<Postagem> GetPostagemAsync(int id) => await Task.Run(() => _context.Postagens.Include(u => u.Usuario).Include(u => u.Likes).First(p => p.Id == id));
+        public async Task<Postagem> GetPostagemAsync(int id) => await Task.Run(() => _context.Postagens.Include(u => u.Usuario).Include(g => g.Comunidade).Include(u => u.Likes).FirstOrDefault(p => p.Id == id));
 
         public async Task<List<Comentario>> GetComentariosInPostAsync(int id) => await Task.Run(() => _context.Comentarios.Include(u => u.Autor).Include(u => u.Likes).Where(p => p.PostagemPaiId == id).ToListAsync());
 
-        public async Task<Comentario> GetComentarioByIdAsync(int id) => await Task.Run(() => _context.Comentarios.Include(u => u.Autor).Include(u => u.Likes).First(p => p.Id == id));
+        public async Task<Comentario> GetComentarioByIdAsync(int id) => await Task.Run(() => _context.Comentarios.Include(u => u.Autor).Include(u => u.Likes).FirstOrDefault(p => p.Id == id));
 
         public async Task<bool> PostarComentario(string conteudoComment, string linkimagem, int id)
         {
@@ -302,5 +317,49 @@ namespace Pindorama.Services
                 return null;
             }
         }
+
+        public async Task<bool> DeletePostagemAsync(int id, bool isComment)
+        {
+            try
+            {
+                if (isComment) {
+                    Comentario comment = await GetComentarioByIdAsync(id);
+                    _context.Comentarios.Remove(comment);
+                    
+                } else {
+                    Postagem post = await GetPostagemAsync(id);
+                    _context.Postagens.Remove(post);
+                    _context.Comentarios.RemoveRange(await GetComentariosInPostAsync(id));
+                }
+                await _context.SaveChangesAsync();
+                return true;
+            } 
+            catch(Exception ex)
+            {
+                await Console.Error.WriteLineAsync(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<int> GetQuantidadePaginasAsync(Categoria categoria) => 
+            await Task.Run(() =>
+            {
+                List<Game> games = GetAll();
+                games.RemoveAll(g => !categoria.Jogos.Contains(g));
+                int total = 1;
+                int contador = 1;
+                for(int i = 0; i < games.Count; i++)
+                {
+                    if(i >= contador * 8)
+                    {
+                        total++;
+                        contador++;
+                    }
+                }
+                return total;
+            });
+
+        public async Task<List<Game>> SearchGamesInCategoryAsync(string nome, Categoria cat) =>
+            await _context.Game.Include(c => c.Categorias).Where(g => g.Categorias.Contains(cat) && g.Nome.Contains(nome)).ToListAsync();
     }
 }

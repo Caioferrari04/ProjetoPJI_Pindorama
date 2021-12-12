@@ -28,10 +28,22 @@
                     <img src="@linkImg" alt="">
                     <h3><a asp-controller="Home" asp-action="Perfil" asp-route-id="@postagem.UsuarioId">@postagem.Usuario.UserName</a></h3>
                     <small>@postagem.DataPostagem</small>
+                    @if(user.Id == postagem.UsuarioId || user.Id == postagem.Comunidade.DistribuidoraId)
+                    {
+                        <form asp-action="DeletarPostagem"  asp-route-isComment="false" asp-route-id="@postagem.Id" asp-route-returnUrl="@Url.RouteUrl(ViewContext.RouteData.Values)">
+                            <button type="submit" class="button-icone">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+                    }
                 </div>
                 <div class="postHeader">
                     <div class="descricao">
                         <p>@postagem.Conteudo</p>
+                        @if(postagem.LinkImagem is not null)
+                        {
+                            <img src="@postagem.LinkImagem" class="img_post"/>
+                        }
                     </div>
 
                     <div class="clicar">
@@ -65,10 +77,22 @@
                             <img src="@linkImagem" alt="">
                             <h3><a asp-controller="Home" asp-action="Perfil" asp-route-id="@comment.AutorId">@comment.Autor.UserName</a></h3>
                             <small>@comment.DataPostagem</small>
+                            @if(user.Id == comment.AutorId || user.Id == postagem.Comunidade.DistribuidoraId)
+                            {
+                                <form asp-action="DeletarPostagem" asp-route-isComment="true" asp-route-id="@comment.Id" asp-route-returnUrl="@Url.RouteUrl(ViewContext.RouteData.Values)">
+                                    <button type="submit" class="button-icone">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            }
                         </div>
                         <div class="postHeader">
                             <div class="descricao">
                                 <p>@comment.Texto</p>
+                                @if(comment.LinkImagem is not null)
+                                {
+                                    <img src="@comment.LinkImagem" class="img_post"/>
+                                }
                             </div>
 
                             <div class="clicar">

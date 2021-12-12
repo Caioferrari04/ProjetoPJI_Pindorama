@@ -7,6 +7,7 @@
     Game game = ViewBag.Game;
     Usuario user = await _authService.GetCurrentUserAsync();
     var imagemUsuario = user.LinkImagem is null ? "/css/img/Usuario.jpg" : user.LinkImagem;
+    ViewData["Title"] = $"Comunidade de {game.Nome}";
 }
 <link href="~/css/Forum.css" rel="stylesheet" type="text/css" />
 
@@ -55,13 +56,21 @@
                             <img src="@linkImagem" alt="">
                             <h3><a asp-controller="Home" asp-action="Perfil" asp-route-id="@post.UsuarioId">@post.Usuario.UserName</a></h3>
                             <small>@post.DataPostagem</small>
+                            @if(user.Id == post.UsuarioId || user.Id == game.DistribuidoraId)
+                            {
+                                <form asp-action="DeletarPostagem" asp-route-isComment="false" asp-route-id="@post.Id" asp-route-returnUrl="@Url.RouteUrl(ViewContext.RouteData.Values)">
+                                    <button type="submit" class="button-icone">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            }
                         </div>
                         <div class="postHeader">
                             <div class="descricao">
                                 <p>@post.Conteudo</p>
                                 @if(post.LinkImagem is not null)
                                 {
-                                    <img src="@post.LinkImagem" class="imgPost"/>
+                                    <img src="@post.LinkImagem" class="img_post"/>
                                 }
                             </div>
 

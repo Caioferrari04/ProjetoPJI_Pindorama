@@ -6,7 +6,7 @@
     var contador_slide = 0;
     List<Categoria> categorias = ViewBag.categorias;
     Game game = Model.OrderByDescending(g => g.compras).First();
-    dynamic preco = game.Preco > 0 ? game.Preco : "Gratuíto";
+    dynamic preco = game.Preco > 0 ? "R$" + game.Preco : "Gratuíto";
     ViewData["Title"] = "Loja";
 }
 

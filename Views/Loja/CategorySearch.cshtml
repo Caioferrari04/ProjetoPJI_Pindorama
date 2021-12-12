@@ -1,0 +1,31 @@
+﻿@model List<Game>
+@{
+    Categoria categoria = ViewBag.Categoria;
+    ViewData["Title"] = categoria.Nome;
+}
+
+
+<!-- Criar sistema de paginação com C#, utilizando contadores -->
+<link rel="stylesheet" href="~/css/ReadCategory.css" />
+
+<h1 class="titulo">Resultados de pesquisa em @categoria.Nome 
+    <form asp-action="CategorySearch" method="get">
+        <input name="nome" class="white-text barra-pesquisa-cat" type="text" placeholder="Pesquise um jogo"/>
+        <button type="submit" class="button-icone search-icon" name="categoria" value="@categoria.Id">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+</h1>
+
+<div class="absolutamente-tudo">
+    <div class="tudo-cat">
+        @foreach (Game game in Model)
+        {
+            var preco = game.Preco == 0 ? "Gratuito" : "R$" + game.Preco;
+            <a asp-controller="Loja" asp-action="ReadSingle" asp-route-id="@game.Id" class="card-jogo">
+                <img src="@game.LinkLogo" />
+                <p>@preco</p>
+            </a>
+        }
+    </div>
+</div>

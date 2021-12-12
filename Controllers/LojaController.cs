@@ -52,8 +52,20 @@ namespace Pindorama.Controllers
             ViewBag.Pendentes = await auth.GetPendentesAsync();
             var categoria = catService.getSingle(id);
             ViewBag.categoria = categoria;
-            ViewBag.Pagina = pagina is null ? 1 : pagina;
+            pagina = pagina is null ? 1 : pagina;
+            ViewBag.Pagina = pagina;
+            ViewBag.Paginas = await service.GetQuantidadePaginasAsync(categoria);
             return View(service.GetAll(categoria, pagina));
+        }
+
+        public async Task<IActionResult> CategorySearch(string nome, int categoria)
+        {
+            if (string.IsNullOrWhiteSpace(nome)) return RedirectToAction(nameof(ReadCategory), categoria);
+            ViewBag.Amigos = await auth.getAmigosAsync();
+            ViewBag.Pendentes = await auth.GetPendentesAsync();
+            Categoria catValido = catService.getSingle(categoria);
+            ViewBag.categoria = catValido;
+            return View(await service.SearchGamesInCategoryAsync(nome, catValido));
         }
 
         public async Task<IActionResult> CompraConfirmada()
