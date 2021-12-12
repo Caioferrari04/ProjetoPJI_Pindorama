@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pindorama.Data;
 
 namespace Pindorama.Migrations
 {
     [DbContext(typeof(PindoramaContext))]
-    partial class PindoramaContextModelSnapshot : ModelSnapshot
+    [Migration("20211212213128_oioi")]
+    partial class oioi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

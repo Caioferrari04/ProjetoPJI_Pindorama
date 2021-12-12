@@ -338,6 +338,281 @@ namespace QuizApi.Repositories.Context {
                         Id = 3,
                         GameId = 1,
                         LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/ss_2b9e362287b509bb3864fa7bad654fe1fda0f7ed.600x338.jpg?t=1631908705"
+                    },
+                    new Imagem {
+                        Id = 4,
+                        GameId = 2,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/870780/ss_8376498631b089e52fb5c75ffe119e0de5e6aed1.600x338.jpg?t=1636733774"
+                    },
+                    new Imagem {
+                        Id = 5,
+                        GameId = 2,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/870780/ss_165fb4ca28f4db79b878e8c56ba6502e782c0bb2.600x338.jpg?t=1636733774"
+                    },
+                    new Imagem {
+                        Id = 6,
+                        GameId = 2,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/870780/ss_06b7e4baac0ac7f2ecfcc8d3198f707339c6296f.600x338.jpg?t=1636733774"
+                    },
+                     new Imagem {
+                        Id = 7,
+                        GameId = 3,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/703080/ss_fac76f23b1b655dd0459db1a443bc8adb02e4279.600x338.jpg?t=1639154253"
+                    },
+                     new Imagem {
+                        Id = 8,
+                        GameId = 3,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/703080/ss_c57319ad1fcc446a6a241b279a8477f7b741cd76.600x338.jpg?t=1639154253"
+                    },
+                     new Imagem {
+                        Id = 9,
+                        GameId = 3,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/703080/ss_5fe82516d6b1d42399dfded9fb86d6249c9d05cd.600x338.jpg?t=1639154253"
+                    },
+                     new Imagem {
+                        Id = 10,
+                        GameId = 4,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1085660/ss_7fcc82f468fcf8278c7ffa95cebf949bfc6845fc.600x338.jpg?t=1638897108"
+                    },
+                     new Imagem {
+                        Id = 11,
+                        GameId = 4,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1085660/ss_01fdd090ed1dd70112ce2c6d6fc208df0a008ac7.600x338.jpg?t=1638897108"
+                    },
+                     new Imagem {
+                        Id = 12,
+                        GameId = 4,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1085660/ss_c142f5078ace9f5e2eb2c80aa3bf768e156b4ee9.600x338.jpg?t=1638897108"
+                    },
+                     new Imagem {
+                        Id = 13,
+                        GameId = 5,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/230410/ss_2d79448091149a8cc790b62e7422615a011d015a.600x338.jpg?t=1638285467"
+                    },
+                     new Imagem {
+                        Id = 14,
+                        GameId = 5,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/230410/ss_ead77e7b45f8dcfcf54d7a061745e7c99383bfc3.600x338.jpg?t=1638285467"
+                    },
+                     new Imagem {
+                        Id = 15,
+                        GameId = 5,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/230410/ss_a3bddbc994e6b3ca465ffb0e8c38bdb0525ca7d2.600x338.jpg?t=1638285467"
+                    },
+                     new Imagem {
+                        Id = 16,
+                        GameId = 6,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/ss_8731a6552dce7c9e9e6da79d6e42f62c4dcb835d.600x338.jpg?t=1638900075"
+                    },
+                     new Imagem {
+                        Id = 17,
+                        GameId = 6,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/ss_1512fa5b0c252aac80b7011e2e332d45116053ca.600x338.jpg?t=1638900075"
+                    },
+                     new Imagem {
+                        Id = 18,
+                        GameId = 6,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/ss_e2f6718c84031f0cbe6ce380559359833679c27b.600x338.jpg?t=1638900075"
+                    },
+                     new Imagem {
+                        Id = 19,
+                        GameId = 7,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/466560/ss_97fe21d69fd7a6346bac022eca6959a1ed26cb7d.600x338.jpg?t=1635494563"
+                    },
+                     new Imagem {
+                        Id = 20,
+                        GameId = 7,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/466560/ss_3de44ce0617567838caae8bed5ddb9eb52f0feb8.600x338.jpg?t=1635494563"
+                    },
+                     new Imagem {
+                        Id = 21,
+                        GameId = 7,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/466560/ss_33ef40a942043fd97e6c0a52cf758134db9e3985.600x338.jpg?t=1635494563"
+                    },
+                     new Imagem {
+                        Id = 22,
+                        GameId = 8,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/524220/ss_8b29f7e1ce9a8b9313dc3eb50dbe76a4cf94eef9.600x338.jpg?t=1624266255"
+                    },
+                     new Imagem {
+                        Id = 23,
+                        GameId = 8,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/524220/ss_e926e3b5d440b4f244525745c7100edc2d717b85.600x338.jpg?t=1624266255"
+                    },
+                     new Imagem {
+                        Id = 24,
+                        GameId = 8,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/524220/ss_d0314b4c134329a483b5e43af951f60274abc66b.600x338.jpg?t=1624266255"
+                    },
+                     new Imagem {
+                        Id = 25,
+                        GameId = 9,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1517290/ss_731b9a3f02ab15c517b9c42c3cbe9a71866be4d4.600x338.jpg?t=1639065984"
+                    },
+                     new Imagem {
+                        Id = 26,
+                        GameId = 9,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1517290/ss_9ddf67a6ebb471b99f9d139ab4420bba1cb25b50.600x338.jpg?t=1639065984"
+                    },
+                     new Imagem {
+                        Id = 27,
+                        GameId = 9,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1517290/ss_075b303b59a5e9a0ae6c0fff78839116e6f75848.600x338.jpg?t=1639065984"
+                    },
+                     new Imagem {
+                        Id = 28,
+                        GameId = 10,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/546560/ss_d61365e93f20ceb5a94a1e5b2811cf504cbfa303.600x338.jpg?t=1635876995"
+                    },
+                     new Imagem {
+                        Id = 29,
+                        GameId = 10,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/546560/ss_70fce3236bf252d3814f793744f648cbe35164e4.600x338.jpg?t=1635876995"
+                    },
+                     new Imagem {
+                        Id = 30,
+                        GameId = 10,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/546560/ss_0360004603a7861cf6781d5449e641f916f1ee07.600x338.jpg?t=1635876995"
+                    },
+                     new Imagem {
+                        Id = 31,
+                        GameId = 11,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1238840/ss_b914b0daf3c46d908d403bdec2881cf2b8d34915.600x338.jpg?t=1633006806"
+                    },
+                     new Imagem {
+                        Id = 32,
+                        GameId = 11,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1238840/ss_432fba694d3dfdab325ddf83cbb355545a4554c6.600x338.jpg?t=1633006806"
+                    },
+                     new Imagem {
+                        Id = 33,
+                        GameId = 11,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1238840/ss_2aac0cbea68f0ac82154ca627e2e991fc65c9ede.600x338.jpg?t=1633006806"
+                    },
+                     new Imagem {
+                        Id = 34,
+                        GameId = 12,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1063730/ss_32b377faf983064af7638e858e1bfa7c845c9e2f.600x338.jpg?t=1637255211"
+                    },
+                     new Imagem {
+                        Id = 35,
+                        GameId = 12,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1063730/ss_84bc9909c2dfc8ec0d4ff84fd072b35785332fdc.600x338.jpg?t=1637255211"
+                    },
+                     new Imagem {
+                        Id = 36,
+                        GameId = 12,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1063730/ss_ceeb983fca848dc3ec1ce88efcbf85cce6f00489.600x338.jpg?t=1637255211"
+                    },
+                     new Imagem {
+                        Id = 37,
+                        GameId = 13,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/570/ss_86d675fdc73ba10462abb8f5ece7791c5047072c.600x338.jpg?t=1635466719"
+                    },
+                     new Imagem {
+                        Id = 38,
+                        GameId = 13,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/570/ss_27b6345f22243bd6b885cc64c5cda74e4bd9c3e8.600x338.jpg?t=1635466719"
+                    },
+                     new Imagem {
+                        Id = 39,
+                        GameId = 13,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/570/ss_e0a92f15a6631a8186df79182d0fe28b5e37d8cb.600x338.jpg?t=1635466719"
+                    },
+                     new Imagem {
+                        Id = 40,
+                        GameId = 14,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/790710/ss_f92678cc1967a70f441be2816cdbde719678edd9.600x338.jpg?t=1635932497"
+                    },
+                     new Imagem {
+                        Id = 41,
+                        GameId = 14,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/790710/ss_f3bbaf14a952779d700663954be180fbc490748a.600x338.jpg?t=1635932497"
+                    },
+                     new Imagem {
+                        Id = 42,
+                        GameId = 14,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/790710/ss_6a6b54e02fe5016b6027d1e35d28a4776e8f5287.600x338.jpg?t=1635932497"
+                    },
+                     new Imagem {
+                        Id = 43,
+                        GameId = 15,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/767560/ss_a1428f997d3eafe171fc578ed2f83093c14ec88c.600x338.jpg?t=1638264226"
+                    },
+                     new Imagem {
+                        Id = 44,
+                        GameId = 15,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/767560/ss_1352d9effbd99f47dc64e046eb54588188d7b10d.600x338.jpg?t=1638264226"
+                    },
+                     new Imagem {
+                        Id = 45,
+                        GameId = 15,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/767560/ss_f7e2c410a823139e4206d42760cf907e10b1c9f5.600x338.jpg?t=1638264226"
+                    },
+                     new Imagem {
+                        Id = 46,
+                        GameId = 16,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/238960/ss_984ea348b3c7d9495ad177b1c7530a3cb7e6ff0f.600x338.jpg?t=1635819685"
+                    },
+                     new Imagem {
+                        Id = 47,
+                        GameId = 16,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/238960/ss_40fa77890c74dd962fd665fa17440cc87003456e.600x338.jpg?t=1635819685"
+                    },
+                     new Imagem {
+                        Id = 48,
+                        GameId = 16,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/238960/ss_f50b319eb3cd8c88acb2cc0359359d656ae06624.600x338.jpg?t=1635819685"
+                    },
+                     new Imagem {
+                        Id = 49,
+                        GameId = 17,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/291480/ss_f4ffe6c0f8a9c14c1dac007f31c51d7a240f0262.600x338.jpg?t=1639068783"
+                    },
+                     new Imagem {
+                        Id = 50,
+                        GameId = 17,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/291480/ss_6fef3cf98354f3b592a49a5d82e4de3be0ab8074.600x338.jpg?t=1639068783"
+                    },
+                     new Imagem {
+                        Id = 51,
+                        GameId = 17,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/291480/ss_61215b055625fae5aed3356a0aeab8b19deee925.600x338.jpg?t=1639068783"
+                    },
+                     new Imagem {
+                        Id = 52,
+                        GameId = 18,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/109600/ss_4cebfb468c713e5126c95479c30866fff975bfaf.600x338.jpg?t=1636736301"
+                    },
+                     new Imagem {
+                        Id = 53,
+                        GameId = 19,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/109600/ss_a704890424b434a66d93bd73af1a3e616cca834a.600x338.jpg?t=1636736301"
+                    },
+                     new Imagem {
+                        Id = 54,
+                        GameId = 19,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/109600/ss_f7c2a3639d782aec69c6d8d075177de7fe291441.600x338.jpg?t=1636736301"
+                    },
+                     new Imagem {
+                        Id = 55,
+                        GameId = 19,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/109600/ss_95fa23b07c9bca7ba1cf6941cf169c3df822b6bd.600x338.jpg?t=1636736301"
+                    },
+                     new Imagem {
+                        Id = 56,
+                        GameId = 20,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_05b5733f8fc79533ffe773dfb628c1995d10af00.600x338.jpg?t=1639008061"
+                    },
+                     new Imagem {
+                        Id = 57,
+                        GameId = 20,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_0e814100dc3fca73e76a1c592316ed9285a374a6.600x338.jpg?t=1639008061"
+                    },
+                     new Imagem {
+                        Id = 58,
+                        GameId = 20,
+                        LinkImagem = "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/ss_99261ae7af4f339269a9628a522a1d443b8f126b.600x338.jpg?t=1639008061"
                     }
                 });
             #endregion
